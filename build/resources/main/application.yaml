@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: computer_science_website
