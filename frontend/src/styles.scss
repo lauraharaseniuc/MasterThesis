@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+.full-size-container {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.bold-text {
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.italic-text {
+  font-style: italic;
+}
+
+.main-button {
+  border: none;
+  background-color: color-mix(in srgb, #1c52eb, #ffffff 15%);
+  color: white;
+  border-radius: 64px;
+  padding: 0 32px;
+}

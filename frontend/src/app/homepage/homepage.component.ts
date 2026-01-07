@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [],
+  imports: [
+    MatIcon
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
