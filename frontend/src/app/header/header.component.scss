@@ -17,7 +17,6 @@
   cursor: pointer;
 }
 
-/* Dropdown base */
 .dropdown {
   display: none;
   position: absolute;
@@ -26,35 +25,39 @@
   background: white;
   color: black;
   list-style: none;
-  padding: 10px 0;
+  padding: 0; //aici
   min-width: 200px;
   border: 1px solid #ddd;
 }
 
-/* Show on hover */
+.dropdown li {
+  position: relative;
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
 .menu-item:hover > .dropdown,
 .has-submenu:hover > .dropdown {
   display: block;
 }
 
-/* Submenu positioning (to the right) */
 .dropdown.right {
   top: 0;
   left: 100%;
-}
-
-/* Items */
-.dropdown li {
-  padding: 10px 20px;
-  white-space: nowrap;
 }
 
 .dropdown li:hover {
   background: #f2f2f2;
 }
 
-/* Arrow indicator (optional) */
-.has-submenu > span::after {
-  content: "▶";
-  float: right;
+.dropdown li a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.dropdown li a:hover {
+  background: #f2f2f2;
 }
