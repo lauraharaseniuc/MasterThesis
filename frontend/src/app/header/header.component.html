@@ -1,1 +1,40 @@
-<div style="background-color: pink">header works!</div>
+<nav class="navbar">
+  <ul class="menu">
+
+    <li class="menu-item">
+      Category 1
+      <ul class="dropdown">
+
+        <li>Submenu 1</li>
+        <li>Submenu 2</li>
+
+        <li class="has-submenu">
+          Submenu 3
+          <ul class="dropdown right">
+
+            <li class="has-submenu">
+              Sub-submenu 1
+              <ul class="dropdown right">
+
+                @for (item of subMenuItems; track item) {
+                  <li>
+                    {{ item }}
+                  </li>
+                }
+
+              </ul>
+            </li>
+
+            <li>Sub-submenu 2</li>
+
+          </ul>
+        </li>
+
+      </ul>
+    </li>
+
+    <li class="menu-item">Category 2</li>
+    <li class="menu-item">Category 3</li>
+
+  </ul>
+</nav>
