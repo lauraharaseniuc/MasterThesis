@@ -1,24 +1,24 @@
 {
   "routes": [
-    {src:"/", dest:"/"},
-    { src: 'clasa9a/principii-de-elaborare-a-unui-program',
-      "dest": "/"
+    {source:"/", destination:"/"},
+    { source: 'clasa9a/principii-de-elaborare-a-unui-program',
+      "destination": "/"
     },
-    { src: 'clasa9a/subprograme', dest:"/" },
-    { src: 'clasa9a/prelucrari-ale-numerelor', dest:"/" },
-    { src: 'clasa9a/liste', dest:"/" },
-    { src: 'clasa9a/fisiere-text', dest:"/" },
-    { src: 'clasa9a/generarea-elementelor-unei-liste', dest:"/" },
-    { src: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', dest:"/" },
-    { src: 'clasa9a/introducere-in-programarea-orientata-pe-obiecte-in-python', dest:"/" },
-    { src: 'clasa9a/interfete-grafice', dest:"/" },
-    { src: 'clasa9a/comunicare-si-colaborare-digitala', dest:"/" },
-    { src: 'clasa9a/aplicatii-si-platforme-care-sprijina-invatarea', dest:"/" },
-    { src: 'clasa9a/introducere-in-inteligenta-artificiala', dest:"/" },
-    { src: 'clasa9a/introducere-in-tehnologii-emergente', dest:"/" },
-    { src: 'clasa9a/documente-digitale', dest:"/" },
-    { src: 'clasa9a/prezentari-digitale', dest:"/" },
-    { src: 'clasa9a/componenta-hardware-a-unui-sistem-de-calcul', dest:"/" },
-    { src: 'clasa9a/componenta-software-a-unui-sistem-de-calcul', dest:"/" }
+    { source: 'clasa9a/subprograme', destination:"/" },
+    { source: 'clasa9a/prelucrari-ale-numerelor', destination:"/" },
+    { source: 'clasa9a/liste', destination:"/" },
+    { source: 'clasa9a/fisiere-text', destination:"/" },
+    { source: 'clasa9a/generarea-elementelor-unei-liste', desinationt:"/" },
+    { source: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', destination:"/" },
+    { source: 'clasa9a/introducere-in-programarea-orientata-pe-obiecte-in-python', destination:"/" },
+    { source: 'clasa9a/interfete-grafice', destination:"/" },
+    { source: 'clasa9a/comunicare-si-colaborare-digitala', destination:"/" },
+    { source: 'clasa9a/aplicatii-si-platforme-care-sprijina-invatarea', destination:"/" },
+    { source: 'clasa9a/introducere-in-inteligenta-artificiala', destination:"/" },
+    { source: 'clasa9a/introducere-in-tehnologii-emergente', destination:"/" },
+    { source: 'clasa9a/documente-digitale', destination:"/" },
+    { source: 'clasa9a/prezentari-digitale', destination:"/" },
+    { source: 'clasa9a/componenta-hardware-a-unui-sistem-de-calcul', destination:"/" },
+    { source: 'clasa9a/componenta-software-a-unui-sistem-de-calcul', destination:"/" }
   ]
 }
