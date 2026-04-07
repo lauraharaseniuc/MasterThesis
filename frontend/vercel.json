@@ -1,5 +1,5 @@
 {
-  "routes": [
+  "rewrites": [
     {source:"/", destination:"/"},
     { source: 'clasa9a/principii-de-elaborare-a-unui-program',
       "destination": "/"
