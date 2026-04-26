@@ -1,76 +1,81 @@
-<nav class="navbar">
-  <ul class="menu">
+<header class="site-header">
+  <div class="header-inner">
 
-    <li class="menu-item">Informatică
-      <ul class="dropdown">
-        <li class="has-submenu">Clasa a IX-a
-          <ul class="dropdown right">
-            <li>Programa</li>
-            <li class="has-submenu">Planificări calendaristice
+    <a [routerLink]="['/']" class="site-logo">
+      <svg class="logo-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="34" height="34" rx="8" fill="#1A56DB"/>
+        <path d="M10 13l6 4.5L10 22M18 22h6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-name">LevelUpEduRo</span>
+        <span class="logo-tagline">Resurse pentru profesori</span>
+      </div>
+    </a>
+
+    <nav class="navbar">
+      <ul class="menu">
+
+        <li class="menu-item">Informatică
+          <ul class="dropdown">
+            <li class="has-submenu">Clasa a IX-a
               <ul class="dropdown right">
-                <li>Matematică-informatică</li>
-                <li>Științe ale naturii</li>
-                <li>Matematică-informatică cu predarea disciplinei informatică în regim intensiv</li>
-                <li>Matematică-informatică militară</li>
-              </ul>
-            </li>
-            <li>Proiecte ale unităților de învățare</li>
-            <li class="has-submenu">Conținuturi
-              <ul class="dropdown right">
-                <li class="has-submenu">Resurse
+                <li>Programa</li>
+                <li class="has-submenu">Planificări calendaristice
                   <ul class="dropdown right">
-                    @for (item of continuturiInformatica; track item) {
-                      <a [routerLink]="item.route">
-                        {{ item.label }}
-                      </a>
-                    }
+                    <li>Matematică-informatică</li>
+                    <li>Științe ale naturii</li>
+                    <li>Matematică-informatică cu predarea disciplinei informatică în regim intensiv</li>
+                    <li>Matematică-informatică militară</li>
                   </ul>
                 </li>
-                <li class="has-submenu">Instrumente digitale
-                  <!--              <ul class="dropdown right">-->
-                  <!--                <li>Option A</li>-->
-                  <!--                <li>Option B</li>-->
-                  <!--              </ul>-->
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>Clasa a X-a</li>
-      </ul>
-    </li>
-
-    <li class="menu-item">TIC
-      <ul class="dropdown">
-        <li class="has-submenu">Clasa a IX-a
-          <ul class="dropdown right">
-            <li>Programa</li>
-            <li class="has-submenu">Planificări calendaristice</li>
-            <li>Proiecte ale unităților de învățare</li>
-            <li class="has-submenu">Conținuturi
-              <ul class="dropdown right">
-                <li class="has-submenu">Resurse
+                <li>Proiecte ale unităților de învățare</li>
+                <li class="has-submenu">Conținuturi
                   <ul class="dropdown right">
-                    @for (item of continuturiTIC; track item) {
-                      <a [routerLink]="item.route">
-                        {{ item.label }}
-                      </a>
-                    }
+                    <li class="has-submenu">Resurse
+                      <ul class="dropdown right">
+                        @for (item of continuturiInformatica; track item) {
+                          <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+                        }
+                      </ul>
+                    </li>
+                    <li class="has-submenu">Instrumente digitale
+                    </li>
                   </ul>
                 </li>
-                <li class="has-submenu">Instrumente digitale
-                  <!--              <ul class="dropdown right">-->
-                  <!--                <li>Option A</li>-->
-                  <!--                <li>Option B</li>-->
-                  <!--              </ul>-->
+              </ul>
+            </li>
+            <li>Clasa a X-a</li>
+          </ul>
+        </li>
+
+        <li class="menu-item">TIC
+          <ul class="dropdown">
+            <li class="has-submenu">Clasa a IX-a
+              <ul class="dropdown right">
+                <li>Programa</li>
+                <li class="has-submenu">Planificări calendaristice</li>
+                <li>Proiecte ale unităților de învățare</li>
+                <li class="has-submenu">Conținuturi
+                  <ul class="dropdown right">
+                    <li class="has-submenu">Resurse
+                      <ul class="dropdown right">
+                        @for (item of continuturiTIC; track item) {
+                          <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+                        }
+                      </ul>
+                    </li>
+                    <li class="has-submenu">Instrumente digitale
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
+            <li>Clasa a X-a</li>
           </ul>
         </li>
-        <li>Clasa a X-a</li>
-      </ul>
-    </li>
 
-  </ul>
-</nav>
+      </ul>
+    </nav>
+
+  </div>
+</header>
