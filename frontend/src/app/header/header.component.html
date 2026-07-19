@@ -99,5 +99,138 @@
       </ul>
     </nav>
 
+    <button
+      class="nav-toggle"
+      type="button"
+      (click)="toggleMobileNav()"
+      [attr.aria-expanded]="mobileNavOpen"
+      aria-label="Deschide meniul de navigare"
+    >
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+
   </div>
+
+  <div class="mobile-nav-backdrop" [class.open]="mobileNavOpen" (click)="closeMobileNav()"></div>
+
+  <nav class="mobile-nav" [class.open]="mobileNavOpen">
+    <div class="mobile-nav-header">
+      <span>Meniu</span>
+      <button class="mobile-nav-close" type="button" (click)="closeMobileNav()" aria-label="Închide meniul">&times;</button>
+    </div>
+
+    <div class="mobile-nav-body">
+      <details class="mnav-group">
+        <summary>Informatică</summary>
+
+        <details class="mnav-subgroup">
+          <summary>Clasa a IX-a</summary>
+          <ul class="mnav-list">
+            <li><a [routerLink]="['/clasa9a/programa-informatica']">Programa</a></li>
+            <li>
+              <details class="mnav-subgroup">
+                <summary>Planificări calendaristice</summary>
+                <ul class="mnav-list">
+                  <li class="mnav-plain">Matematică-informatică</li>
+                  <li><a [routerLink]="['/clasa9a/planificare-informatica-stiinte-ale-naturii']">Științe ale naturii</a></li>
+                  <li class="mnav-plain">Matematică-informatică cu predarea disciplinei informatică în regim intensiv</li>
+                  <li class="mnav-plain">Matematică-informatică militară</li>
+                </ul>
+              </details>
+            </li>
+            <li class="mnav-plain">Proiecte ale unităților de învățare</li>
+            <li>
+              <details class="mnav-subgroup">
+                <summary>Conținuturi</summary>
+                <ul class="mnav-list">
+                  @for (item of continuturiInformatica; track item) {
+                    <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+                  }
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+
+        <details class="mnav-subgroup">
+          <summary>Clasa a X-a</summary>
+          <ul class="mnav-list">
+            <li><a [routerLink]="['/clasa10a/programa-informatica']">Programa</a></li>
+            <li>
+              <details class="mnav-subgroup">
+                <summary>Planificări calendaristice</summary>
+                <ul class="mnav-list">
+                  <li class="mnav-plain">Matematică-informatică</li>
+                  <li class="mnav-plain">Științe ale naturii</li>
+                  <li class="mnav-plain">Matematică-informatică cu predarea disciplinei informatică în regim intensiv</li>
+                  <li class="mnav-plain">Matematică-informatică militară</li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <details class="mnav-subgroup">
+                <summary>Conținuturi</summary>
+                <ul class="mnav-list scrollable">
+                  @for (item of continuturiInformatica10a; track item) {
+                    <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+                  }
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+
+        <ul class="mnav-list">
+          <li><a [routerLink]="['/instrumente-digitale']">Instrumente digitale</a></li>
+        </ul>
+      </details>
+
+      <details class="mnav-group">
+        <summary>TIC</summary>
+
+        <details class="mnav-subgroup">
+          <summary>Clasa a IX-a</summary>
+          <ul class="mnav-list">
+            <li><a [routerLink]="['/clasa9a/programa-tic']">Programa</a></li>
+            <li><a [routerLink]="['/clasa9a/planificare-tic']">Planificări calendaristice</a></li>
+            <li class="mnav-plain">Proiecte ale unităților de învățare</li>
+            <li>
+              <details class="mnav-subgroup">
+                <summary>Conținuturi</summary>
+                <ul class="mnav-list">
+                  @for (item of continuturiTIC; track item) {
+                    <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+                  }
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+
+        <details class="mnav-subgroup">
+          <summary>Clasa a X-a</summary>
+          <ul class="mnav-list">
+            <li><a [routerLink]="['/clasa10a/programa-tic']">Programa</a></li>
+            <li><a [routerLink]="['/clasa10a/planificare-tic']">Planificări calendaristice</a></li>
+            <li>
+              <details class="mnav-subgroup">
+                <summary>Conținuturi</summary>
+                <ul class="mnav-list scrollable">
+                  @for (item of continuturiTIC10a; track item) {
+                    <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+                  }
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+
+        <ul class="mnav-list">
+          <li><a [routerLink]="['/instrumente-digitale-tic']">Instrumente digitale</a></li>
+        </ul>
+      </details>
+    </div>
+  </nav>
 </header>

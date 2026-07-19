@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {NavigationEnd, Router, RouterLink} from "@angular/router";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-header',
@@ -11,6 +13,24 @@ import {RouterLink} from "@angular/router";
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  mobileNavOpen = false;
+
+  constructor(router: Router) {
+    router.events
+      .pipe(filter(event => event instanceof NavigationEnd), takeUntilDestroyed())
+      .subscribe(() => this.closeMobileNav());
+  }
+
+  toggleMobileNav(): void {
+    this.mobileNavOpen = !this.mobileNavOpen;
+    document.body.style.overflow = this.mobileNavOpen ? 'hidden' : '';
+  }
+
+  closeMobileNav(): void {
+    this.mobileNavOpen = false;
+    document.body.style.overflow = '';
+  }
+
   continuturiInformatica = [
     {label: '1. Principii de elaborare a unui program', route: '/clasa9a/principii-de-elaborare-a-unui-program'},
     {label: '2. Subprograme', route: '/clasa9a/subprograme'},

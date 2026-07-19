@@ -344,6 +344,62 @@
   border: 1px solid #E2E8F0;
 }
 
+@media (max-width: 860px) {
+  .subjects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .subjects {
+    padding: 2.5rem 1rem;
+  }
+
+  .section-header {
+    margin-bottom: 1.75rem;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .carousel {
+    gap: 0.5rem;
+  }
+
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .subject-card {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .subjects {
+    padding: 2rem 0.75rem;
+  }
+
+  .carousel {
+    gap: 0.375rem;
+  }
+
+  .carousel-arrow {
+    width: 30px;
+    height: 30px;
+  }
+
+  .subject-card {
+    padding: 1.25rem 1rem;
+  }
+}
+
 .credits-footer {
   background: #F8FAFC;
   border-top: 1px solid #E2E8F0;
