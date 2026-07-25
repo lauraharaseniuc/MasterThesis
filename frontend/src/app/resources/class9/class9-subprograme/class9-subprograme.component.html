@@ -91,9 +91,12 @@
           în contextul recapitulării modului de organizare a codului într-un proiect existent, prin completarea unui
           șablon de cod parțial
           <div class="resource-block">
-            <a [routerLink]="['/clasa9a/subprograme-fise']" class="generate-btn modal-btn modal-btn--close">
-              Vezi fișele de lucru
-            </a>
+            <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaSubprograme = !showFisaSubprograme">
+              {{ showFisaSubprograme ? 'Ascunde resursele' : 'Vezi resursele' }}
+            </button>
+            <div [hidden]="!showFisaSubprograme" style="margin-top: 8px;">
+              <iframe src="/fisere/subprograme_in_python.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
           </div>
         </li>
         <li>

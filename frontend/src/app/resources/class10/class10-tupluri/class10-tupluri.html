@@ -2,6 +2,9 @@
   <div class="lesson-header">
     <span class="lesson-subject">Informatică · Clasa a X-a</span>
     <h1>3. Tupluri</h1>
+    <a [routerLink]="['/clasa10a/tupluri-fise']" class="lesson-header__fise-link">
+      Fișe de lucru recapitulative
+    </a>
   </div>
   <p class="lesson-section-label">Exemple de activități de învățare</p>
   <ul>
@@ -27,14 +30,10 @@
         <li>enumerarea caracteristicilor modelelor conceptuale liniare tuplu și listă, în contextul reprezentării unui
           punct fix de pe o hartă (de exemplu, un oraș, ale cărui coordonate nu pot fi modificate) și a unui punct mobil
           de pe hartă (care se actualizează, de exemplu, poziția unui robot care se mișcă)
-          <div class="resource-block">
-            <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaTupluri = !showFisaTupluri">
-              {{ showFisaTupluri ? 'Ascunde resursele' : 'Vezi resursele' }}
-            </button>
-            <div [hidden]="!showFisaTupluri" style="margin-top: 8px;">
-              <iframe src="/fisere/Fisa_de_Lucru_Python_Colectii.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
-          </div>
+          <button class="generate-btn modal-btn modal-btn--close"
+                  (click)="generateActivity('enumerarea caracteristicilor modelelor conceptuale liniare tuplu și listă, în contextul reprezentării unui punct fix de pe o hartă (de exemplu, un oraș, ale cărui coordonate nu pot fi modificate) și a unui punct mobil de pe hartă (care se actualizează, de exemplu, poziția unui robot care se mișcă)')">
+            Generează fișă
+          </button>
         </li>
       </ul>
     </li>

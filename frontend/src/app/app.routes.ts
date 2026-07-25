@@ -22,6 +22,7 @@ import {Class9ComponentaSoftware} from "./resources/class9/class9-componenta-sof
 import {Class10Multimi} from "./resources/class10/class10-multimi/class10-multimi";
 import {Class10Dictionare} from "./resources/class10/class10-dictionare/class10-dictionare";
 import {Class10Tupluri} from "./resources/class10/class10-tupluri/class10-tupluri";
+import {Class10TupluriFise} from "./resources/class10/class10-tupluri-fise/class10-tupluri-fise";
 import {Class10SiruriPython} from "./resources/class10/class10-siruri-python/class10-siruri-python";
 import {Class10MetodeCriptare} from "./resources/class10/class10-metode-criptare/class10-metode-criptare";
 import {Class10ModelConceptual} from "./resources/class10/class10-model-conceptual/class10-model-conceptual";
@@ -47,7 +48,6 @@ import {InstrumenteDigitale} from "./resources/instrumente-digitale/instrumente-
 import {InstrumenteDigitaleTic} from "./resources/instrumente-digitale-tic/instrumente-digitale-tic";
 import {Class9PlanificareTic} from "./resources/class9/class9-planificare-tic/class9-planificare-tic";
 import {Class9PlanificareInfoStiinte} from "./resources/class9/class9-planificare-info-stiinte/class9-planificare-info-stiinte";
-import {Class9SubprogrameFise} from "./resources/class9/class9-subprograme-fise/class9-subprograme-fise";
 import {Class9PrincipiiFise} from "./resources/class9/class9-principii-fise/class9-principii-fise";
 import {Class10PlanificareTic} from "./resources/class10/class10-planificare-tic/class10-planificare-tic";
 
@@ -65,7 +65,6 @@ export const routes: Routes = [
   { path: 'instrumente-digitale-tic', component: InstrumenteDigitaleTic },
   { path: 'clasa9a/planificare-tic', component: Class9PlanificareTic },
   { path: 'clasa9a/planificare-informatica-stiinte-ale-naturii', component: Class9PlanificareInfoStiinte },
-  { path: 'clasa9a/subprograme-fise', component: Class9SubprogrameFise },
   { path: 'clasa9a/principii-fise', component: Class9PrincipiiFise },
   { path: 'clasa10a/planificare-tic', component: Class10PlanificareTic },
   { path: 'clasa9a/principii-de-elaborare-a-unui-program', component: Class9PrincipiiComponent },
@@ -88,6 +87,7 @@ export const routes: Routes = [
   { path: 'clasa10a/multimi', component: Class10Multimi },
   { path: 'clasa10a/dictionare', component: Class10Dictionare },
   { path: 'clasa10a/tupluri', component: Class10Tupluri },
+  { path: 'clasa10a/tupluri-fise', component: Class10TupluriFise },
   { path: 'clasa10a/siruri-de-caractere-in-python', component: Class10SiruriPython },
   { path: 'clasa10a/metode-simple-de-criptare', component: Class10MetodeCriptare },
   { path: 'clasa10a/modelul-conceptual-mixt-in-python', component: Class10ModelConceptual },
