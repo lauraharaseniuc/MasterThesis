@@ -4,6 +4,7 @@ import {Class9PrincipiiComponent} from "./resources/class9/class9-principii/clas
 import {Class9SubprogrameComponent} from "./resources/class9/class9-subprograme/class9-subprograme.component";
 import {Class9PrelucrariComponent} from "./resources/class9/class9-prelucrari/class9-prelucrari.component";
 import {Class9ListeComponent} from "./resources/class9/class9-liste/class9-liste.component";
+import {Class9ListeFise} from "./resources/class9/class9-liste-fise/class9-liste-fise";
 import {Class9FisiereComponent} from "./resources/class9/class9-fisiere/class9-fisiere.component";
 import {Class9GenerareComponent} from "./resources/class9/class9-generare/class9-generare.component";
 import {Class9SortareComponent} from "./resources/class9/class9-sortare/class9-sortare.component";
@@ -25,6 +26,7 @@ import {Class10Dictionare} from "./resources/class10/class10-dictionare/class10-
 import {Class10Tupluri} from "./resources/class10/class10-tupluri/class10-tupluri";
 import {Class10TupluriFise} from "./resources/class10/class10-tupluri-fise/class10-tupluri-fise";
 import {Class10SiruriPython} from "./resources/class10/class10-siruri-python/class10-siruri-python";
+import {Class10SiruriFise} from "./resources/class10/class10-siruri-fise/class10-siruri-fise";
 import {Class10MetodeCriptare} from "./resources/class10/class10-metode-criptare/class10-metode-criptare";
 import {Class10ModelConceptual} from "./resources/class10/class10-model-conceptual/class10-model-conceptual";
 import {Class10TablouriCpp} from "./resources/class10/class10-tablouri-cpp/class10-tablouri-cpp";
@@ -72,6 +74,7 @@ export const routes: Routes = [
   { path: 'clasa9a/subprograme', component: Class9SubprogrameComponent },
   { path: 'clasa9a/prelucrari-ale-numerelor', component: Class9PrelucrariComponent },
   { path: 'clasa9a/liste', component: Class9ListeComponent },
+  { path: 'clasa9a/liste-fise', component: Class9ListeFise },
   { path: 'clasa9a/fisiere-text', component: Class9FisiereComponent },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },
   { path: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', component: Class9SortareComponent },
@@ -91,6 +94,7 @@ export const routes: Routes = [
   { path: 'clasa10a/tupluri', component: Class10Tupluri },
   { path: 'clasa10a/tupluri-fise', component: Class10TupluriFise },
   { path: 'clasa10a/siruri-de-caractere-in-python', component: Class10SiruriPython },
+  { path: 'clasa10a/siruri-fise', component: Class10SiruriFise },
   { path: 'clasa10a/metode-simple-de-criptare', component: Class10MetodeCriptare },
   { path: 'clasa10a/modelul-conceptual-mixt-in-python', component: Class10ModelConceptual },
   { path: 'clasa10a/tablouri-bidimensionale-in-cpp', component: Class10TablouriCpp },

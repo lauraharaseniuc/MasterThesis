@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityPaperModalComponent } from '../../../shared/components/activity-paper-modal/activity-paper-modal.component';
 
 @Component({
   selector: 'app-class9-liste',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './class9-liste.component.html',
   styleUrl: './class9-liste.component.scss'
 })
