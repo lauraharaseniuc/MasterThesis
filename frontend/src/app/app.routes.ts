@@ -7,6 +7,7 @@ import {Class9ListeComponent} from "./resources/class9/class9-liste/class9-liste
 import {Class9FisiereComponent} from "./resources/class9/class9-fisiere/class9-fisiere.component";
 import {Class9GenerareComponent} from "./resources/class9/class9-generare/class9-generare.component";
 import {Class9SortareComponent} from "./resources/class9/class9-sortare/class9-sortare.component";
+import {Class9SortareFise} from "./resources/class9/class9-sortare-fise/class9-sortare-fise";
 import {Class9OopComponent} from "./resources/class9/class9-oop/class9-oop.component";
 import {Class9InterfeteComponent} from "./resources/class9/class9-interfete/class9-interfete.component";
 import {Class9Comunicare} from "./resources/class9/class9-comunicare/class9-comunicare";
@@ -74,6 +75,7 @@ export const routes: Routes = [
   { path: 'clasa9a/fisiere-text', component: Class9FisiereComponent },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },
   { path: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', component: Class9SortareComponent },
+  { path: 'clasa9a/sortare-fise', component: Class9SortareFise },
   { path: 'clasa9a/introducere-in-programarea-orientata-pe-obiecte-in-python', component: Class9OopComponent },
   { path: 'clasa9a/interfete-grafice', component: Class9InterfeteComponent },
   { path: 'clasa9a/comunicare-si-colaborare-digitala', component: Class9Comunicare },

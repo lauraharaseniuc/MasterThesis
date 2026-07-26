@@ -12,9 +12,17 @@
         <li>reamintirea regulii de obținere a unui termen al șirului Fibonacci, pe baza celor doi termeni anteriori, în
           contextul unui proiect de cercetare având ca temă șirul lui Fibonacci în natură
           <div class="resource-block">
-            <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaFibonacci = !showFisaFibonacci">
-              {{ showFisaFibonacci ? 'Ascunde resursele' : 'Vezi resursele' }}
-            </button>
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaFibonacci = !showFisaFibonacci">
+                {{ showFisaFibonacci ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_de_lucru_Sirul_lui_Fibonacci_in_natura2.pdf" download [hidden]="!showFisaFibonacci">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
             <div [hidden]="!showFisaFibonacci" style="margin-top: 8px;">
               <iframe src="/fisere/Fisa_de_lucru_Sirul_lui_Fibonacci_in_natura2.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
             </div>

@@ -2,6 +2,9 @@
   <div class="lesson-header">
     <span class="lesson-subject">Informatică · Clasa a IX-a</span>
     <h1>7. Metode de sortare a elementelor unei liste</h1>
+    <a [routerLink]="['/clasa9a/sortare-fise']" class="lesson-header__fise-link">
+      Fișe de lucru pentru acest capitol
+    </a>
   </div>
   <p class="lesson-section-label">Exemple de activități de învățare</p>
   <ul>
@@ -10,14 +13,9 @@
       <ul>
         <li>identificarea caracteristicilor metodei de sortare prin selecția minimului aplicată scenariului de aranjare
           a finaliștilor unui concurs de talente în ordinea crescătoarea a scorului obținut
-          <div class="resource-block">
-            <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaSortare = !showFisaSortare">
-              {{ showFisaSortare ? 'Ascunde resursele' : 'Vezi resursele' }}
-            </button>
-            <div [hidden]="!showFisaSortare" style="margin-top: 8px;">
-              <iframe src="/fisere/metode_de_sortare.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
-          </div>
+          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('identificarea caracteristicilor metodei de sortare prin selecția minimului aplicată scenariului de aranjare a finaliștilor unui concurs de talente în ordinea crescătoarea a scorului obținut')">
+            Generează fișă
+          </button>
         </li>
         <li>explicarea procesului de aranjare în ordine crescătoare a șapte comenzi online în funcție de valoarea
           comenzilor, folosind selecția minimului, cu reprezentarea ordinii comenzilor după fiecare parcurgere
@@ -27,26 +25,16 @@
         </li>
         <li>analizarea algoritmului de sortare prin selecția minimului, pentru o lista cu n valori, estimând numărul de
           comparări pentru un caz favorabil, un caz mediu și un caz nefavorabil
-          <div class="resource-block">
-            <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaSortare = !showFisaSortare">
-              {{ showFisaSortare ? 'Ascunde resursele' : 'Vezi resursele' }}
-            </button>
-            <div [hidden]="!showFisaSortare" style="margin-top: 8px;">
-              <iframe src="/fisere/Fisa2_Informatica_Sortare.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
-          </div>
+          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('analizarea algoritmului de sortare prin selecția minimului, pentru o lista cu n valori, estimând numărul de comparări pentru un caz favorabil, un caz mediu și un caz nefavorabil')">
+            Generează fișă
+          </button>
         </li>
         <li>compararea metodei de selecție a minimului cu altă metodă de sortare (de exemplu, metoda bulelor) aplicate
           pe un set de 200 de punctaje obținute de participanții la olimpiada de informatică din care se vor obține, în
           ordine descrescătoare, cele mai mari 10 punctaje, din perspectiva numărului de comparări și interschimbări
-          <div class="resource-block">
-            <button class="generate-btn modal-btn modal-btn--close" (click)="showGhidJoc = !showGhidJoc">
-              {{ showGhidJoc ? 'Ascunde resursele' : 'Vezi resursele' }}
-            </button>
-            <div [hidden]="!showGhidJoc" style="margin-top: 8px;">
-              <iframe src="/fisere/Ghid_Joc.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
-          </div>
+          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('compararea metodei de selecție a minimului cu altă metodă de sortare (de exemplu, metoda bulelor) aplicate pe un set de 200 de punctaje obținute de participanții la olimpiada de informatică din care se vor obține, în ordine descrescătoare, cele mai mari 10 punctaje, din perspectiva numărului de comparări și interschimbări')">
+            Generează fișă
+          </button>
         </li>
       </ul>
     </li>
