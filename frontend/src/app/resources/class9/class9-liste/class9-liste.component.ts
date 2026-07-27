@@ -15,6 +15,7 @@ export class Class9ListeComponent {
   showFisaStiva = false;
   showFisaListe = false;
   showFisaOperatiiListe = false;
+  showFisaOperatoriListe = false;
 
   constructor(private dialog: MatDialog) {}
 

@@ -6,6 +6,8 @@ import {Class9PrelucrariComponent} from "./resources/class9/class9-prelucrari/cl
 import {Class9ListeComponent} from "./resources/class9/class9-liste/class9-liste.component";
 import {Class9ListeFise} from "./resources/class9/class9-liste-fise/class9-liste-fise";
 import {Class9FisiereComponent} from "./resources/class9/class9-fisiere/class9-fisiere.component";
+import {Class9FisiereFise} from "./resources/class9/class9-fisiere-fise/class9-fisiere-fise";
+import {Class9SubprogrameFise} from "./resources/class9/class9-subprograme-fise/class9-subprograme-fise";
 import {Class9GenerareComponent} from "./resources/class9/class9-generare/class9-generare.component";
 import {Class9SortareComponent} from "./resources/class9/class9-sortare/class9-sortare.component";
 import {Class9SortareFise} from "./resources/class9/class9-sortare-fise/class9-sortare-fise";
@@ -72,10 +74,12 @@ export const routes: Routes = [
   { path: 'clasa10a/planificare-tic', component: Class10PlanificareTic },
   { path: 'clasa9a/principii-de-elaborare-a-unui-program', component: Class9PrincipiiComponent },
   { path: 'clasa9a/subprograme', component: Class9SubprogrameComponent },
+  { path: 'clasa9a/subprograme-fise', component: Class9SubprogrameFise },
   { path: 'clasa9a/prelucrari-ale-numerelor', component: Class9PrelucrariComponent },
   { path: 'clasa9a/liste', component: Class9ListeComponent },
   { path: 'clasa9a/liste-fise', component: Class9ListeFise },
   { path: 'clasa9a/fisiere-text', component: Class9FisiereComponent },
+  { path: 'clasa9a/fisiere-text-fise', component: Class9FisiereFise },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },
   { path: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', component: Class9SortareComponent },
   { path: 'clasa9a/sortare-fise', component: Class9SortareFise },

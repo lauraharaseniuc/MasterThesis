@@ -276,9 +276,22 @@
         <li>recunoașterea operatorilor specifici clasei list din Python ([], in, not in, +, *, ==, !=, ), în contextul
           recapitulării modalităților de lucru cu structuri de date, prin completarea unui tabel care asociază fiecare
           operator cu rolul său
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('recunoașterea operatorilor specifici clasei list din Python ([], in, not in, +, *, ==, !=, ), în contextul recapitulării modalităților de lucru cu structuri de date, prin completarea unui tabel care asociază fiecare operator cu rolul său')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaOperatoriListe = !showFisaOperatoriListe">
+                {{ showFisaOperatoriListe ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa2_Clasa_list_Python.pdf" download [hidden]="!showFisaOperatoriListe">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaOperatoriListe" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa2_Clasa_list_Python.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>aplicarea operatorilor de concatenare (+) și multiplicare (*) în rezolvarea unei situații practice de
           gestionare a comenzilor din două depozite, prin combinarea listelor de produse și dublarea unui stoc existent
