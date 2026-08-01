@@ -68,13 +68,6 @@ export class InstrumenteDigitale {
       icon: 'game',
     },
     {
-      title: 'Replit',
-      description: 'Editor de cod online gratuit care suportă Python, C++ și multe alte limbaje. Nu necesită instalare — elevii pot scrie, rula și partaja cod direct din browser. Util pentru activitățile practice când nu există acces la un IDE local.',
-      url: 'https://replit.com/',
-      tags: ['Clasa a IX-a', 'Clasa a X-a', 'Python', 'C++', 'Editor online'],
-      icon: 'code',
-    },
-    {
       title: 'AlgoViz',
       description: 'Platformă românească de vizualizare interactivă a algoritmilor și structurilor de date, cu execuție pas cu pas. Utilă pentru înțelegerea vizuală a algoritmilor studiați la clasa a X-a.',
       url: 'https://www.algoviz.ro/',
@@ -94,6 +87,13 @@ export class InstrumenteDigitale {
       url: '/fisere/site_educativ_liste.html',
       tags: ['Clasa a IX-a', 'Liste', 'Python', 'Teorie', 'Exerciții interactive'],
       icon: 'course',
+    },
+    {
+      title: 'Joc quiz — Subprograme în Python',
+      description: 'Joc interactiv de tip quiz pentru recapitularea noțiunilor despre subprograme (funcții) în Python: definire, parametri, valoare returnată, variabile locale și globale.',
+      url: '/fisere/Joc-quiz-Subprograme.html',
+      tags: ['Clasa a IX-a', 'Subprograme', 'Python', 'Quiz', 'Joc educativ'],
+      icon: 'quiz',
     },
     {
       title: 'Joc Kahoot — Informatică, clasa a IX-a',

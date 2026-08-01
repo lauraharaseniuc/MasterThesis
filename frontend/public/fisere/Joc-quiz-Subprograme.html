@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Subprograme în Python — clasa a IX-a</title>
+<style>
+  :root{
+    --bg1:#1f3b66; --bg2:#2e5b9e; --accent:#ffb703; --accent2:#fb8500;
+    --ok:#1b6e3c; --ok-bg:#e2efda; --bad:#b02a2a; --bad-bg:#fde2e2;
+    --card:#ffffff; --ink:#1f2a3a; --muted:#5b6b80; --line:#d8e0ec;
+    --code-bg:#1e2738; --code-ink:#e6edf6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',Tahoma,Verdana,sans-serif;color:var(--ink);
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;
+  }
+  .wrap{width:100%;max-width:720px}
+  .card{background:var(--card);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28);overflow:hidden}
+  .topbar{background:linear-gradient(135deg,var(--bg2),var(--bg1));color:#fff;padding:18px 24px}
+  .topbar h1{font-size:1.25rem;display:flex;align-items:center;gap:10px}
+  .topbar .sub{opacity:.85;font-size:.85rem;margin-top:3px}
+  .hud{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 24px;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+  .hud b{color:var(--bg2)}
+  .progress{height:9px;background:#e9eef6;border-radius:99px;overflow:hidden;flex:1;margin:0 4px}
+  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s ease}
+  .body{padding:24px 24px 28px}
+  .qnum{font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent2);font-weight:700;margin-bottom:6px}
+  .qtext{font-size:1.12rem;font-weight:600;line-height:1.45;margin-bottom:8px}
+  pre{background:var(--code-bg);color:var(--code-ink);padding:14px 16px;border-radius:10px;
+      font-family:'Consolas','Courier New',monospace;font-size:.95rem;line-height:1.5;overflow-x:auto;margin:12px 0}
+  .opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid var(--line);
+       background:#fff;border-radius:12px;padding:13px 15px;font-size:1rem;color:var(--ink);cursor:pointer;
+       transition:transform .08s ease,border-color .15s ease,background .15s ease}
+  .opt:hover:not(:disabled){border-color:var(--bg2);transform:translateY(-1px)}
+  .opt .key{flex:0 0 28px;height:28px;border-radius:50%;background:#eef3fa;color:var(--bg2);font-weight:700;
+            display:flex;align-items:center;justify-content:center;font-size:.9rem}
+  .opt.correct{border-color:var(--ok);background:var(--ok-bg)}
+  .opt.correct .key{background:var(--ok);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+  .opt.wrong .key{background:var(--bad);color:#fff}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:16px;border-radius:12px;padding:13px 15px;font-size:.95rem;line-height:1.5;display:none}
+  .fb.show{display:block;animation:fade .25s ease}
+  .fb.ok{background:var(--ok-bg);border-left:5px solid var(--ok)}
+  .fb.bad{background:var(--bad-bg);border-left:5px solid var(--bad)}
+  .fb b{display:block;margin-bottom:2px}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+  .row{display:flex;justify-content:flex-end;margin-top:18px}
+  .btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#3a2a00;border:none;
+       font-weight:700;font-size:1rem;padding:12px 26px;border-radius:99px;cursor:pointer;box-shadow:0 6px 16px rgba(251,133,0,.35)}
+  .btn:hover{filter:brightness(1.05)}
+  .btn.ghost{background:#fff;color:var(--bg2);border:2px solid var(--bg2);box-shadow:none}
+  .center{text-align:center}
+  .start-emoji{font-size:3rem;margin-bottom:6px}
+  .lead{color:var(--muted);font-size:1rem;line-height:1.5;margin:10px 0 22px}
+  .scorebig{font-size:3.2rem;font-weight:800;color:var(--bg2);line-height:1}
+  .scoremsg{font-size:1.15rem;font-weight:600;margin:12px 0 4px}
+  .badge{display:inline-block;background:#eef3fa;color:var(--bg2);border-radius:99px;padding:5px 14px;font-size:.8rem;font-weight:700;margin-bottom:14px}
+  .hidden{display:none}
+  .foot{text-align:center;color:#b9c6d8;font-size:.72rem;padding:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="topbar">
+      <h1><span>🐍</span> Subprograme în Python</h1>
+      <div class="sub">Quiz interactiv · Informatică · clasa a IX-a</div>
+    </div>
+
+    <!-- HUD -->
+    <div class="hud" id="hud">
+      <span>Întrebarea <b id="qcount">1</b>/<b id="qtotal">10</b></span>
+      <div class="progress"><i id="bar"></i></div>
+      <span>Scor: <b id="score">0</b></span>
+    </div>
+
+    <!-- START -->
+    <div class="body center" id="start">
+      <div class="start-emoji">🚀</div>
+      <h2>Gata să-ți testezi cunoștințele?</h2>
+      <p class="lead">10 întrebări despre <b>subprograme (funcții)</b> în Python: definire, apel, <code>return</code>,
+      parametri și funcții predefinite. Primești <b>feedback imediat</b> după fiecare răspuns. Mult succes!</p>
+      <button class="btn" id="startBtn">Începe quiz-ul</button>
+    </div>
+
+    <!-- QUESTION -->
+    <div class="body hidden" id="quiz">
+      <div class="qnum" id="qnum">Întrebarea 1</div>
+      <div class="qtext" id="qtext"></div>
+      <pre id="qcode" class="hidden"></pre>
+      <div class="opts" id="opts"></div>
+      <div class="fb" id="fb"></div>
+      <div class="row"><button class="btn hidden" id="nextBtn">Continuă →</button></div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="body center hidden" id="result">
+      <div class="start-emoji" id="rEmoji">🎉</div>
+      <div class="badge" id="rBadge">Rezultat final</div>
+      <div class="scorebig"><span id="rScore">0</span>/10</div>
+      <div class="scoremsg" id="rMsg"></div>
+      <p class="lead" id="rTip"></p>
+      <button class="btn ghost" id="againBtn">↻ Reîncearcă</button>
+    </div>
+  </div>
+  <div class="foot">Material didactic — Didactica Informaticii · realizat pentru conținuturi de clasa a IX-a (Python)</div>
+</div>
+
+<script>
+const QUESTIONS = [
+  { q:"Ce este un subprogram (funcție) în Python?",
+    opts:["O variabilă care reține un număr",
+          "O secvență de instrucțiuni cu nume, care poate fi apelată de mai multe ori",
+          "Un tip de date predefinit",
+          "Un mesaj afișat pe ecran"],
+    correct:1,
+    exp:"Un subprogram grupează instrucțiuni sub un nume și poate fi reutilizat ori de câte ori avem nevoie." },
+
+  { q:"Ce cuvânt-cheie folosim pentru a defini o funcție în Python?",
+    opts:["function","def","sub","define"],
+    correct:1,
+    exp:"În Python, o funcție se definește cu cuvântul-cheie def, urmat de nume și paranteze." },
+
+  { q:"Ce face instrucțiunea return dintr-un subprogram?",
+    opts:["Afișează un text pe ecran",
+          "Oprește definitiv programul",
+          "Trimite înapoi un rezultat la locul apelului",
+          "Citește date de la tastatură"],
+    correct:2,
+    exp:"return trimite o valoare înapoi acolo unde funcția a fost apelată. (Afișarea se face cu print.)" },
+
+  { q:"Ce se afișează la rularea acestui cod?",
+    code:"def dublu(x):\n    return x * 2\n\nprint(dublu(5))",
+    opts:["5","10","x * 2","eroare"],
+    correct:1,
+    exp:"dublu(5) calculează 5 * 2 = 10, iar print afișează 10." },
+
+  { q:"În definiția  def suma(a, b):  cum se numesc  a  și  b ?",
+    opts:["argumente","parametri","variabile globale","metode"],
+    correct:1,
+    exp:"În definiție se numesc parametri. Valorile efective transmise la apel (ex. 3, 5) se numesc argumente." },
+
+  { q:"Pentru funcția  def saluta(nume):  care este apelul corect?",
+    opts:["saluta","saluta()","saluta(\"Ana\")","def saluta(\"Ana\")"],
+    correct:2,
+    exp:"Funcția are un parametru, deci o apelăm cu un argument între paranteze: saluta(\"Ana\")." },
+
+  { q:"Ce funcție predefinită returnează numărul de elemente dintr-o listă?",
+    opts:["sum()","len()","max()","round()"],
+    correct:1,
+    exp:"len() întoarce numărul de elemente. Ex.: len([4, 8, 1]) este 3." },
+
+  { q:"Cât este  abs(-12) ?",
+    opts:["-12","12","0","eroare"],
+    correct:1,
+    exp:"abs() returnează valoarea absolută (modulul), deci abs(-12) este 12." },
+
+  { q:"Ce se afișează la rularea acestui cod?",
+    code:"def f(a, b):\n    return a + b\n\nprint(f(3, 4) + f(1, 1))",
+    opts:["7","2","9","34"],
+    correct:2,
+    exp:"f(3, 4) = 7 și f(1, 1) = 2. Suma lor este 7 + 2 = 9." },
+
+  { q:"Care este principalul motiv pentru care folosim subprograme?",
+    opts:["Pentru ca programul să fie mai lung",
+          "Pentru a reutiliza codul și a-l organiza mai clar",
+          "Pentru a încetini execuția programului",
+          "Pentru a ascunde erorile"],
+    correct:1,
+    exp:"Subprogramele permit reutilizarea codului, îl fac mai clar și mai ușor de întreținut și depanat." }
+];
+
+let idx = 0, score = 0, answered = false;
+const $ = id => document.getElementById(id);
+$("qtotal").textContent = QUESTIONS.length;
+
+function showStart(){
+  $("start").classList.remove("hidden");
+  $("quiz").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("hud").style.visibility = "hidden";
+}
+function startQuiz(){
+  idx = 0; score = 0; answered = false;
+  $("score").textContent = "0";
+  $("start").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  $("hud").style.visibility = "visible";
+  render();
+}
+function render(){
+  answered = false;
+  const item = QUESTIONS[idx];
+  $("qcount").textContent = idx + 1;
+  $("qnum").textContent = "Întrebarea " + (idx + 1);
+  $("qtext").textContent = item.q;
+  $("bar").style.width = (idx / QUESTIONS.length * 100) + "%";
+
+  const codeEl = $("qcode");
+  if(item.code){ codeEl.textContent = item.code; codeEl.classList.remove("hidden"); }
+  else { codeEl.classList.add("hidden"); }
+
+  const fb = $("fb"); fb.className = "fb"; fb.innerHTML = "";
+  $("nextBtn").classList.add("hidden");
+  $("nextBtn").textContent = (idx === QUESTIONS.length - 1) ? "Vezi rezultatul" : "Continuă →";
+
+  const box = $("opts"); box.innerHTML = "";
+  const keys = ["A","B","C","D"];
+  item.opts.forEach((text, i) => {
+    const b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="key">' + keys[i] + '</span><span>' + text.replace(/</g,"&lt;") + '</span>';
+    b.onclick = () => choose(i, b);
+    box.appendChild(b);
+  });
+}
+function choose(i, btn){
+  if(answered) return;
+  answered = true;
+  const item = QUESTIONS[idx];
+  const buttons = Array.from($("opts").children);
+  buttons.forEach(b => b.disabled = true);
+  const correct = item.correct;
+  buttons[correct].classList.add("correct");
+  const fb = $("fb");
+  if(i === correct){
+    score++;
+    $("score").textContent = score;
+    fb.className = "fb ok show";
+    fb.innerHTML = "<b>✅ Corect!</b>" + item.exp;
+  } else {
+    buttons[i].classList.add("wrong");
+    fb.className = "fb bad show";
+    fb.innerHTML = "<b>❌ Nu chiar.</b>" + item.exp;
+  }
+  $("bar").style.width = ((idx + 1) / QUESTIONS.length * 100) + "%";
+  $("nextBtn").classList.remove("hidden");
+}
+function next(){
+  if(idx < QUESTIONS.length - 1){ idx++; render(); }
+  else { showResult(); }
+}
+function showResult(){
+  $("quiz").classList.add("hidden");
+  $("result").classList.remove("hidden");
+  $("hud").style.visibility = "hidden";
+  $("rScore").textContent = score;
+  const pct = score / QUESTIONS.length;
+  let emoji, msg, tip;
+  if(pct === 1){ emoji="🏆"; msg="Perfect! Ești expert în subprograme!";
+    tip="Felicitări — ai răspuns corect la toate întrebările. Ești gata pentru aplicații mai complexe cu funcții."; }
+  else if(pct >= 0.8){ emoji="🎉"; msg="Foarte bine!";
+    tip="Stăpânești foarte bine subprogramele. Mai recapitulează întrebările greșite și ești la nivel maxim."; }
+  else if(pct >= 0.6){ emoji="👍"; msg="Bine! Ești pe drumul cel bun.";
+    tip="Ai înțeles ideile principale. Reia fișa de lucru la secțiunile despre apel și return."; }
+  else if(pct >= 0.4){ emoji="💪"; msg="Mai exersează puțin.";
+    tip="Recitește structura unui subprogram (def, parametri, return) și încearcă din nou."; }
+  else { emoji="📚"; msg="Hai să mai învățăm împreună!";
+    tip="Reia fișa de lucru de la început și revino la quiz — vei vedea cum crește scorul."; }
+  $("rEmoji").textContent = emoji;
+  $("rMsg").textContent = msg;
+  $("rTip").textContent = tip;
+}
+
+$("startBtn").onclick = startQuiz;
+$("nextBtn").onclick = next;
+$("againBtn").onclick = startQuiz;
+showStart();
+</script>
+</body>
+</html>
