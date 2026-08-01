@@ -74,5 +74,33 @@ export class InstrumenteDigitale {
       tags: ['Clasa a IX-a', 'Clasa a X-a', 'Python', 'C++', 'Editor online'],
       icon: 'code',
     },
+    {
+      title: 'AlgoViz',
+      description: 'Platformă românească de vizualizare interactivă a algoritmilor și structurilor de date, cu execuție pas cu pas. Utilă pentru înțelegerea vizuală a algoritmilor studiați la clasa a X-a.',
+      url: 'https://www.algoviz.ro/',
+      tags: ['Clasa a X-a', 'Algoritmi', 'Vizualizare', 'Structuri de date'],
+      icon: 'visualize',
+    },
+    {
+      title: 'Liste în Python — Site interactiv',
+      description: 'Site educativ interactiv despre liste în Python: teorie explicată pas cu pas și exerciții interactive pentru fixarea noțiunilor, potrivit pentru recapitulare individuală sau la clasă.',
+      url: 'https://home-scrub-61191829.figma.site/',
+      tags: ['Clasa a IX-a', 'Liste', 'Python', 'Teorie', 'Exerciții interactive'],
+      icon: 'course',
+    },
+    {
+      title: 'Recapitulare Liste în Python — Pagină interactivă',
+      description: 'Pagină web interactivă cu teorie explicată pas cu pas și exerciții aplicate despre liste în Python — utilă pentru recapitulare individuală sau ca material de lucru la clasă.',
+      url: '/fisere/site_educativ_liste.html',
+      tags: ['Clasa a IX-a', 'Liste', 'Python', 'Teorie', 'Exerciții interactive'],
+      icon: 'course',
+    },
+    {
+      title: 'Joc Kahoot — Informatică, clasa a IX-a',
+      description: 'Joc interactiv de tip quiz pe platforma Kahoot, pentru recapitulare și evaluare rapidă la Informatică, clasa a IX-a.',
+      url: 'https://create.kahoot.it/share/enter-kahoot-title/77640c1d-ef5c-4203-b6ec-a6187d025925?classId=5c6680f3-55d5-4c63-9acc-3fa7046fc6a4&assignmentId=b8af4aa7-2cfb-42ee-8a1f-23d02ee7b42d&submissionId=117e3bfc-bbac-6f78-8cf1-825d2e36274d',
+      tags: ['Clasa a IX-a', 'Kahoot', 'Quiz', 'Joc educativ'],
+      icon: 'quiz',
+    },
   ];
 }

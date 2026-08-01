@@ -50,9 +50,22 @@
         <li>explicarea rolului unei liste de frecvențe în organizarea și interpretarea datelor dintr-o situație reală,
           exemplificată printro listă care centralizează voturile obținute de mai mulți candidați, interpretând
           semnificația valorilor înregistrate în listă ca frecvențe ale opțiunilor exprimate
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('explicarea rolului unei liste de frecvențe în organizarea și interpretarea datelor dintr-o situație reală, exemplificată printro listă care centralizează voturile obținute de mai mulți candidați, interpretând semnificația valorilor înregistrate în listă ca frecvențe ale opțiunilor exprimate')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaListaStivaCoadaFrecventa = !showFisaListaStivaCoadaFrecventa">
+                {{ showFisaListaStivaCoadaFrecventa ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_4_Lista_stiva_coada_frecventa.pdf" download [hidden]="!showFisaListaStivaCoadaFrecventa">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaListaStivaCoadaFrecventa" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa_4_Lista_stiva_coada_frecventa.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>explicarea necesității memorării datelor într-o listă pentru a permite prelucrări ulterioare, exemplificând
           prin înregistrarea zilnică a numărului de clienți ai unui magazin într-o lună pentru a identifica zilele cu
@@ -64,9 +77,22 @@
         <li>analizarea diferențelor conceptuale dintre stivă, coadă și listă, prin compararea modului de inserare și
           extragere a elementelor și examinarea avantajelor și limitărilor fiecărui model în contexte reale, precum
           gestionarea apelurilor telefonice (coadă) versus procesarea comenzilor de tip „anulare ultimă acțiune" (stivă)
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('analizarea diferențelor conceptuale dintre stivă, coadă și listă, prin compararea modului de inserare și extragere a elementelor și examinarea avantajelor și limitărilor fiecărui model în contexte reale, precum gestionarea apelurilor telefonice (coadă) versus procesarea comenzilor de tip „anulare ultimă acțiune&quot; (stivă)')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaStivaCoada = !showFisaStivaCoada">
+                {{ showFisaStivaCoada ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa1_stiva_si_coada.pdf" download [hidden]="!showFisaStivaCoada">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaStivaCoada" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa1_stiva_si_coada.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>analizarea modului de formare și interpretare a unei liste de frecvențe în studierea obiceiurilor de
           cumpărare ale clienților, prin descompunerea procesului în etape (colectare, numărare, reprezentare),
@@ -129,9 +155,22 @@
       <ul>
         <li>enumerarea reperelor pentru parcurgerea unei liste în vederea identificării perechilor de elemente aflate pe
           poziții consecutive și care au aceleași caracteristici
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('enumerarea reperelor pentru parcurgerea unei liste în vederea identificării perechilor de elemente aflate pe poziții consecutive și care au aceleași caracteristici')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaParcurgereGenerare = !showFisaParcurgereGenerare">
+                {{ showFisaParcurgereGenerare ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_5_Parcurgerea_listelor_generare_valori.pdf" download [hidden]="!showFisaParcurgereGenerare">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaParcurgereGenerare" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa_5_Parcurgerea_listelor_generare_valori.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>recunoașterea caracteristicilor unei liste cu acces direct prin nominalizarea celui de al cincilea elev din
           catalog, fără a fi necesară parcurgerea tuturor datelor elevilor care îl preced în catalog
@@ -169,9 +208,22 @@
         <li>aplicarea conceptului de listă de frecvențe în analiza răspunsurilor dintr-un chestionar de satisfacție,
           prin numărarea aparițiilor fiecărei variante de răspuns (1–5 stele) și organizarea rezultatelor sub formă de
           listă pentru identificarea tendințelor generale
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('aplicarea conceptului de listă de frecvențe în analiza răspunsurilor dintr-un chestionar de satisfacție, prin numărarea aparițiilor fiecărei variante de răspuns (1–5 stele) și organizarea rezultatelor sub formă de listă pentru identificarea tendințelor generale')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaListe = !showFisaListe">
+                {{ showFisaListe ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/liste_in_python.pdf" download [hidden]="!showFisaListe">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaListe" style="margin-top: 8px;">
+              <iframe src="/fisere/liste_in_python.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>aplicarea principiilor parcurgerii liniare pentru folosirea valorilor care respectă o anumită condiție
           într-un context real, cum ar fi verificarea listelor de plăți lunare pentru determinarea facturilor restante,
@@ -234,29 +286,31 @@
           influențează manipularea datelor, în contextul unei aplicații de gestionare a notelor elevilor, prin
           descrierea pașilor de adăugare, modificare și ștergere a elementelor
           <div class="resource-block">
-            <div class="resource-block__actions">
-              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaListe = !showFisaListe">
-                {{ showFisaListe ? 'Ascunde resursele' : 'Vezi resursele' }}
-              </button>
-              <a class="fisa-btn" href="/fisere/liste_in_python.pdf" download [hidden]="!showFisaListe">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descarcă
-              </a>
-            </div>
-            <div [hidden]="!showFisaListe" style="margin-top: 8px;">
-              <iframe src="/fisere/liste_in_python.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
+            <a [routerLink]="['/clasa9a/liste-mutabilitate']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
           </div>
         </li>
         <li>analizarea diferențelor de implementare în Python între atribuirea directă a listelor și copierea acestora
           prin metode specifice (copy()-copiere superficială, slicing-selectarea unei secvențe), în contextul unei
           aplicații de procesare a datelor financiare, prin observarea efectelor modificării elementelor asupra listelor
           asociate
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('analizarea diferențelor de implementare în Python între atribuirea directă a listelor și copierea acestora prin metode specifice (copy()-copiere superficială, slicing-selectarea unei secvențe), în contextul unei aplicații de procesare a datelor financiare, prin observarea efectelor modificării elementelor asupra listelor asociate')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaMetodeCopiereSortare = !showFisaMetodeCopiereSortare">
+                {{ showFisaMetodeCopiereSortare ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_6_Clasa_list_metode_copiere_sortare.pdf" download [hidden]="!showFisaMetodeCopiereSortare">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaMetodeCopiereSortare" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa_6_Clasa_list_metode_copiere_sortare.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>analizarea efectelor utilizării metodelor copy() și sort() asupra conținutului listelor, în contextul unei
           aplicații de evidență a notelor elevilor, prin compararea rezultatelor obținute înainte și după sortare,
@@ -295,9 +349,22 @@
         </li>
         <li>aplicarea operatorilor de concatenare (+) și multiplicare (*) în rezolvarea unei situații practice de
           gestionare a comenzilor din două depozite, prin combinarea listelor de produse și dublarea unui stoc existent
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('aplicarea operatorilor de concatenare (+) și multiplicare (*) în rezolvarea unei situații practice de gestionare a comenzilor din două depozite, prin combinarea listelor de produse și dublarea unui stoc existent')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaConcatenareMultiplicare = !showFisaConcatenareMultiplicare">
+                {{ showFisaConcatenareMultiplicare ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/FISA4_Concatenare_si_multiplicare.pdf" download [hidden]="!showFisaConcatenareMultiplicare">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaConcatenareMultiplicare" style="margin-top: 8px;">
+              <iframe src="/fisere/FISA4_Concatenare_si_multiplicare.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>justificarea corectitudinii și eficienței utilizării operatorilor de apartenență (in, not in) într-un
           program de validare a datelor introduse de utilizator, în cadrul unei dezbateri despre criterii de claritate
@@ -359,9 +426,22 @@
         <li>descrierea unor metode suplimentare ale clasei list din Python (extend(), reverse(), clear(), remove(),
           sort(), copy()), în contextul recapitulării instrumentelor de prelucrare a colecțiilor de date, prin
           completarea unui tabel care asociază fiecare metodă cu acțiunea sa principală asupra listei
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('descrierea unor metode suplimentare ale clasei list din Python (extend(), reverse(), clear(), remove(), sort(), copy()), în contextul recapitulării instrumentelor de prelucrare a colecțiilor de date, prin completarea unui tabel care asociază fiecare metodă cu acțiunea sa principală asupra listei')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaAlteMetode = !showFisaAlteMetode">
+                {{ showFisaAlteMetode ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/FISA3_Alte_metode_pentru_prelucrarea_listelor.pdf" download [hidden]="!showFisaAlteMetode">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaAlteMetode" style="margin-top: 8px;">
+              <iframe src="/fisere/FISA3_Alte_metode_pentru_prelucrarea_listelor.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>analizarea diferențelor de comportament dintre metodele sort() și reverse() din Python aplicate asupra unei
           liste de prețuri, în contextul unei aplicații de evidență a vânzărilor, prin observarea și explicarea ordinii
@@ -381,9 +461,22 @@
         <li>proiectarea unei aplicații modulare Python care gestionează o colecție de date reale (de exemplu,
           temperaturi zilnice, vânzări lunare, note școlare), utilizând funcțiile len(), min(), max(), sum() pentru
           generarea unui raport sintetic cu informații despre datele analizate
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('proiectarea unei aplicații modulare Python care gestionează o colecție de date reale (de exemplu, temperaturi zilnice, vânzări lunare, note școlare), utilizând funcțiile len(), min(), max(), sum() pentru generarea unui raport sintetic cu informații despre datele analizate')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaFunctiiPredefinite = !showFisaFunctiiPredefinite">
+                {{ showFisaFunctiiPredefinite ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/FISA1-Aplicarea_functiilor_predefinite.pdf" download [hidden]="!showFisaFunctiiPredefinite">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaFunctiiPredefinite" style="margin-top: 8px;">
+              <iframe src="/fisere/FISA1-Aplicarea_functiilor_predefinite.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>identificarea funcțiilor predefinite Python utilizate pentru colecții (len(), min(), max(), sum()), în
           contextul recapitulării elementelor de bază privind manipularea listelor numerice, prin completarea unui tabel

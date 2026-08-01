@@ -25,9 +25,22 @@
         <li>evaluarea complexității a doi algoritmi dați pentru determinarea divizorilor unui număr natural stabilind
           care dintre cei doi algoritmi este mai eficient (de exemplu, parcurgere a posibililor divizori de la 1 până la
           n, până la n/2 sau până la √n)
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('evaluarea complexității a doi algoritmi dați pentru determinarea divizorilor unui număr natural stabilind care dintre cei doi algoritmi este mai eficient (de exemplu, parcurgere a posibililor divizori de la 1 până la n, până la n/2 sau până la √n)')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaEficienta = !showFisaEficienta">
+                {{ showFisaEficienta ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_1_Eficienta_algoritmilor_si_testare.pdf" download [hidden]="!showFisaEficienta">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaEficienta" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa_1_Eficienta_algoritmilor_si_testare.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>analizarea a doi algoritmi alternativi dați pentru determinarea divizorilor unui număr în vederea estimării
           numărului de operații efectuate
@@ -82,9 +95,11 @@
           conduce totdeauna la obținerea numărului inițial, susținută de teste adecvate și compararea rezultatelor
           obținute cu
           cele așteptate
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('argumentarea faptului că un algoritm ce construiește oglinditul unui număr și apoi oglinditul oglinditului nu conduce totdeauna la obținerea numărului inițial, susținută de teste adecvate și compararea rezultatelor obținute cu cele așteptate')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <a [routerLink]="['/clasa9a/prelucrari-oglindit']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
+          </div>
         </li>
       </ul>
     </li>
@@ -102,9 +117,22 @@
         </li>
         <li>implementarea unor algoritmi de divizibilitate dați pentru a verifica dacă un număr natural este perfect,
           determinând suma divizorilor acestuia
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('implementarea unor algoritmi de divizibilitate dați pentru a verifica dacă un număr natural este perfect, determinând suma divizorilor acestuia')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaDivizori = !showFisaDivizori">
+                {{ showFisaDivizori ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_3_Divizori_multipli_algoritmi_divizibilitate.pdf" download [hidden]="!showFisaDivizori">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaDivizori" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa_3_Divizori_multipli_algoritmi_divizibilitate.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>analizarea avantajelor utilizării divizorilor unui număr în contexte practic-aplicative (de exemplu, găsirea
           tuturor posibilităților pentru tăierea unei benzi de L centimetri în bucăți de lungimi numere naturale egale,

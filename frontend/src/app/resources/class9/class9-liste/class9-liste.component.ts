@@ -16,6 +16,13 @@ export class Class9ListeComponent {
   showFisaListe = false;
   showFisaOperatiiListe = false;
   showFisaOperatoriListe = false;
+  showFisaFunctiiPredefinite = false;
+  showFisaAlteMetode = false;
+  showFisaConcatenareMultiplicare = false;
+  showFisaStivaCoada = false;
+  showFisaListaStivaCoadaFrecventa = false;
+  showFisaParcurgereGenerare = false;
+  showFisaMetodeCopiereSortare = false;
 
   constructor(private dialog: MatDialog) {}
 

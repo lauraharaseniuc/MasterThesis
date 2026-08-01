@@ -243,11 +243,19 @@ a {
   margin-top: 0.75rem;
 }
 
+.video-wrapper {
+  margin-top: 8px;
+}
+
 .resource-block__actions {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+
+  .generate-btn {
+    margin-top: 0;
+  }
 }
 
 /* ── Fișă download button (same style as the "fișe recapitulative" pages) ── */
