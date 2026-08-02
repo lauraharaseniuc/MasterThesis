@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityPaperModalComponent } from '../../../shared/components/activity-paper-modal/activity-paper-modal.component';
 
 @Component({
   selector: 'app-class9-componenta-hardware',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './class9-componenta-hardware.html',
   styleUrl: './class9-componenta-hardware.scss',
 })

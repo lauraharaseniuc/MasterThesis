@@ -16,7 +16,6 @@ import {
 })
 export class Class9SubprogrameComponent {
   readonly subject: 'informatica' | 'tic' = 'informatica';
-  showFisaSubprograme = false;
   showVideoSubprograme = false;
   showFisaGhidFunctii = false;
   showVideoDistantaPuncte = false;

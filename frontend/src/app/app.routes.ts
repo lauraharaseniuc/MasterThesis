@@ -54,6 +54,11 @@ import {Class9FisiereLacunar} from "./resources/class9/class9-fisiere-lacunar/cl
 import {Class9FisiereEtape} from "./resources/class9/class9-fisiere-etape/class9-fisiere-etape";
 import {Class9ListeAlteMetode} from "./resources/class9/class9-liste-alte-metode/class9-liste-alte-metode";
 import {Class9SortareBulele} from "./resources/class9/class9-sortare-bulele/class9-sortare-bulele";
+import {Class9SortareMetodaBulelor} from "./resources/class9/class9-sortare-metoda-bulelor/class9-sortare-metoda-bulelor";
+import {Class9ListeSemafor} from "./resources/class9/class9-liste-semafor/class9-liste-semafor";
+import {Class9ListeOperatii} from "./resources/class9/class9-liste-operatii/class9-liste-operatii";
+import {Class9SortareSelectiaMinimului} from "./resources/class9/class9-sortare-selectia-minimului/class9-sortare-selectia-minimului";
+import {Class9HardwareAlimentareRacire} from "./resources/class9/class9-hardware-alimentare-racire/class9-hardware-alimentare-racire";
 import {Class10AlgoritmiUmplere} from "./resources/class10/class10-algoritmi-umplere/class10-algoritmi-umplere";
 import {Class10Greedy} from "./resources/class10/class10-greedy/class10-greedy";
 import {Class10TicSecuritate} from "./resources/class10/class10-tic-securitate/class10-tic-securitate";
@@ -111,6 +116,10 @@ export const routes: Routes = [
   { path: 'clasa9a/fisiere-etape', component: Class9FisiereEtape },
   { path: 'clasa9a/liste-alte-metode', component: Class9ListeAlteMetode },
   { path: 'clasa9a/sortare-bulele', component: Class9SortareBulele },
+  { path: 'clasa9a/sortare-metoda-bulelor', component: Class9SortareMetodaBulelor },
+  { path: 'clasa9a/liste-semafor', component: Class9ListeSemafor },
+  { path: 'clasa9a/liste-operatii', component: Class9ListeOperatii },
+  { path: 'clasa9a/sortare-selectia-minimului', component: Class9SortareSelectiaMinimului },
   { path: 'clasa9a/fisiere-text-fise', component: Class9FisiereFise },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },
   { path: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', component: Class9SortareComponent },
@@ -124,6 +133,7 @@ export const routes: Routes = [
   { path: 'clasa9a/documente-digitale', component: Class9DocumenteDigitale },
   { path: 'clasa9a/prezentari-digitale', component: Class9PrezentariDigitale },
   { path: 'clasa9a/componenta-hardware-a-unui-sistem-de-calcul', component: Class9ComponentaHardware },
+  { path: 'clasa9a/hardware-alimentare-racire', component: Class9HardwareAlimentareRacire },
   { path: 'clasa9a/componenta-software-a-unui-sistem-de-calcul', component: Class9ComponentaSoftware },
   { path: 'clasa10a/multimi', component: Class10Multimi },
   { path: 'clasa10a/dictionare', component: Class10Dictionare },

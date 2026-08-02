@@ -103,6 +103,13 @@ export class InstrumenteDigitale {
       icon: 'quiz',
     },
     {
+      title: 'Joc Kahoot 2 — Informatică, clasa a IX-a',
+      description: 'Un alt joc interactiv de tip quiz pe platforma Kahoot, pentru recapitulare și evaluare rapidă la Informatică, clasa a IX-a.',
+      url: 'https://create.kahoot.it/details/ade3d604-b4ff-4dd3-ad49-ebb77566adea?classId=5c6680f3-55d5-4c63-9acc-3fa7046fc6a4&assignmentId=b8af4aa7-2cfb-42ee-8a1f-23d02ee7b42d&submissionId=755df68c-aaab-c5e0-c1b2-231b5780347f',
+      tags: ['Clasa a IX-a', 'Kahoot', 'Quiz', 'Joc educativ', 'Principii de elaborare a unui program'],
+      icon: 'quiz',
+    },
+    {
       title: 'Subprograme în Python — Platformă interactivă de învățare',
       description: 'Platformă interactivă dedicată subprogramelor (funcțiilor) în Python: definire, parametri, valoare returnată, variabile locale și globale. Include lecții teoretice, probleme rezolvate, o secțiune despre greșeli frecvente (SyntaxError, TypeError, NameError, UnboundLocalError), un ghid rapid de sintaxă și un quiz cu 20 de întrebări.',
       url: 'https://subprograme-python-g39g9psy5-mirunas-projects-d263c8d3.vercel.app/',

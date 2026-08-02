@@ -17,20 +17,9 @@
           semafor pe o stradă cu sens unic, faptul că fiecare mașină, cu excepția primei și ultimei mașini, are imediat
           înaintea ei și imediat după ea câte o altă mașină
           <div class="resource-block">
-            <div class="resource-block__actions">
-              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaListeSemafor = !showFisaListeSemafor">
-                {{ showFisaListeSemafor ? 'Ascunde resursele' : 'Vezi resursele' }}
-              </button>
-              <a class="fisa-btn" href="/fisere/Fisa_de_lucru_Liste_in_Python.pdf" download [hidden]="!showFisaListeSemafor">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descarcă
-              </a>
-            </div>
-            <div [hidden]="!showFisaListeSemafor" style="margin-top: 8px;">
-              <iframe src="/fisere/Fisa_de_lucru_Liste_in_Python.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
+            <a [routerLink]="['/clasa9a/liste-semafor']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
           </div>
         </li>
         <li>recunoașterea caracteristicilor unei stive și ale unei cozi, din punctul de vedere al modului în care se
@@ -388,20 +377,9 @@
           gestionare a unei liste de participanți la un eveniment, prin justificarea efectelor fiecărei metode asupra
           structurii listei
           <div class="resource-block">
-            <div class="resource-block__actions">
-              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaOperatiiListe = !showFisaOperatiiListe">
-                {{ showFisaOperatiiListe ? 'Ascunde resursele' : 'Vezi resursele' }}
-              </button>
-              <a class="fisa-btn" href="/fisere/operatii_liste_in_python.pdf" download [hidden]="!showFisaOperatiiListe">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descarcă
-              </a>
-            </div>
-            <div [hidden]="!showFisaOperatiiListe" style="margin-top: 8px;">
-              <iframe src="/fisere/operatii_liste_in_python.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
+            <a [routerLink]="['/clasa9a/liste-operatii']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
           </div>
         </li>
         <li>aplicarea metodelor count() și index() în rezolvarea unei situații practice de numărare a produselor
