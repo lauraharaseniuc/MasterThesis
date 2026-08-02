@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metode de sortare a unei liste · Informatică clasa a IX-a</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --accent:#38bdf8; --accent2:#22d3ee;
+    --ok:#4ade80; --warn:#fbbf24; --bad:#f87171; --text:#e2e8f0; --muted:#94a3b8;
+    --bar:#64748b; --barCmp:#fbbf24; --barSwap:#f87171; --barOk:#4ade80; --barMin:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  header{background:linear-gradient(135deg,#0c4a6e,#155e75);padding:2.5rem 1rem;text-align:center}
+  header h1{margin:0;font-size:2rem}
+  header p{margin:.4rem 0 0;color:#bae6fd}
+  .badge{display:inline-block;background:rgba(255,255,255,.15);padding:.2rem .7rem;border-radius:999px;font-size:.8rem;margin-top:.8rem}
+  nav{position:sticky;top:0;z-index:10;background:#0b1220;display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem;padding:.6rem;border-bottom:1px solid #1e293b}
+  nav a{color:var(--text);text-decoration:none;padding:.4rem .8rem;border-radius:8px;font-size:.9rem}
+  nav a:hover{background:var(--panel)}
+  main{max-width:980px;margin:0 auto;padding:1.5rem 1rem 4rem}
+  section{margin:2.5rem 0;scroll-margin-top:60px}
+  h2{color:var(--accent);border-left:4px solid var(--accent);padding-left:.6rem}
+  h3{color:var(--accent2)}
+  .card{background:var(--panel);border-radius:14px;padding:1.2rem 1.4rem;margin:1rem 0;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+  pre{background:#0b1220;border:1px solid #1e293b;border-radius:10px;padding:1rem;overflow:auto;font-size:.86rem;position:relative}
+  code{font-family:'Consolas','Courier New',monospace}
+  .kw{color:#c792ea}.fn{color:#82aaff}.str{color:#c3e88d}.num{color:#f78c6c}.cm{color:#546e7a;font-style:italic}
+  table{width:100%;border-collapse:collapse;margin:.5rem 0}
+  th,td{border:1px solid #334155;padding:.55rem;text-align:left;font-size:.9rem}
+  th{background:var(--panel2)}
+  /* Visualizer */
+  #viz{display:flex;align-items:flex-end;justify-content:center;gap:6px;height:320px;background:#0b1220;border-radius:12px;padding:1rem;border:1px solid #1e293b}
+  .bar{flex:1;max-width:48px;border-radius:6px 6px 0 0;background:var(--bar);position:relative;transition:height .15s,background .15s;display:flex;align-items:flex-end;justify-content:center}
+  .bar span{position:absolute;bottom:-22px;font-size:.8rem;color:var(--muted)}
+  .bar.cmp{background:var(--barCmp)}.bar.swap{background:var(--barSwap)}.bar.ok{background:var(--barOk)}.bar.min{background:var(--barMin)}
+  .controls{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1.2rem 0 .4rem}
+  button{background:var(--accent);color:#06283d;border:none;padding:.55rem 1rem;border-radius:8px;font-weight:600;cursor:pointer;font-size:.9rem}
+  button:hover{background:var(--accent2)}
+  button.sec{background:var(--panel2);color:var(--text)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  select,input[type=range]{accent-color:var(--accent)}
+  select{background:var(--panel2);color:var(--text);border:1px solid #334155;border-radius:8px;padding:.45rem}
+  .stats{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:.6rem;font-size:.9rem;color:var(--muted)}
+  .stats b{color:var(--text)}
+  #status{min-height:2.6rem;margin-top:1.4rem;background:var(--panel2);border-radius:8px;padding:.6rem .9rem;font-size:.92rem}
+  .legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:.5rem}
+  .dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:.3rem}
+  /* Quiz */
+  .quiz .q{font-weight:600;margin-bottom:.6rem}
+  .opt{display:block;width:100%;text-align:left;background:var(--panel2);color:var(--text);border:1px solid #334155;border-radius:8px;padding:.6rem .8rem;margin:.35rem 0;cursor:pointer;font-size:.9rem}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{background:#14532d;border-color:var(--ok)}
+  .opt.wrong{background:#7f1d1d;border-color:var(--bad)}
+  .fb{font-size:.88rem;margin-top:.4rem;min-height:1.2rem}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid #334155;border-radius:999px;padding:.15rem .6rem;font-size:.78rem;color:var(--muted);margin:.15rem}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;border-top:1px solid #1e293b}
+  details{background:var(--panel2);border-radius:8px;padding:.6rem .9rem;margin:.5rem 0}
+  summary{cursor:pointer;font-weight:600;color:var(--accent2)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔀 Metode de sortare a unei liste</h1>
+  <p>Selecția minimului · Metoda bulelor · Sortare cu listă de frecvențe</p>
+  <div class="badge">Informatică · Clasa a IX-a · profil real, matematică–informatică (Python)</div>
+</header>
+
+<nav>
+  <a href="#intro">Introducere</a>
+  <a href="#viz-sec">Vizualizator</a>
+  <a href="#selectie">Selecția minimului</a>
+  <a href="#bule">Metoda bulelor</a>
+  <a href="#frecvente">Listă de frecvențe</a>
+  <a href="#complexitate">Complexitate</a>
+  <a href="#exercitii">Exerciții</a>
+</nav>
+
+<main>
+  <section id="intro">
+    <h2>De ce sortăm datele?</h2>
+    <div class="card">
+      <p>A <strong>sorta</strong> o listă înseamnă a-i aranja elementele într-o anumită ordine (crescătoare sau descrescătoare).
+      Sortarea apare peste tot: clasamentul unui concurs, ordonarea notelor unei clase, afișarea produselor după preț,
+      triajul pacienților dintr-o urgență după gravitate.</p>
+      <p>În clasa a IX-a studiem trei metode clasice. Toate produc același rezultat, dar diferă prin <em>numărul de comparări
+      și de interschimbări</em> — adică prin <strong>eficiență</strong>. Folosește vizualizatorul de mai jos ca să vezi
+      <em>pas cu pas</em> cum „gândește” fiecare algoritm.</p>
+      <div>
+        <span class="pill">Conținut 2.4 — Metode de sortare</span>
+        <span class="pill">CS 1.2 · 2.2 · 3.2 · 4.2 · 5.2</span>
+        <span class="pill">Listă (clasa <code>list</code>)</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="viz-sec">
+    <h2>🎬 Vizualizator interactiv</h2>
+    <div class="card">
+      <p>Alege un algoritm, generează o listă aleatoare și apasă <strong>Pornește</strong>. Poți merge și <strong>pas cu pas</strong>
+      ca să citești fiecare comparare. Bara <span style="color:var(--barCmp)">galbenă</span> = elemente comparate,
+      <span style="color:var(--barSwap)">roșu</span> = interschimbare, <span style="color:var(--barMin)">violet</span> = minimul curent,
+      <span style="color:var(--barOk)">verde</span> = poziție finală.</p>
+
+      <div id="viz"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--bar)"></span>neevaluat</span>
+        <span><span class="dot" style="background:var(--barCmp)"></span>comparare</span>
+        <span><span class="dot" style="background:var(--barSwap)"></span>interschimbare</span>
+        <span><span class="dot" style="background:var(--barMin)"></span>minim curent</span>
+        <span><span class="dot" style="background:var(--barOk)"></span>sortat</span>
+      </div>
+
+      <div class="controls">
+        <select id="algo">
+          <option value="selection">Selecția minimului</option>
+          <option value="bubble">Metoda bulelor</option>
+          <option value="counting">Sortare cu listă de frecvențe</option>
+        </select>
+        <button id="play">▶ Pornește</button>
+        <button id="step" class="sec">⏭ Pas</button>
+        <button id="reset" class="sec">↺ Listă nouă</button>
+        <label style="font-size:.85rem;color:var(--muted)">Viteză
+          <input type="range" id="speed" min="1" max="100" value="55">
+        </label>
+      </div>
+      <div class="stats">
+        <span>Comparări: <b id="cmpCount">0</b></span>
+        <span>Interschimbări: <b id="swapCount">0</b></span>
+        <span>Algoritm: <b id="algoName">Selecția minimului</b></span>
+      </div>
+      <div id="status">Apasă <strong>Pornește</strong> sau <strong>Pas</strong> pentru a începe.</div>
+    </div>
+  </section>
+
+  <section id="selectie">
+    <h2>1. Sortarea prin selecția minimului</h2>
+    <div class="card">
+      <h3>Ideea</h3>
+      <p>Parcurgem lista, găsim cel mai mic element și îl aducem pe prima poziție. Apoi căutăm minimul din rest și îl punem
+      pe poziția a doua, și tot așa. La fiecare pas, partea din stânga devine definitiv sortată.</p>
+      <details>
+        <summary>Analogie din viața reală</summary>
+        Aranjarea finaliștilor unui concurs de talente în ordinea crescătoare a scorului: scoți de fiecare dată concurentul
+        cu cel mai mic scor rămas și îl așezi la coadă.
+      </details>
+      <h3>Cod Python</h3>
+      <pre><code><span class="kw">def</span> <span class="fn">sortare_selectie</span>(v):
+    n = <span class="fn">len</span>(v)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="num">1</span>):
+        poz_min = i
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i + <span class="num">1</span>, n):
+            <span class="kw">if</span> v[j] &lt; v[poz_min]:
+                poz_min = j
+        v[i], v[poz_min] = v[poz_min], v[i]   <span class="cm"># interschimbare</span>
+    <span class="kw">return</span> v
+
+<span class="fn">print</span>(<span class="fn">sortare_selectie</span>([<span class="num">5</span>, <span class="num">2</span>, <span class="num">9</span>, <span class="num">1</span>, <span class="num">7</span>]))   <span class="cm"># [1, 2, 5, 7, 9]</span></code></pre>
+      <p><strong>Observație:</strong> face <em>multe comparări</em>, dar <em>puține interschimbări</em> (cel mult una pe pas).</p>
+    </div>
+  </section>
+
+  <section id="bule">
+    <h2>2. Metoda bulelor (bubble sort)</h2>
+    <div class="card">
+      <h3>Ideea</h3>
+      <p>Comparăm mereu <strong>elemente vecine</strong> și le interschimbăm dacă sunt în ordine greșită. Repetăm parcurgerile
+      până nu mai facem nicio interschimbare. La fiecare trecere, cel mai mare element „urcă” ca o bulă până la capăt.</p>
+      <details>
+        <summary>Analogie din viața reală</summary>
+        Ordonarea elevilor unei clase după înălțime: compari fiecare doi colegi vecini din rând și îi rogi să facă schimb
+        de locuri dacă cel mai înalt stă în fața celui mai scund.
+      </details>
+      <h3>Cod Python</h3>
+      <pre><code><span class="kw">def</span> <span class="fn">sortare_bule</span>(v):
+    n = <span class="fn">len</span>(v)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="num">1</span>):
+        schimbat = <span class="kw">False</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n - <span class="num">1</span> - i):
+            <span class="kw">if</span> v[j] &gt; v[j + <span class="num">1</span>]:
+                v[j], v[j + <span class="num">1</span>] = v[j + <span class="num">1</span>], v[j]
+                schimbat = <span class="kw">True</span>
+        <span class="kw">if</span> <span class="kw">not</span> schimbat:        <span class="cm"># lista e deja sortată → ne oprim</span>
+            <span class="kw">break</span>
+    <span class="kw">return</span> v</code></pre>
+      <p><strong>Observație:</strong> cu „steagul” <code>schimbat</code> devine foarte rapidă pe liste aproape sortate.</p>
+    </div>
+  </section>
+
+  <section id="frecvente">
+    <h2>3. Sortarea cu listă de frecvențe (counting sort)</h2>
+    <div class="card">
+      <h3>Ideea</h3>
+      <p>Folosită când valorile sunt <strong>numere întregi dintr-un interval mic</strong> (ex. note de la 1 la 10). Nu comparăm
+      elemente! Numărăm de câte ori apare fiecare valoare într-o listă de frecvențe, apoi reconstruim lista sortată
+      parcurgând frecvențele de la mic la mare.</p>
+      <details>
+        <summary>Analogie din viața reală</summary>
+        Triajul pacienților după gravitate (cod 1–5) sau ordonarea notelor unui test (1–10): numeri câți sunt de fiecare cod,
+        apoi îi „strigi” în ordine.
+      </details>
+      <h3>Cod Python</h3>
+      <pre><code><span class="kw">def</span> <span class="fn">sortare_frecvente</span>(v, vmax=<span class="num">10</span>):
+    frecv = [<span class="num">0</span>] * (vmax + <span class="num">1</span>)     <span class="cm"># frecv[k] = de câte ori apare k</span>
+    <span class="kw">for</span> x <span class="kw">in</span> v:
+        frecv[x] += <span class="num">1</span>
+    rezultat = []
+    <span class="kw">for</span> k <span class="kw">in</span> <span class="fn">range</span>(vmax + <span class="num">1</span>):
+        rezultat += [k] * frecv[k]      <span class="cm"># adaug valoarea k de frecv[k] ori</span>
+    <span class="kw">return</span> rezultat
+
+<span class="fn">print</span>(<span class="fn">sortare_frecvente</span>([<span class="num">7</span>, <span class="num">3</span>, <span class="num">7</span>, <span class="num">1</span>, <span class="num">3</span>, <span class="num">10</span>]))   <span class="cm"># [1, 3, 3, 7, 7, 10]</span></code></pre>
+      <p><strong>Observație:</strong> foarte rapidă (nu face comparări), dar are nevoie de memorie pentru lista de frecvențe și
+      funcționează doar pe numere întregi dintr-un interval cunoscut.</p>
+    </div>
+  </section>
+
+  <section id="complexitate">
+    <h2>📊 Comparație și eficiență</h2>
+    <div class="card">
+      <table>
+        <tr><th>Metodă</th><th>Comparări (caz nefavorabil)</th><th>Interschimbări</th><th>Când o folosim</th></tr>
+        <tr><td>Selecția minimului</td><td>~ n²/2 — O(n²)</td><td>puține (≤ n−1)</td><td>liste mici; când mutarea elementelor e costisitoare</td></tr>
+        <tr><td>Metoda bulelor</td><td>~ n²/2 — O(n²)</td><td>multe</td><td>liste mici sau aproape sortate (cu steag)</td></tr>
+        <tr><td>Listă de frecvențe</td><td>0 comparări — O(n + k)</td><td>—</td><td>numere întregi din interval mic (note 1–10, coduri 1–5)</td></tr>
+      </table>
+      <p style="color:var(--muted);font-size:.9rem">n = numărul de elemente, k = mărimea intervalului de valori. Notația O descrie cum
+      crește timpul când lista devine mai mare.</p>
+    </div>
+  </section>
+
+  <section id="exercitii">
+    <h2>✏️ Verifică-ți înțelegerea</h2>
+    <div class="card quiz" id="quiz"></div>
+    <div class="card">
+      <h3>Probleme propuse (laborator)</h3>
+      <ol>
+        <li>Ordonează crescător <code>[64, 25, 12, 22, 11]</code> cu selecția minimului. Câte interschimbări faci?</li>
+        <li>Implementează metoda bulelor care ordonează <em>descrescător</em> prețurile unor produse.</li>
+        <li>Pentru notele unei clase (întregi 1–10), folosește sortarea cu listă de frecvențe și afișează și
+        câți elevi au luat fiecare notă.</li>
+        <li>Compară (cu un contor) numărul de comparări pentru selecția minimului vs. metoda bulelor pe aceeași listă de 200 de valori.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Material didactic interactiv · conform programei școlare 2025 de Informatică (CS), clasa a IX-a.<br>
+  Site static — funcționează offline, deschis direct în browser.
+</footer>
+
+<script>
+/* ---------- Generare pași pentru fiecare algoritm ---------- */
+// Fiecare "pas" descrie ce să evidențiem și ce array să afișăm.
+function genSelection(a){
+  const v=a.slice(), steps=[], sorted=[];
+  const n=v.length;
+  for(let i=0;i<n-1;i++){
+    let pmin=i;
+    steps.push({arr:v.slice(),sorted:sorted.slice(),min:pmin,msg:`Caut minimul în zona neordonată, pornind de la poziția ${i}.`});
+    for(let j=i+1;j<n;j++){
+      steps.push({arr:v.slice(),sorted:sorted.slice(),min:pmin,cmp:[j,pmin],cmpN:1,msg:`Compar v[${j}]=${v[j]} cu minimul curent v[${pmin}]=${v[pmin]}.`});
+      if(v[j]<v[pmin]){pmin=j;steps.push({arr:v.slice(),sorted:sorted.slice(),min:pmin,msg:`Am găsit un minim mai mic: v[${pmin}]=${v[pmin]}.`});}
+    }
+    if(pmin!==i){[v[i],v[pmin]]=[v[pmin],v[i]];steps.push({arr:v.slice(),sorted:sorted.slice(),swap:[i,pmin],swapN:1,msg:`Interschimb v[${i}] cu v[${pmin}]. Poziția ${i} este fixată.`});}
+    else{steps.push({arr:v.slice(),sorted:sorted.slice(),msg:`Minimul era deja pe poziția ${i}.`});}
+    sorted.push(i);
+  }
+  sorted.push(n-1);
+  steps.push({arr:v.slice(),sorted:sorted.slice(),msg:'✅ Lista este sortată!'});
+  return steps;
+}
+function genBubble(a){
+  const v=a.slice(), steps=[], sorted=[];
+  const n=v.length;
+  for(let i=0;i<n-1;i++){
+    let schimbat=false;
+    for(let j=0;j<n-1-i;j++){
+      steps.push({arr:v.slice(),sorted:sorted.slice(),cmp:[j,j+1],cmpN:1,msg:`Compar vecinii v[${j}]=${v[j]} și v[${j+1}]=${v[j+1]}.`});
+      if(v[j]>v[j+1]){[v[j],v[j+1]]=[v[j+1],v[j]];schimbat=true;steps.push({arr:v.slice(),sorted:sorted.slice(),swap:[j,j+1],swapN:1,msg:`Sunt în ordine greșită → interschimb.`});}
+    }
+    sorted.push(n-1-i);
+    if(!schimbat){
+      for(let k=0;k<n-1-i;k++)sorted.push(k);
+      steps.push({arr:v.slice(),sorted:sorted.slice(),msg:'Nicio interschimbare la această trecere → lista e deja sortată, ne oprim.'});
+      break;
+    }
+  }
+  const all=[...Array(n).keys()];
+  steps.push({arr:v.slice(),sorted:all,msg:'✅ Lista este sortată!'});
+  return steps;
+}
+function genCounting(a){
+  const v=a.slice(), steps=[]; const n=v.length;
+  const vmax=Math.max(...v);
+  const frecv=new Array(vmax+1).fill(0);
+  for(let i=0;i<n;i++){
+    frecv[v[i]]++;
+    steps.push({arr:v.slice(),sorted:[],cmp:[i],msg:`Număr aparițiile: frecv[${v[i]}] devine ${frecv[v[i]]}. (parcurg lista, nu compar elemente)`});
+  }
+  const rez=[]; const sorted=[];
+  for(let k=0;k<=vmax;k++){
+    for(let c=0;c<frecv[k];c++){
+      rez.push(k);
+      sorted.push(rez.length-1);
+      const padded=rez.concat(v.slice(rez.length));
+      steps.push({arr:padded.slice(),sorted:sorted.slice(),swap:[rez.length-1],msg:`Reconstruiesc: adaug valoarea ${k} (frecv[${k}]=${frecv[k]}).`});
+    }
+  }
+  steps.push({arr:rez.slice(),sorted:[...Array(n).keys()],msg:'✅ Lista este sortată (fără nicio comparare)!'});
+  return steps;
+}
+
+/* ---------- Stare & randare ---------- */
+const vizEl=document.getElementById('viz');
+const algoSel=document.getElementById('algo');
+const statusEl=document.getElementById('status');
+const cmpEl=document.getElementById('cmpCount');
+const swapEl=document.getElementById('swapCount');
+const algoNameEl=document.getElementById('algoName');
+const speedEl=document.getElementById('speed');
+let data=[], steps=[], idx=0, timer=null, cmp=0, swap=0, maxVal=10;
+const NAMES={selection:'Selecția minimului',bubble:'Metoda bulelor',counting:'Sortare cu listă de frecvențe'};
+
+function randList(){
+  const len=8;
+  data=Array.from({length:len},()=>Math.floor(Math.random()*9)+1);
+  maxVal=Math.max(...data);
+}
+function buildSteps(){
+  const al=algoSel.value;
+  if(al==='selection')steps=genSelection(data);
+  else if(al==='bubble')steps=genBubble(data);
+  else steps=genCounting(data);
+  idx=0;cmp=0;swap=0;
+}
+function render(state){
+  vizEl.innerHTML='';
+  const arr=state.arr;
+  const localMax=Math.max(maxVal,...arr);
+  arr.forEach((val,i)=>{
+    const bar=document.createElement('div');
+    bar.className='bar';
+    bar.style.height=(val/localMax*100)+'%';
+    if(state.sorted&&state.sorted.includes(i))bar.classList.add('ok');
+    if(state.cmp&&state.cmp.includes(i))bar.classList.add('cmp');
+    if(state.swap&&state.swap.includes(i))bar.classList.add('swap');
+    if(state.min===i)bar.classList.add('min');
+    const lab=document.createElement('span');lab.textContent=val;bar.appendChild(lab);
+    vizEl.appendChild(bar);
+  });
+  cmpEl.textContent=cmp;swapEl.textContent=swap;
+  statusEl.innerHTML=state.msg||'';
+}
+function applyStep(){
+  if(idx>=steps.length)return false;
+  const s=steps[idx];
+  if(s.cmpN)cmp+=s.cmpN;
+  if(s.swapN)swap+=s.swapN;
+  render(s);
+  idx++;
+  return idx<steps.length;
+}
+function stop(){if(timer){clearInterval(timer);timer=null;document.getElementById('play').textContent='▶ Pornește';}}
+function play(){
+  if(timer){stop();return;}
+  if(idx>=steps.length){buildSteps();}
+  document.getElementById('play').textContent='⏸ Pauză';
+  const delay=()=>Math.max(40,620-speedEl.value*6);
+  timer=setInterval(()=>{
+    const more=applyStep();
+    if(!more){stop();}
+  },delay());
+}
+function reset(){stop();randList();buildSteps();algoNameEl.textContent=NAMES[algoSel.value];render({arr:data,sorted:[],msg:'Listă nouă generată. Apasă <strong>Pornește</strong> sau <strong>Pas</strong>.'});cmpEl.textContent=0;swapEl.textContent=0;}
+
+document.getElementById('play').addEventListener('click',play);
+document.getElementById('step').addEventListener('click',()=>{stop();if(idx>=steps.length)buildSteps();applyStep();});
+document.getElementById('reset').addEventListener('click',reset);
+algoSel.addEventListener('change',()=>{stop();buildSteps();algoNameEl.textContent=NAMES[algoSel.value];render({arr:data,sorted:[],msg:'Algoritm schimbat. Apasă <strong>Pornește</strong>.'});cmpEl.textContent=0;swapEl.textContent=0;});
+reset();
+
+/* ---------- Quiz ---------- */
+const QUIZ=[
+ {q:'Care metodă NU compară elemente între ele?',
+  opts:['Selecția minimului','Metoda bulelor','Sortarea cu listă de frecvențe'],correct:2,
+  fb:'Sortarea cu listă de frecvențe doar numără aparițiile fiecărei valori — nu face comparări.'},
+ {q:'În metoda bulelor, ce comparăm la fiecare pas?',
+  opts:['Primul cu ultimul element','Două elemente vecine (alăturate)','Fiecare element cu minimul'],correct:1,
+  fb:'Metoda bulelor compară mereu elemente adiacente și le interschimbă dacă e nevoie.'},
+ {q:'Pentru a sorta notele unei clase (întregi de la 1 la 10), cea mai potrivită metodă este:',
+  opts:['Lista de frecvențe','Selecția minimului','Oricare, nu contează'],correct:0,
+  fb:'Valori întregi într-un interval mic (1–10) = situația ideală pentru sortarea cu listă de frecvențe.'},
+ {q:'Selecția minimului se remarcă prin faptul că face:',
+  opts:['Multe interschimbări, puține comparări','Puține interschimbări, multe comparări','Nici comparări, nici interschimbări'],correct:1,
+  fb:'La fiecare pas face o singură interschimbare, dar caută minimul comparând tot restul listei.'}
+];
+const quizEl=document.getElementById('quiz');
+QUIZ.forEach((item,qi)=>{
+  const wrap=document.createElement('div');wrap.style.marginBottom='1.3rem';
+  const q=document.createElement('div');q.className='q';q.textContent=(qi+1)+'. '+item.q;wrap.appendChild(q);
+  const fb=document.createElement('div');fb.className='fb';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=opt;
+    b.addEventListener('click',()=>{
+      [...wrap.querySelectorAll('.opt')].forEach(x=>x.disabled=true);
+      if(oi===item.correct){b.classList.add('correct');fb.style.color='var(--ok)';fb.textContent='✔ Corect! '+item.fb;}
+      else{b.classList.add('wrong');wrap.querySelectorAll('.opt')[item.correct].classList.add('correct');fb.style.color='var(--bad)';fb.textContent='✘ Nu chiar. '+item.fb;}
+    });
+    wrap.appendChild(b);
+  });
+  wrap.appendChild(fb);quizEl.appendChild(wrap);
+});
+</script>
+</body>
+</html>

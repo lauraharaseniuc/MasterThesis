@@ -46,6 +46,8 @@ import {Class10StructuriCpp} from "./resources/class10/class10-structuri-cpp/cla
 import {Class10SubprogrameRecursive} from "./resources/class10/class10-subprograme-recursive/class10-subprograme-recursive";
 import {Class10DivideEtImpera} from "./resources/class10/class10-divide-et-impera/class10-divide-et-impera";
 import {Class10MetodePrelucrare} from "./resources/class10/class10-metode-prelucrare/class10-metode-prelucrare";
+import {Class10CautareBinara} from "./resources/class10/class10-cautare-binara/class10-cautare-binara";
+import {Class9PrelucrariCifre} from "./resources/class9/class9-prelucrari-cifre/class9-prelucrari-cifre";
 import {Class10AlgoritmiUmplere} from "./resources/class10/class10-algoritmi-umplere/class10-algoritmi-umplere";
 import {Class10Greedy} from "./resources/class10/class10-greedy/class10-greedy";
 import {Class10TicSecuritate} from "./resources/class10/class10-tic-securitate/class10-tic-securitate";
@@ -83,6 +85,7 @@ export const routes: Routes = [
   { path: 'clasa9a/principii-elemente-baza', component: Class9PrincipiiElementeBaza },
   { path: 'clasa9a/oop-instantiere', component: Class9OopInstantiere },
   { path: 'clasa9a/prelucrari-fise', component: Class9PrelucrariFise },
+  { path: 'clasa9a/prelucrari-cifre', component: Class9PrelucrariCifre },
   { path: 'clasa10a/planificare-tic', component: Class10PlanificareTic },
   { path: 'clasa9a/principii-de-elaborare-a-unui-program', component: Class9PrincipiiComponent },
   { path: 'clasa9a/subprograme', component: Class9SubprogrameComponent },
@@ -125,6 +128,7 @@ export const routes: Routes = [
   { path: 'clasa10a/subprograme-recursive', component: Class10SubprogrameRecursive },
   { path: 'clasa10a/metoda-divide-et-impera', component: Class10DivideEtImpera },
   { path: 'clasa10a/metode-de-prelucrare-a-listelor-sortate', component: Class10MetodePrelucrare },
+  { path: 'clasa10a/cautare-binara', component: Class10CautareBinara },
   { path: 'clasa10a/algoritmi-de-umplere', component: Class10AlgoritmiUmplere },
   { path: 'clasa10a/metoda-greedy', component: Class10Greedy },
   { path: 'clasa10a/securitate-cibernetica', component: Class10TicSecuritate },

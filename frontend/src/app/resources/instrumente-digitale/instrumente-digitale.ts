@@ -109,5 +109,19 @@ export class InstrumenteDigitale {
       tags: ['Clasa a IX-a', 'Subprograme', 'Python', 'Quiz'],
       icon: 'course',
     },
+    {
+      title: 'Metode de sortare — Pagină interactivă cu vizualizator',
+      description: 'Pagină interactivă despre metodele de sortare a unei liste (selecția minimului, metoda bulelor, sortare cu listă de frecvențe): teorie, cod Python, un vizualizator animat al fiecărui algoritm pas cu pas, secțiune despre complexitate și exerciții de fixare.',
+      url: '/fisere/sortari.html',
+      tags: ['Clasa a IX-a', 'Sortare', 'Python', 'Vizualizare', 'Exerciții interactive'],
+      icon: 'course',
+    },
+    {
+      title: 'Stive și Cozi (LIFO / FIFO) — Pagină interactivă cu laborator',
+      description: 'Pagină interactivă despre stive și cozi: teorie, cod Python și un laborator vizual în care elevii pot adăuga și elimina elemente pentru a observa direct comportamentul LIFO (stivă) și FIFO (coadă), plus recomandări de utilizare și exerciții.',
+      url: '/fisere/stive_cozi.html',
+      tags: ['Clasa a IX-a', 'Stivă', 'Coadă', 'Python', 'Exerciții interactive'],
+      icon: 'course',
+    },
   ];
 }

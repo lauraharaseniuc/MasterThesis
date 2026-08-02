@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stive și Cozi (LIFO / FIFO) · Informatică clasa a IX-a</title>
+<style>
+  :root{
+    --bg:#0f1117;--panel:#1b2030;--panel2:#252b3d;--accent:#f472b6;--accent2:#fb7185;
+    --ok:#4ade80;--warn:#fbbf24;--bad:#f87171;--text:#e7e9ee;--muted:#9aa3b2;
+    --stack:#f472b6;--queue:#38bdf8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  header{background:linear-gradient(135deg,#831843,#9d174d);padding:2.5rem 1rem;text-align:center}
+  header h1{margin:0;font-size:2rem}
+  header p{margin:.4rem 0 0;color:#fbcfe8}
+  .badge{display:inline-block;background:rgba(255,255,255,.15);padding:.2rem .7rem;border-radius:999px;font-size:.8rem;margin-top:.8rem}
+  nav{position:sticky;top:0;z-index:10;background:#0b0d13;display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem;padding:.6rem;border-bottom:1px solid #1b2030}
+  nav a{color:var(--text);text-decoration:none;padding:.4rem .8rem;border-radius:8px;font-size:.9rem}
+  nav a:hover{background:var(--panel)}
+  main{max-width:980px;margin:0 auto;padding:1.5rem 1rem 4rem}
+  section{margin:2.5rem 0;scroll-margin-top:60px}
+  h2{color:var(--accent);border-left:4px solid var(--accent);padding-left:.6rem}
+  h3{color:var(--accent2)}
+  .card{background:var(--panel);border-radius:14px;padding:1.2rem 1.4rem;margin:1rem 0;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+  @media(max-width:720px){.two{grid-template-columns:1fr}}
+  pre{background:#0b0d13;border:1px solid #1b2030;border-radius:10px;padding:1rem;overflow:auto;font-size:.85rem}
+  code{font-family:'Consolas','Courier New',monospace}
+  .kw{color:#c792ea}.fn{color:#82aaff}.str{color:#c3e88d}.num{color:#f78c6c}.cm{color:#546e7a;font-style:italic}
+  table{width:100%;border-collapse:collapse;margin:.5rem 0}
+  th,td{border:1px solid #313a52;padding:.55rem;text-align:left;font-size:.9rem}
+  th{background:var(--panel2)}
+  /* playground */
+  .lab{background:#0b0d13;border:1px solid #1b2030;border-radius:12px;padding:1rem;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+  .lab.queue-lab{justify-content:center}
+  .stack-box{display:flex;flex-direction:column-reverse;gap:6px;width:140px;min-height:230px;border-left:3px solid #475569;border-right:3px solid #475569;border-bottom:3px solid #475569;border-radius:0 0 8px 8px;padding:6px;justify-content:flex-start}
+  .queue-box{display:flex;flex-direction:row;gap:8px;align-items:center;min-height:90px;border:3px dashed #475569;border-radius:10px;padding:10px;min-width:90%;justify-content:flex-start;overflow:auto}
+  .item{background:var(--stack);color:#3b0a23;font-weight:700;border-radius:7px;padding:.6rem .9rem;text-align:center;animation:pop .25s ease;min-width:46px}
+  .queue-box .item{background:var(--queue);color:#062a3d}
+  @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+  .item.leaving{animation:leave .3s forwards}
+  @keyframes leave{to{transform:scale(.3) translateY(-30px);opacity:0}}
+  .tag{font-size:.72rem;color:var(--muted);margin-top:.4rem}
+  .controls{display:flex;flex-wrap:wrap;gap:.5rem;margin:.9rem 0 .3rem}
+  button{background:var(--accent);color:#3b0a23;border:none;padding:.5rem .9rem;border-radius:8px;font-weight:600;cursor:pointer;font-size:.88rem}
+  button:hover{filter:brightness(1.1)}
+  button.q{background:var(--queue);color:#062a3d}
+  button.sec{background:var(--panel2);color:var(--text)}
+  .log{font-size:.84rem;color:var(--muted);background:var(--panel2);border-radius:8px;padding:.5rem .8rem;margin-top:.7rem;min-height:1.4rem}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid #313a52;border-radius:999px;padding:.15rem .6rem;font-size:.78rem;color:var(--muted);margin:.15rem}
+  details{background:var(--panel2);border-radius:8px;padding:.6rem .9rem;margin:.5rem 0}
+  summary{cursor:pointer;font-weight:600;color:var(--accent2)}
+  .quiz .q{font-weight:600;margin-bottom:.6rem}
+  .opt{display:block;width:100%;text-align:left;background:var(--panel2);color:var(--text);border:1px solid #313a52;border-radius:8px;padding:.6rem .8rem;margin:.35rem 0;cursor:pointer;font-size:.9rem}
+  .opt:hover{border-color:var(--accent)}
+  .opt.correct{background:#14532d;border-color:var(--ok)}
+  .opt.wrong{background:#7f1d1d;border-color:var(--bad)}
+  .fb{font-size:.88rem;margin-top:.4rem;min-height:1.2rem}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:2rem 1rem;border-top:1px solid #1b2030}
+</style>
+</head>
+<body>
+<header>
+  <h1>🥞 Stive și Cozi</h1>
+  <p>Modelul conceptual liniar — accesul LIFO și FIFO</p>
+  <div class="badge">Informatică · Clasa a IX-a · profil real, matematică–informatică (Python)</div>
+</header>
+
+<nav>
+  <a href="#intro">Introducere</a>
+  <a href="#stiva">Stiva (LIFO)</a>
+  <a href="#coada">Coada (FIFO)</a>
+  <a href="#lab">Laborator</a>
+  <a href="#cod">Cod Python</a>
+  <a href="#cand">Când folosim?</a>
+  <a href="#exercitii">Exerciții</a>
+</nav>
+
+<main>
+  <section id="intro">
+    <h2>Modelul liniar de organizare a datelor</h2>
+    <div class="card">
+      <p>O <strong>listă</strong> este o colecție de elemente așezate unul după altul. Două cazuri particulare, foarte importante,
+      se deosebesc prin <em>regula de acces</em> la elemente — adică pe unde adăugăm și de unde scoatem:</p>
+      <ul>
+        <li><strong>Stiva (Stack)</strong> — acces <strong>LIFO</strong>: <em>Last In, First Out</em> (ultimul intrat, primul ieșit).</li>
+        <li><strong>Coada (Queue)</strong> — acces <strong>FIFO</strong>: <em>First In, First Out</em> (primul intrat, primul ieșit).</li>
+      </ul>
+      <div>
+        <span class="pill">Conținut 1.1 — Modelul conceptual liniar</span>
+        <span class="pill">Conținut 3.5 — clasa list</span>
+        <span class="pill">CS 1.1 · 2.1 · 4.1 · 5.1</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="stiva">
+    <h2>1. Stiva — LIFO 🥞</h2>
+    <div class="card two">
+      <div>
+        <h3>Ideea</h3>
+        <p>Imaginează-ți o <strong>stivă de farfurii</strong>: pui farfurii una peste alta și, când ai nevoie, o iei mereu pe
+        cea de deasupra — adică ultima adăugată. Nu poți scoate o farfurie din mijloc.</p>
+        <p>Operațiile de bază:</p>
+        <ul>
+          <li><strong>push</strong> — adaug un element în vârf;</li>
+          <li><strong>pop</strong> — scot elementul din vârf;</li>
+          <li><strong>top/peek</strong> — văd vârful fără să-l scot.</li>
+        </ul>
+      </div>
+      <div>
+        <details open><summary>Exemple din viața reală</summary>
+          <ul style="margin:.4rem 0">
+            <li>Butonul „Undo / Anulează ultima acțiune” dintr-o aplicație.</li>
+            <li>Butonul „Înapoi” din browser.</li>
+            <li>Teancul de cărți de pe birou.</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="coada">
+    <h2>2. Coada — FIFO 🎟️</h2>
+    <div class="card two">
+      <div>
+        <h3>Ideea</h3>
+        <p>Imaginează-ți <strong>rândul la casa de bilete de la cinema</strong>: cine ajunge primul este servit primul. Te așezi
+        la coadă și aștepți să-ți vină rândul; oamenii ies din față, intră prin spate.</p>
+        <p>Operațiile de bază:</p>
+        <ul>
+          <li><strong>enqueue</strong> — adaug un element la coadă (în spate);</li>
+          <li><strong>dequeue</strong> — scot elementul din față;</li>
+          <li><strong>front</strong> — văd primul element din rând.</li>
+        </ul>
+      </div>
+      <div>
+        <details open><summary>Exemple din viața reală</summary>
+          <ul style="margin:.4rem 0">
+            <li>Cererile de suport tehnic, tratate în ordinea sosirii.</li>
+            <li>Coada de tipărire la imprimantă.</li>
+            <li>Mașinile oprite la semafor pe o stradă cu sens unic.</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="lab">
+    <h2>🧪 Laborator interactiv</h2>
+    <p>Adaugă și scoate elemente și urmărește <strong>din ce capăt</strong> intră și ies. Compară cele două comportamente!</p>
+    <div class="two">
+      <div class="card">
+        <h3 style="color:var(--stack)">Stiva (LIFO)</h3>
+        <div class="lab"><div class="stack-box" id="stackBox"></div><div class="tag">↑ vârful stivei (push/pop se fac aici)</div></div>
+        <div class="controls">
+          <button onclick="pushStack()">⬆ push</button>
+          <button class="sec" onclick="popStack()">⬇ pop</button>
+          <button class="sec" onclick="clearStack()">↺ golește</button>
+        </div>
+        <div class="log" id="stackLog">Stivă goală.</div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--queue)">Coada (FIFO)</h3>
+        <div class="lab queue-lab">
+          <div class="tag" style="align-self:flex-start">← față (dequeue)&nbsp;&nbsp;&nbsp;&nbsp;spate (enqueue) →</div>
+          <div class="queue-box" id="queueBox"></div>
+        </div>
+        <div class="controls">
+          <button class="q" onclick="enqueue()">⬅ enqueue</button>
+          <button class="sec" onclick="dequeue()">➡ dequeue</button>
+          <button class="sec" onclick="clearQueue()">↺ golește</button>
+        </div>
+        <div class="log" id="queueLog">Coadă goală.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cod">
+    <h2>💻 Implementare în Python cu clasa <code>list</code></h2>
+    <div class="two">
+      <div class="card">
+        <h3>Stiva</h3>
+        <pre><code>stiva = []
+
+stiva.append(<span class="num">10</span>)   <span class="cm"># push</span>
+stiva.append(<span class="num">20</span>)
+stiva.append(<span class="num">30</span>)
+
+varf = stiva[-<span class="num">1</span>]    <span class="cm"># top → 30</span>
+x = stiva.pop()    <span class="cm"># pop → scoate 30</span>
+
+<span class="fn">print</span>(stiva)        <span class="cm"># [10, 20]</span></code></pre>
+        <p style="font-size:.88rem;color:var(--muted)"><code>append()</code> și <code>pop()</code> lucrează la <em>același capăt</em> → comportament LIFO.</p>
+      </div>
+      <div class="card">
+        <h3>Coada</h3>
+        <pre><code>coada = []
+
+coada.append(<span class="str">"Ana"</span>)    <span class="cm"># enqueue</span>
+coada.append(<span class="str">"Bogdan"</span>)
+coada.append(<span class="str">"Carla"</span>)
+
+primul = coada[<span class="num">0</span>]      <span class="cm"># front → "Ana"</span>
+x = coada.pop(<span class="num">0</span>)      <span class="cm"># dequeue → scoate "Ana"</span>
+
+<span class="fn">print</span>(coada)          <span class="cm"># ['Bogdan', 'Carla']</span></code></pre>
+        <p style="font-size:.88rem;color:var(--muted)"><code>append()</code> la spate, <code>pop(0)</code> din față → comportament FIFO.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cand">
+    <h2>🤔 Listă, Stivă sau Coadă — ce aleg?</h2>
+    <div class="card">
+      <table>
+        <tr><th>Structură</th><th>Regula de acces</th><th>Adaug</th><th>Scot</th><th>Folosesc când...</th></tr>
+        <tr><td>Listă (acces direct)</td><td>oriunde, prin index</td><td>oriunde</td><td>de oriunde</td><td>am nevoie de acces direct la orice poziție (ex. al 5-lea elev din catalog)</td></tr>
+        <tr><td>Stivă (LIFO)</td><td>doar din vârf</td><td>în vârf</td><td>din vârf</td><td>contează ultima acțiune: undo, „înapoi”, evaluarea expresiilor</td></tr>
+        <tr><td>Coadă (FIFO)</td><td>doar prin capete</td><td>în spate</td><td>din față</td><td>contează ordinea sosirii: cereri de suport, tipărire, semafor</td></tr>
+      </table>
+      <p style="font-size:.9rem;color:var(--muted)">Alegerea structurii potrivite depinde de <em>ordinea în care trebuie procesate
+      datele</em>, nu de tipul lor.</p>
+    </div>
+  </section>
+
+  <section id="exercitii">
+    <h2>✏️ Verifică-ți înțelegerea</h2>
+    <div class="card quiz" id="quiz"></div>
+    <div class="card">
+      <h3>Probleme propuse (laborator)</h3>
+      <ol>
+        <li>Pe o stivă goală execută: push(3), push(8), push(1), pop, push(5), pop. Ce rămâne în stivă și în ce ordine?</li>
+        <li>Simulează cu o coadă procesarea a 5 cereri de suport care sosesc în ordine. În ce ordine sunt rezolvate?</li>
+        <li>Scrie un program Python care folosește o stivă pentru a verifica dacă un cuvânt este palindrom.</li>
+        <li>Un centru de livrări primește comenzi „normale” (coadă) și anulări „ultima acțiune” (stivă). Proiectează modelul
+        care combină ambele tipuri de acces (CS 6.1).</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Material didactic interactiv · conform programei școlare 2025 de Informatică (CS), clasa a IX-a.<br>
+  Site static — funcționează offline, deschis direct în browser.
+</footer>
+
+<script>
+/* ---------- Stiva ---------- */
+let stack=[], qcount=0, scount=0;
+const stackBox=document.getElementById('stackBox');
+const stackLog=document.getElementById('stackLog');
+function renderStack(){
+  stackBox.innerHTML='';
+  stack.forEach(v=>{const d=document.createElement('div');d.className='item';d.textContent=v;stackBox.appendChild(d);});
+}
+function pushStack(){
+  if(stack.length>=7){stackLog.textContent='Stiva e plină (max 7 pentru demonstrație).';return;}
+  const v=(++scount);stack.push(v);renderStack();
+  stackLog.innerHTML=`<b>push(${v})</b> → elementul ${v} intră în vârf. Vârf = ${v}.`;
+}
+function popStack(){
+  if(stack.length===0){stackLog.textContent='Stiva e goală — nu pot face pop.';return;}
+  const items=stackBox.children;const last=items[items.length-1];
+  const v=stack[stack.length-1];
+  last.classList.add('leaving');
+  setTimeout(()=>{stack.pop();renderStack();
+    stackLog.innerHTML=`<b>pop()</b> → iese ${v} (ultimul intrat). ${stack.length?('Noul vârf = '+stack[stack.length-1]+'.'):'Stivă goală.'}`;
+  },280);
+}
+function clearStack(){stack=[];scount=0;renderStack();stackLog.textContent='Stivă goală.';}
+
+/* ---------- Coada ---------- */
+let queue=[];
+const NAMES=['Ana','Bogdan','Carla','Dan','Elena','Florin','Gina','Horia'];
+const queueBox=document.getElementById('queueBox');
+const queueLog=document.getElementById('queueLog');
+function renderQueue(){
+  queueBox.innerHTML='';
+  queue.forEach(v=>{const d=document.createElement('div');d.className='item';d.textContent=v;queueBox.appendChild(d);});
+}
+function enqueue(){
+  if(queue.length>=7){queueLog.textContent='Coada e plină (max 7 pentru demonstrație).';return;}
+  const v=NAMES[qcount++ % NAMES.length];queue.push(v);renderQueue();
+  queueLog.innerHTML=`<b>enqueue("${v}")</b> → ${v} se așază la coadă (în spate).`;
+}
+function dequeue(){
+  if(queue.length===0){queueLog.textContent='Coada e goală — nu pot face dequeue.';return;}
+  const first=queueBox.children[0];const v=queue[0];
+  first.classList.add('leaving');
+  setTimeout(()=>{queue.shift();renderQueue();
+    queueLog.innerHTML=`<b>dequeue()</b> → iese ${v} (primul sosit). ${queue.length?('La rând acum: '+queue[0]+'.'):'Coadă goală.'}`;
+  },280);
+}
+function clearQueue(){queue=[];qcount=0;renderQueue();queueLog.textContent='Coadă goală.';}
+
+/* ---------- Quiz ---------- */
+const QUIZ=[
+ {q:'Ce înseamnă LIFO?',opts:['Last In, First Out','List In, Full Out','Linear In, Fast Out'],correct:0,
+  fb:'LIFO = ultimul intrat este primul care iese — comportamentul stivei.'},
+ {q:'O coadă (FIFO) este potrivită pentru:',opts:['Funcția „Undo”','Tratarea cererilor în ordinea sosirii','Accesul direct la al 5-lea element'],correct:1,
+  fb:'FIFO păstrează ordinea sosirii — exact ce trebuie pentru cereri de suport sau coada de tipărire.'},
+ {q:'În Python, ce pereche de operații simulează o stivă pe o listă?',opts:['append() și pop(0)','append() și pop()','insert(0) și pop()'],correct:1,
+  fb:'append() și pop() lucrează la același capăt (vârful) → LIFO.'},
+ {q:'Pe o stivă goală fac: push(2), push(7), pop, push(4). Care e vârful?',opts:['2','7','4'],correct:2,
+  fb:'După push(2),push(7) vârful e 7; pop scoate 7; push(4) pune 4 în vârf → vârful e 4.'}
+];
+const quizEl=document.getElementById('quiz');
+QUIZ.forEach((item,qi)=>{
+  const wrap=document.createElement('div');wrap.style.marginBottom='1.3rem';
+  const q=document.createElement('div');q.className='q';q.textContent=(qi+1)+'. '+item.q;wrap.appendChild(q);
+  const fb=document.createElement('div');fb.className='fb';
+  item.opts.forEach((opt,oi)=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=opt;
+    b.addEventListener('click',()=>{
+      [...wrap.querySelectorAll('.opt')].forEach(x=>x.disabled=true);
+      if(oi===item.correct){b.classList.add('correct');fb.style.color='var(--ok)';fb.textContent='✔ Corect! '+item.fb;}
+      else{b.classList.add('wrong');wrap.querySelectorAll('.opt')[item.correct].classList.add('correct');fb.style.color='var(--bad)';fb.textContent='✘ Nu chiar. '+item.fb;}
+    });
+    wrap.appendChild(b);
+  });
+  wrap.appendChild(fb);quizEl.appendChild(wrap);
+});
+</script>
+</body>
+</html>

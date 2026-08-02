@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityPaperModalComponent } from '../../../shared/components/activity-paper-modal/activity-paper-modal.component';
 
 @Component({
   selector: 'app-class10-metode-prelucrare',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './class10-metode-prelucrare.html',
   styleUrl: './class10-metode-prelucrare.scss',
 })
