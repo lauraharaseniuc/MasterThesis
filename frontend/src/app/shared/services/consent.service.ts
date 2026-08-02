@@ -47,6 +47,13 @@ export class ConsentService {
     w.gtag('js', new Date());
     w.gtag('config', GA_MEASUREMENT_ID, { send_page_view: false });
 
+    const currentPath = window.location.hash ? window.location.hash.slice(1) : window.location.pathname;
+    w.gtag('event', 'page_view', {
+      page_path: currentPath,
+      page_location: window.location.href,
+      page_title: document.title
+    });
+
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
