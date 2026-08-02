@@ -19,6 +19,8 @@ export class Class9SubprogrameComponent {
   showFisaSubprograme = false;
   showVideoSubprograme = false;
   showFisaGhidFunctii = false;
+  showVideoDistantaPuncte = false;
+  showVideoFunctiiMatematice = false;
 
   constructor(private dialog: MatDialog) {}
 

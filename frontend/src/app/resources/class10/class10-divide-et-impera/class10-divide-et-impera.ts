@@ -10,6 +10,7 @@ import { ActivityPaperModalComponent } from '../../../shared/components/activity
 })
 export class Class10DivideEtImpera {
   readonly subject: 'informatica' | 'tic' = 'informatica';
+  showVideoHanoi = false;
 
   constructor(private dialog: MatDialog) {}
 

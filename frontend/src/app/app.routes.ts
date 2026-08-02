@@ -48,6 +48,12 @@ import {Class10DivideEtImpera} from "./resources/class10/class10-divide-et-imper
 import {Class10MetodePrelucrare} from "./resources/class10/class10-metode-prelucrare/class10-metode-prelucrare";
 import {Class10CautareBinara} from "./resources/class10/class10-cautare-binara/class10-cautare-binara";
 import {Class9PrelucrariCifre} from "./resources/class9/class9-prelucrari-cifre/class9-prelucrari-cifre";
+import {Class10DictionareAccesDate} from "./resources/class10/class10-dictionare-acces-date/class10-dictionare-acces-date";
+import {Class9SubprogramePredefinite} from "./resources/class9/class9-subprograme-predefinite/class9-subprograme-predefinite";
+import {Class9FisiereLacunar} from "./resources/class9/class9-fisiere-lacunar/class9-fisiere-lacunar";
+import {Class9FisiereEtape} from "./resources/class9/class9-fisiere-etape/class9-fisiere-etape";
+import {Class9ListeAlteMetode} from "./resources/class9/class9-liste-alte-metode/class9-liste-alte-metode";
+import {Class9SortareBulele} from "./resources/class9/class9-sortare-bulele/class9-sortare-bulele";
 import {Class10AlgoritmiUmplere} from "./resources/class10/class10-algoritmi-umplere/class10-algoritmi-umplere";
 import {Class10Greedy} from "./resources/class10/class10-greedy/class10-greedy";
 import {Class10TicSecuritate} from "./resources/class10/class10-tic-securitate/class10-tic-securitate";
@@ -89,6 +95,7 @@ export const routes: Routes = [
   { path: 'clasa10a/planificare-tic', component: Class10PlanificareTic },
   { path: 'clasa9a/principii-de-elaborare-a-unui-program', component: Class9PrincipiiComponent },
   { path: 'clasa9a/subprograme', component: Class9SubprogrameComponent },
+  { path: 'clasa9a/subprograme-predefinite', component: Class9SubprogramePredefinite },
   { path: 'clasa9a/subprograme-fise', component: Class9SubprogrameFise },
   { path: 'clasa9a/prelucrari-ale-numerelor', component: Class9PrelucrariComponent },
   { path: 'clasa9a/prelucrari-oglindit', component: Class9PrelucrariOglindit },
@@ -100,6 +107,10 @@ export const routes: Routes = [
   { path: 'clasa9a/liste-mutabilitate', component: Class9ListeMutabilitate },
   { path: 'clasa9a/liste-copiere-slicing', component: Class9ListeCopiereSlicing },
   { path: 'clasa9a/fisiere-text', component: Class9FisiereComponent },
+  { path: 'clasa9a/fisiere-lacunar', component: Class9FisiereLacunar },
+  { path: 'clasa9a/fisiere-etape', component: Class9FisiereEtape },
+  { path: 'clasa9a/liste-alte-metode', component: Class9ListeAlteMetode },
+  { path: 'clasa9a/sortare-bulele', component: Class9SortareBulele },
   { path: 'clasa9a/fisiere-text-fise', component: Class9FisiereFise },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },
   { path: 'clasa9a/metode-de-sortare-a-elementelor-unei-liste', component: Class9SortareComponent },
@@ -116,6 +127,7 @@ export const routes: Routes = [
   { path: 'clasa9a/componenta-software-a-unui-sistem-de-calcul', component: Class9ComponentaSoftware },
   { path: 'clasa10a/multimi', component: Class10Multimi },
   { path: 'clasa10a/dictionare', component: Class10Dictionare },
+  { path: 'clasa10a/dictionare-acces-date', component: Class10DictionareAccesDate },
   { path: 'clasa10a/tupluri', component: Class10Tupluri },
   { path: 'clasa10a/tupluri-fise', component: Class10TupluriFise },
   { path: 'clasa10a/siruri-de-caractere-in-python', component: Class10SiruriPython },

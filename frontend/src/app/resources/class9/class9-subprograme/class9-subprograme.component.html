@@ -144,6 +144,11 @@
 
     <li>
       caracteristici și repere de utilizare a unor subprograme predefinite în Python pentru operații matematice uzuale și conversii
+      <div class="resource-block">
+        <a [routerLink]="['/clasa9a/subprograme-predefinite']" class="generate-btn modal-btn modal-btn--close">
+          Vezi resursele
+        </a>
+      </div>
       <ul>
         <li>
           evaluarea acurateței și relevanței utilizării funcțiilor de rotunjire (round(), math.floor(), math.ceil()) într-o aplicație de calcul al totalului facturii, în contextul unei discuții despre criterii de precizie financiară
@@ -153,9 +158,16 @@
         </li>
         <li>
           recunoașterea funcțiilor predefinite Python pentru calcule matematice uzuale (abs(), round(), int(), sqrt()), într-un program dat, de rezolvare a unei probleme de calcul numeric
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('recunoașterea funcțiilor predefinite Python pentru calcule matematice uzuale (abs(), round(), int(), sqrt()), într-un program dat, de rezolvare a unei probleme de calcul numeric')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showVideoFunctiiMatematice = !showVideoFunctiiMatematice">
+                {{ showVideoFunctiiMatematice ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+            </div>
+            <div [hidden]="!showVideoFunctiiMatematice" class="video-wrapper">
+              <iframe src="https://www.youtube-nocookie.com/embed/8K20zyej_yE" width="100%" height="450" style="border: none; border-radius: 8px;" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </li>
         <li>
           explicarea modului de funcționare a subprogramelor predefinite pentru conversii și rotunjiri, în contextul unui exemplu practic de prelucrare a notelor școlare, prin precizarea diferenței dintre int() și round()
@@ -165,9 +177,16 @@
         </li>
         <li>
           implementarea subprogramelor cu funcțiile predefinite abs() și sqrt() în rezolvarea unei situații practice de calcul al distanței dintre două puncte într-un plan, folosind ca parametri coordonatele introduse de utilizator
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('implementarea subprogramelor cu funcțiile predefinite abs() și sqrt() în rezolvarea unei situații practice de calcul al distanței dintre două puncte într-un plan, folosind ca parametri coordonatele introduse de utilizator')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showVideoDistantaPuncte = !showVideoDistantaPuncte">
+                {{ showVideoDistantaPuncte ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+            </div>
+            <div [hidden]="!showVideoDistantaPuncte" class="video-wrapper">
+              <iframe src="https://www.youtube-nocookie.com/embed/eirJDC5wI3s" width="100%" height="450" style="border: none; border-radius: 8px;" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </li>
         <li>
           analizarea efectului diferitelor funcții de conversie (int(), float(), str()) asupra acelorași date de intrare, în contextul unei aplicații de procesare a prețurilor produselor folosind subprograme, prin compararea rezultatelor și explicarea diferențelor de tip de date

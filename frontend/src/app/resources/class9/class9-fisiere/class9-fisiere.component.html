@@ -34,20 +34,9 @@
           diverse rezultate obținute tot într-un fișier text (de exemplu pătratul și rădăcina pătrată sau divizorii
           acestuia)
           <div class="resource-block">
-            <div class="resource-block__actions">
-              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaLacunar = !showFisaLacunar">
-                {{ showFisaLacunar ? 'Ascunde resursele' : 'Vezi resursele' }}
-              </button>
-              <a class="fisa-btn" href="/fisere/FISA_DE_LUCRU_fisiere_text.pdf" download [hidden]="!showFisaLacunar">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descarcă
-              </a>
-            </div>
-            <div [hidden]="!showFisaLacunar" style="margin-top: 8px;">
-              <iframe src="/fisere/FISA_DE_LUCRU_fisiere_text.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
+            <a [routerLink]="['/clasa9a/fisiere-lacunar']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
           </div>
         </li>
         <li>compararea timpului de executare a unui program care citește datele dintr-un fișier în raport cu același
@@ -73,20 +62,9 @@
         <li>enumerarea etapelor în lucrul cu un fișier text și a metodelor corespunzătoare în Python: open(), read(),
           write() și close()
           <div class="resource-block">
-            <div class="resource-block__actions">
-              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaFisiere = !showFisaFisiere">
-                {{ showFisaFisiere ? 'Ascunde resursele' : 'Vezi resursele' }}
-              </button>
-              <a class="fisa-btn" href="/fisere/Fisiere_in_Python_citirea_si_scrierea_datelor2.pdf" download [hidden]="!showFisaFisiere">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descarcă
-              </a>
-            </div>
-            <div [hidden]="!showFisaFisiere" style="margin-top: 8px;">
-              <iframe src="/fisere/Fisiere_in_Python_citirea_si_scrierea_datelor2.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
+            <a [routerLink]="['/clasa9a/fisiere-etape']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
           </div>
         </li>
       </ul>

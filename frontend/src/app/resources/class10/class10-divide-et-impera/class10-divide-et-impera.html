@@ -36,9 +36,16 @@
           </button>
         </li>
         <li>aplicarea metodei Divide et impera în rezolvarea unor probleme clasice, precum mutarea obiectelor între suporturi respectând reguli precise (problema turnurilor din Hanoi), determinarea valorii maxime sau minime dintr-o listă de date sau localizarea rapidă a unei informații într-o evidență ordonată (căutarea binară)
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('aplicarea metodei Divide et impera în rezolvarea unor probleme clasice, precum mutarea obiectelor între suporturi (turnurile din Hanoi), determinarea valorii maxime sau minime dintr-o listă sau localizarea rapidă a unei informații într-o evidență ordonată (căutarea binară)')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showVideoHanoi = !showVideoHanoi">
+                {{ showVideoHanoi ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+            </div>
+            <div [hidden]="!showVideoHanoi" class="video-wrapper">
+              <iframe src="https://www.youtube-nocookie.com/embed/s0Y_lpebxGA" width="100%" height="450" style="border: none; border-radius: 8px;" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </li>
         <li>proiectarea unor algoritmi care utilizează metoda Divide et impera pentru contexte reale (de exemplu, căutarea unui document într-o arhivă ordonată), prin definirea adecvată a datelor și a subproblemelor, astfel încât rezultatul să fie obținut împărțind problema inițială în subprobleme mai mici de același tip
           <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('proiectarea unor algoritmi care utilizează metoda Divide et impera pentru contexte reale (de exemplu, căutarea unui document într-o arhivă ordonată), prin definirea adecvată a datelor și a subproblemelor, astfel încât problema inițială să fie împărțită în subprobleme mai mici de același tip')">

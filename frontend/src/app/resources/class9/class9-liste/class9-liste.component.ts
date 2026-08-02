@@ -13,11 +13,11 @@ import { ActivityPaperModalComponent } from '../../../shared/components/activity
 export class Class9ListeComponent {
   readonly subject: 'informatica' | 'tic' = 'informatica';
   showFisaStiva = false;
+  showFisaListeSemafor = false;
   showFisaListe = false;
   showFisaOperatiiListe = false;
   showFisaOperatoriListe = false;
   showFisaFunctiiPredefinite = false;
-  showFisaAlteMetode = false;
   showFisaConcatenareMultiplicare = false;
   showFisaStivaCoada = false;
   showFisaListaStivaCoadaFrecventa = false;
