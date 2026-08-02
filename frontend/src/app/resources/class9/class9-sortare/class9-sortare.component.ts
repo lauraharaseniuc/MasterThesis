@@ -12,6 +12,9 @@ import { ActivityPaperModalComponent } from '../../../shared/components/activity
 })
 export class Class9SortareComponent {
   readonly subject: 'informatica' | 'tic' = 'informatica';
+  showFisaSelectiaMinimului = false;
+  showFisaListaFrecvente = false;
+  showFisaMetodaBulelor = false;
 
   constructor(private dialog: MatDialog) {}
 

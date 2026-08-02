@@ -22,7 +22,6 @@ export class Class9ListeComponent {
   showFisaStivaCoada = false;
   showFisaListaStivaCoadaFrecventa = false;
   showFisaParcurgereGenerare = false;
-  showFisaMetodeCopiereSortare = false;
 
   constructor(private dialog: MatDialog) {}
 

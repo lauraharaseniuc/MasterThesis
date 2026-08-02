@@ -7,6 +7,10 @@ import {Class9PrelucrariOglindit} from "./resources/class9/class9-prelucrari-ogl
 import {Class9ListeComponent} from "./resources/class9/class9-liste/class9-liste.component";
 import {Class9ListeFise} from "./resources/class9/class9-liste-fise/class9-liste-fise";
 import {Class9ListeMutabilitate} from "./resources/class9/class9-liste-mutabilitate/class9-liste-mutabilitate";
+import {Class9ListeCopiereSlicing} from "./resources/class9/class9-liste-copiere-slicing/class9-liste-copiere-slicing";
+import {Class9PrelucrariEuclid} from "./resources/class9/class9-prelucrari-euclid/class9-prelucrari-euclid";
+import {Class9PrelucrariFactoriPrimi} from "./resources/class9/class9-prelucrari-factori-primi/class9-prelucrari-factori-primi";
+import {Class9PrelucrariBaza2} from "./resources/class9/class9-prelucrari-baza2/class9-prelucrari-baza2";
 import {Class9FisiereComponent} from "./resources/class9/class9-fisiere/class9-fisiere.component";
 import {Class9FisiereFise} from "./resources/class9/class9-fisiere-fise/class9-fisiere-fise";
 import {Class9SubprogrameFise} from "./resources/class9/class9-subprograme-fise/class9-subprograme-fise";
@@ -79,9 +83,13 @@ export const routes: Routes = [
   { path: 'clasa9a/subprograme-fise', component: Class9SubprogrameFise },
   { path: 'clasa9a/prelucrari-ale-numerelor', component: Class9PrelucrariComponent },
   { path: 'clasa9a/prelucrari-oglindit', component: Class9PrelucrariOglindit },
+  { path: 'clasa9a/prelucrari-euclid', component: Class9PrelucrariEuclid },
+  { path: 'clasa9a/prelucrari-factori-primi', component: Class9PrelucrariFactoriPrimi },
+  { path: 'clasa9a/prelucrari-baza2', component: Class9PrelucrariBaza2 },
   { path: 'clasa9a/liste', component: Class9ListeComponent },
   { path: 'clasa9a/liste-fise', component: Class9ListeFise },
   { path: 'clasa9a/liste-mutabilitate', component: Class9ListeMutabilitate },
+  { path: 'clasa9a/liste-copiere-slicing', component: Class9ListeCopiereSlicing },
   { path: 'clasa9a/fisiere-text', component: Class9FisiereComponent },
   { path: 'clasa9a/fisiere-text-fise', component: Class9FisiereFise },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },

@@ -296,20 +296,9 @@
           aplicații de procesare a datelor financiare, prin observarea efectelor modificării elementelor asupra listelor
           asociate
           <div class="resource-block">
-            <div class="resource-block__actions">
-              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaMetodeCopiereSortare = !showFisaMetodeCopiereSortare">
-                {{ showFisaMetodeCopiereSortare ? 'Ascunde resursele' : 'Vezi resursele' }}
-              </button>
-              <a class="fisa-btn" href="/fisere/Fisa_6_Clasa_list_metode_copiere_sortare.pdf" download [hidden]="!showFisaMetodeCopiereSortare">
-                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Descarcă
-              </a>
-            </div>
-            <div [hidden]="!showFisaMetodeCopiereSortare" style="margin-top: 8px;">
-              <iframe src="/fisere/Fisa_6_Clasa_list_metode_copiere_sortare.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
-            </div>
+            <a [routerLink]="['/clasa9a/liste-copiere-slicing']" class="generate-btn modal-btn modal-btn--close">
+              Vezi resursele
+            </a>
           </div>
         </li>
         <li>analizarea efectelor utilizării metodelor copy() și sort() asupra conținutului listelor, în contextul unei

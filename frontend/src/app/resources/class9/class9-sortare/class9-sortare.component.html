@@ -13,9 +13,22 @@
       <ul>
         <li>identificarea caracteristicilor metodei de sortare prin selecția minimului aplicată scenariului de aranjare
           a finaliștilor unui concurs de talente în ordinea crescătoarea a scorului obținut
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('identificarea caracteristicilor metodei de sortare prin selecția minimului aplicată scenariului de aranjare a finaliștilor unui concurs de talente în ordinea crescătoarea a scorului obținut')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaSelectiaMinimului = !showFisaSelectiaMinimului">
+                {{ showFisaSelectiaMinimului ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/fisa1_selectia_minimului.pdf" download [hidden]="!showFisaSelectiaMinimului">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaSelectiaMinimului" style="margin-top: 8px;">
+              <iframe src="/fisere/fisa1_selectia_minimului.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>explicarea procesului de aranjare în ordine crescătoare a șapte comenzi online în funcție de valoarea
           comenzilor, folosind selecția minimului, cu reprezentarea ordinii comenzilor după fiecare parcurgere
@@ -46,9 +59,22 @@
         <li>implementarea algoritmului de sortare cu listă de frecvențe pentru ordonarea notelor la testul de la
           informatică al unei clase de elevi (note întregi între 1 și 10), cu construirea listei de frecvențe prin
           numărarea frecvenței fiecărei note și afișarea notelor sortate prin parcurgerea listei
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('implementarea algoritmului de sortare cu listă de frecvențe pentru ordonarea notelor la testul de la informatică al unei clase de elevi (note întregi între 1 și 10), cu construirea listei de frecvențe prin numărarea frecvenței fiecărei note și afișarea notelor sortate prin parcurgerea listei')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaListaFrecvente = !showFisaListaFrecvente">
+                {{ showFisaListaFrecvente ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/fisa2_lista_frecvente.pdf" download [hidden]="!showFisaListaFrecvente">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaListaFrecvente" style="margin-top: 8px;">
+              <iframe src="/fisere/fisa2_lista_frecvente.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>argumentarea deciziei de utilizare a metodei de sortare cu listă de frecvențe pentru un sistem de triaj al
           pacienților din camera de urgență a unui spital, sistem bazat pe ordonarea descrescătoare a gravității stării
@@ -75,9 +101,22 @@
         <li>recunoașterea caracteristicilor metodei bulelor (compararea elementelor adiacente, interschimbarea celor
           aflate în ordine necorespunzătoare) aplicată unui context real, precum ordonarea înălțimilor elevilor unei
           clase
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('recunoașterea caracteristicilor metodei bulelor (compararea elementelor adiacente, interschimbarea celor aflate în ordine necorespunzătoare) aplicată unui context real, precum ordonarea înălțimilor elevilor unei clase')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaMetodaBulelor = !showFisaMetodaBulelor">
+                {{ showFisaMetodaBulelor ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/fisa3_metoda_bulelor.pdf" download [hidden]="!showFisaMetodaBulelor">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaMetodaBulelor" style="margin-top: 8px;">
+              <iframe src="/fisere/fisa3_metoda_bulelor.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>aplicarea metodei bulelor pentru ordonarea tuturor secvențelor de numere pozitive dintr-o listă (de exemplu,
           o listă de temperaturi înregistrate într-un oraș), prin implementarea algoritmului într-un limbaj de
