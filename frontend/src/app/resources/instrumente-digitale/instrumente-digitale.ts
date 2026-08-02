@@ -102,5 +102,12 @@ export class InstrumenteDigitale {
       tags: ['Clasa a IX-a', 'Kahoot', 'Quiz', 'Joc educativ'],
       icon: 'quiz',
     },
+    {
+      title: 'Subprograme în Python — Platformă interactivă de învățare',
+      description: 'Platformă interactivă dedicată subprogramelor (funcțiilor) în Python: definire, parametri, valoare returnată, variabile locale și globale. Include lecții teoretice, probleme rezolvate, o secțiune despre greșeli frecvente (SyntaxError, TypeError, NameError, UnboundLocalError), un ghid rapid de sintaxă și un quiz cu 20 de întrebări.',
+      url: 'https://subprograme-python-g39g9psy5-mirunas-projects-d263c8d3.vercel.app/',
+      tags: ['Clasa a IX-a', 'Subprograme', 'Python', 'Quiz'],
+      icon: 'course',
+    },
   ];
 }

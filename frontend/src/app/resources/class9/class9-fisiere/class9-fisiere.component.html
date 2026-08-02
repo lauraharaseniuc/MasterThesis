@@ -12,9 +12,16 @@
       caracteristici ale unor modalități de bază de comunicare cu programul: fișiere
       <ul>
         <li>explicarea mecanismelor de citire și scriere într-un fișier și a noțiunii de "sfârșit de fișier"
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('explicarea mecanismelor de citire și scriere într-un fișier și a noțiunii de &quot;sfârșit de fișier&quot;')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showVideoSfarsitFisier = !showVideoSfarsitFisier">
+                {{ showVideoSfarsitFisier ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+            </div>
+            <div [hidden]="!showVideoSfarsitFisier" class="video-wrapper">
+              <iframe src="https://www.youtube-nocookie.com/embed/LUKHyL7f9fA" width="100%" height="450" style="border: none; border-radius: 8px;" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </li>
       </ul>
     </li>
@@ -26,9 +33,22 @@
         <li>completarea unui program "lacunar" care citește o valoare întreagă dintr-un fișier text pentru a scrie
           diverse rezultate obținute tot într-un fișier text (de exemplu pătratul și rădăcina pătrată sau divizorii
           acestuia)
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('completarea unui program &quot;lacunar&quot; care citește o valoare întreagă dintr-un fișier text pentru a scrie diverse rezultate obținute tot într-un fișier text (de exemplu pătratul și rădăcina pătrată sau divizorii acestuia)')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaLacunar = !showFisaLacunar">
+                {{ showFisaLacunar ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/FISA_DE_LUCRU_fisiere_text.pdf" download [hidden]="!showFisaLacunar">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaLacunar" style="margin-top: 8px;">
+              <iframe src="/fisere/FISA_DE_LUCRU_fisiere_text.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
         <li>compararea timpului de executare a unui program care citește datele dintr-un fișier în raport cu același
           program care citește datele de la tastatură

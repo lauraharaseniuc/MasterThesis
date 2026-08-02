@@ -60,5 +60,19 @@ export class InstrumenteDigitaleTic {
       tags: ['Securitate cibernetică', 'Joc educativ', 'Clasa a IX-a', 'Clasa a X-a'],
       icon: 'security',
     },
+    {
+      title: 'TIC Liceu — Platformă de recapitulare, clasa a IX-a',
+      description: 'Platformă educațională interactivă care acoperă principalele conținuturi TIC pentru clasa a IX-a: componente hardware, sisteme de operare și software, comunicare digitală și inteligență artificială, documente și prezentări digitale. Include lecții structurate, activități practice și un quiz recapitulativ cu 20 de întrebări.',
+      url: 'https://tic-liceu-clasa9.vercel.app/',
+      tags: ['Clasa a IX-a', 'Hardware', 'Software', 'Comunicare digitală', 'Quiz'],
+      icon: 'course',
+    },
+    {
+      title: 'PC Builder Challenge — Joc despre componentele hardware',
+      description: 'Joc educativ interactiv despre componentele hardware ale unui calculator: identificare, asamblare și sortare a pieselor, structurat în 5 niveluri progresive. Trei moduri de joc (Classic, Speed Run, Hardcore), cu sistem de punctaj, vieți și clasament.',
+      url: 'https://pc-game-pi.vercel.app/',
+      tags: ['Clasa a IX-a', 'Hardware', 'Software', 'Joc educativ'],
+      icon: 'game',
+    },
   ];
 }

@@ -11,6 +11,9 @@ import {Class9ListeCopiereSlicing} from "./resources/class9/class9-liste-copiere
 import {Class9PrelucrariEuclid} from "./resources/class9/class9-prelucrari-euclid/class9-prelucrari-euclid";
 import {Class9PrelucrariFactoriPrimi} from "./resources/class9/class9-prelucrari-factori-primi/class9-prelucrari-factori-primi";
 import {Class9PrelucrariBaza2} from "./resources/class9/class9-prelucrari-baza2/class9-prelucrari-baza2";
+import {Class9PrincipiiElementeBaza} from "./resources/class9/class9-principii-elemente-baza/class9-principii-elemente-baza";
+import {Class9OopInstantiere} from "./resources/class9/class9-oop-instantiere/class9-oop-instantiere";
+import {Class9PrelucrariFise} from "./resources/class9/class9-prelucrari-fise/class9-prelucrari-fise";
 import {Class9FisiereComponent} from "./resources/class9/class9-fisiere/class9-fisiere.component";
 import {Class9FisiereFise} from "./resources/class9/class9-fisiere-fise/class9-fisiere-fise";
 import {Class9SubprogrameFise} from "./resources/class9/class9-subprograme-fise/class9-subprograme-fise";
@@ -77,6 +80,9 @@ export const routes: Routes = [
   { path: 'clasa9a/planificare-tic', component: Class9PlanificareTic },
   { path: 'clasa9a/planificare-informatica-stiinte-ale-naturii', component: Class9PlanificareInfoStiinte },
   { path: 'clasa9a/principii-fise', component: Class9PrincipiiFise },
+  { path: 'clasa9a/principii-elemente-baza', component: Class9PrincipiiElementeBaza },
+  { path: 'clasa9a/oop-instantiere', component: Class9OopInstantiere },
+  { path: 'clasa9a/prelucrari-fise', component: Class9PrelucrariFise },
   { path: 'clasa10a/planificare-tic', component: Class10PlanificareTic },
   { path: 'clasa9a/principii-de-elaborare-a-unui-program', component: Class9PrincipiiComponent },
   { path: 'clasa9a/subprograme', component: Class9SubprogrameComponent },

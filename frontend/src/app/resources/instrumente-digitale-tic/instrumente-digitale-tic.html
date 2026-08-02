@@ -10,7 +10,20 @@
       <div class="tool-card">
 
         <div class="tool-card__icon">
-          @if (tool.icon === 'design') {
+          @if (tool.icon === 'game') {
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="2" y="8" width="24" height="14" rx="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 15h4M11 13v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="18" cy="14" r="1.2" fill="currentColor"/>
+              <circle cx="21" cy="16" r="1.2" fill="currentColor"/>
+            </svg>
+          } @else if (tool.icon === 'course') {
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 6h20M4 10h20M4 14h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="21" cy="20" r="5" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 20l1.5 1.5L23 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          } @else if (tool.icon === 'design') {
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
               <circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="2"/>
               <path d="M9 19l3-8 3 5 2-3 2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

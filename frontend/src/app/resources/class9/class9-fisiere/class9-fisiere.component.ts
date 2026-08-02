@@ -13,6 +13,8 @@ import { ActivityPaperModalComponent } from '../../../shared/components/activity
 export class Class9FisiereComponent {
   readonly subject: 'informatica' | 'tic' = 'informatica';
   showFisaFisiere = false;
+  showVideoSfarsitFisier = false;
+  showFisaLacunar = false;
 
   constructor(private dialog: MatDialog) {}
 
