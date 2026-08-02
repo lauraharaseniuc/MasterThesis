@@ -59,6 +59,28 @@
   background: transparent;
 }
 
+.legal-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748B;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: #EFF6FF;
+    color: #1A56DB;
+    text-decoration: none;
+  }
+}
+
 .menu {
   list-style: none;
   display: flex;
@@ -223,6 +245,14 @@
     display: none;
   }
 
+  .legal-link__text {
+    display: none;
+  }
+
+  .legal-link {
+    padding: 6px;
+  }
+
   .nav-toggle {
     display: flex;
   }
@@ -290,6 +320,20 @@
 
   .mobile-nav-body {
     padding: 0.5rem 0 2rem;
+  }
+
+  .mnav-footer {
+    padding: 1rem 1.25rem 0;
+
+    a {
+      font-size: 0.82rem;
+      color: #94A3B8;
+      text-decoration: none;
+
+      &:hover {
+        color: #1A56DB;
+      }
+    }
   }
 
   .mnav-group {

@@ -76,8 +76,11 @@ import {Class9ProgramaTic} from "./resources/class9/class9-programa-tic/class9-p
 import {Class10ProgramaTic} from "./resources/class10/class10-programa-tic/class10-programa-tic";
 import {InstrumenteDigitale} from "./resources/instrumente-digitale/instrumente-digitale";
 import {InstrumenteDigitaleTic} from "./resources/instrumente-digitale-tic/instrumente-digitale-tic";
+import {TermeniSiConditii} from "./legal/termeni-si-conditii/termeni-si-conditii";
 import {Class9PlanificareTic} from "./resources/class9/class9-planificare-tic/class9-planificare-tic";
 import {Class9PlanificareInfoStiinte} from "./resources/class9/class9-planificare-info-stiinte/class9-planificare-info-stiinte";
+import {Class9PlanificareInfoMatematica} from "./resources/class9/class9-planificare-info-matematica/class9-planificare-info-matematica";
+import {Class9PlanificareInfoMatematicaMilitara} from "./resources/class9/class9-planificare-info-matematica-militara/class9-planificare-info-matematica-militara";
 import {Class9PrincipiiFise} from "./resources/class9/class9-principii-fise/class9-principii-fise";
 import {Class10PlanificareTic} from "./resources/class10/class10-planificare-tic/class10-planificare-tic";
 
@@ -93,8 +96,11 @@ export const routes: Routes = [
   { path: 'clasa10a/programa-tic', component: Class10ProgramaTic },
   { path: 'instrumente-digitale', component: InstrumenteDigitale },
   { path: 'instrumente-digitale-tic', component: InstrumenteDigitaleTic },
+  { path: 'termeni-si-conditii', component: TermeniSiConditii },
   { path: 'clasa9a/planificare-tic', component: Class9PlanificareTic },
   { path: 'clasa9a/planificare-informatica-stiinte-ale-naturii', component: Class9PlanificareInfoStiinte },
+  { path: 'clasa9a/planificare-informatica-matematica-informatica', component: Class9PlanificareInfoMatematica },
+  { path: 'clasa9a/planificare-informatica-matematica-informatica-militara', component: Class9PlanificareInfoMatematicaMilitara },
   { path: 'clasa9a/principii-fise', component: Class9PrincipiiFise },
   { path: 'clasa9a/principii-elemente-baza', component: Class9PrincipiiElementeBaza },
   { path: 'clasa9a/oop-instantiere', component: Class9OopInstantiere },

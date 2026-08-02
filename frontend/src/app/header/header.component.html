@@ -26,10 +26,10 @@
                 <li [routerLink]="['/clasa9a/programa-informatica']" style="cursor: pointer;">Programa</li>
                 <li class="has-submenu">Planificări calendaristice
                   <ul class="dropdown right">
-                    <li>Matematică-informatică</li>
+                    <li [routerLink]="['/clasa9a/planificare-informatica-matematica-informatica']" style="cursor: pointer;">Matematică-informatică</li>
                     <li [routerLink]="['/clasa9a/planificare-informatica-stiinte-ale-naturii']" style="cursor: pointer;">Științe ale naturii</li>
                     <li>Matematică-informatică cu predarea disciplinei informatică în regim intensiv</li>
-                    <li>Matematică-informatică militară</li>
+                    <li [routerLink]="['/clasa9a/planificare-informatica-matematica-informatica-militara']" style="cursor: pointer;">Matematică-informatică militară</li>
                   </ul>
                 </li>
                 <li>Proiecte ale unităților de învățare</li>
@@ -102,6 +102,15 @@
       </ul>
     </nav>
 
+    <a [routerLink]="['/termeni-si-conditii']" class="legal-link" title="Termeni și condiții">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M4 1.5h6l3 3v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M9.5 1.5v3h3" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M5 8.5h6M5 11h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span class="legal-link__text">Termeni și condiții</span>
+    </a>
+
     <button
       class="nav-toggle"
       type="button"
@@ -136,10 +145,10 @@
               <details class="mnav-subgroup">
                 <summary>Planificări calendaristice</summary>
                 <ul class="mnav-list">
-                  <li class="mnav-plain">Matematică-informatică</li>
+                  <li><a [routerLink]="['/clasa9a/planificare-informatica-matematica-informatica']">Matematică-informatică</a></li>
                   <li><a [routerLink]="['/clasa9a/planificare-informatica-stiinte-ale-naturii']">Științe ale naturii</a></li>
                   <li class="mnav-plain">Matematică-informatică cu predarea disciplinei informatică în regim intensiv</li>
-                  <li class="mnav-plain">Matematică-informatică militară</li>
+                  <li><a [routerLink]="['/clasa9a/planificare-informatica-matematica-informatica-militara']">Matematică-informatică militară</a></li>
                 </ul>
               </details>
             </li>
@@ -234,6 +243,10 @@
           <li><a [routerLink]="['/instrumente-digitale-tic']">Instrumente digitale</a></li>
         </ul>
       </details>
+
+      <div class="mnav-footer">
+        <a [routerLink]="['/termeni-si-conditii']">Termeni și condiții</a>
+      </div>
     </div>
   </nav>
 </header>
