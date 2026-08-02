@@ -3,7 +3,7 @@
     <span class="lesson-subject">Informatică · Clasa a IX-a</span>
     <h1>3. Prelucrări ale numerelor</h1>
     <a [routerLink]="['/clasa9a/prelucrari-fise']" class="lesson-header__fise-link">
-      Fișe de lucru pentru acest conținut
+      Resurse pentru acest conținut
     </a>
   </div>
   <p class="lesson-section-label">Exemple de activități de învățare</p>
@@ -199,9 +199,22 @@
         <li>reprezentarea în pseudocod a algoritmului lui Euclid pentru determinarea celui mare divizor comun a două
           numere
           naturale nenule citite, pentru utilizarea acestuia în contextul simplificării unei fracții
-          <button class="generate-btn modal-btn modal-btn--close" (click)="generateActivity('reprezentarea în pseudocod a algoritmului lui Euclid pentru determinarea celui mare divizor comun a două numere naturale nenule citite, pentru utilizarea acestuia în contextul simplificării unei fracții')">
-            Generează fișă
-          </button>
+          <div class="resource-block">
+            <div class="resource-block__actions">
+              <button class="generate-btn modal-btn modal-btn--close" (click)="showFisaEuclidPseudocod = !showFisaEuclidPseudocod">
+                {{ showFisaEuclidPseudocod ? 'Ascunde resursele' : 'Vezi resursele' }}
+              </button>
+              <a class="fisa-btn" href="/fisere/Fisa_1_Algoritmul_lui_Euclid.pdf" download [hidden]="!showFisaEuclidPseudocod">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <path d="M7.5 1v8M4 6l3.5 3.5L11 6M2 13h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Descarcă
+              </a>
+            </div>
+            <div [hidden]="!showFisaEuclidPseudocod" style="margin-top: 8px;">
+              <iframe src="/fisere/Fisa_1_Algoritmul_lui_Euclid.pdf" width="100%" height="600px" style="border: none; border-radius: 8px;"></iframe>
+            </div>
+          </div>
         </li>
       </ul>
     </li>

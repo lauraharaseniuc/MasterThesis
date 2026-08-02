@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Fișă de lucru - Sortări în Python</title>
+    <style>
+
+        :root {
+            --text: #202124;
+            --muted: #5f6368;
+            --line: #d9dce1;
+            --bg: #ffffff;
+            --panel: #f7f8fa;
+            --panel2: #eef3ff;
+            --blue: #1a73e8;
+            --green: #188038;
+            --yellow: #f9ab00;
+            --red: #c5221f;
+            --code: #f1f3f4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 22px;
+            background: #fff;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .cover {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel);
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .cover-tag {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: .04em;
+            margin-bottom: 8px;
+        }
+
+        .cover h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.15;
+        }
+
+        .cover h1 em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .cover p {
+            color: var(--muted);
+            margin: 10px 0 0;
+        }
+
+        .cover-meta {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .cover-meta div {
+            border: 1px solid var(--line);
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .cover-meta span {
+            color: var(--text);
+            font-weight: bold;
+        }
+
+        .student-box {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .student-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-field label {
+            width: 120px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .student-input {
+            flex: 1;
+            min-height: 34px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 6px 8px;
+            font: inherit;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0 22px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .controls button {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .controls button:hover {
+            background: var(--panel2);
+        }
+
+        .small-note {
+            color: var(--muted);
+            font-size: 12px;
+            align-self: center;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 12px;
+        }
+
+        .section-label .num,
+        .badge,
+        .ex-num {
+            display: inline-block;
+            border-radius: 999px;
+            background: var(--panel2);
+            color: var(--blue);
+            padding: 4px 9px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .section-label h2 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 24px 0 10px;
+        }
+
+        h4 {
+            margin: 18px 0 8px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .box,
+        .inline-note,
+        .teacher-section {
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin: 14px 0;
+            background: var(--panel);
+        }
+
+        .box strong:first-child {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .box-tip {
+            border-left-color: var(--yellow);
+            background: #fff8e1;
+        }
+
+        .box-warn {
+            border-left-color: var(--red);
+            background: #fce8e6;
+        }
+
+        .teacher-section {
+            border-left-color: var(--green);
+            background: #e6f4ea;
+        }
+
+        .method-card,
+        .exercise {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: white;
+            margin: 18px 0;
+            overflow: hidden;
+        }
+
+        .method-card-header,
+        .exercise-head {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 16px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .method-card-header h3,
+        .exercise-head p {
+            margin: 0;
+        }
+
+        .method-num,
+        .step-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--blue);
+            color: white;
+            font-weight: bold;
+        }
+
+        .method-card-body,
+        .exercise-body {
+            padding: 14px 16px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            padding: 10px 12px;
+        }
+
+        .step-content strong {
+            display: block;
+        }
+
+        .step-content p {
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--line);
+            padding: 9px 10px;
+            vertical-align: top;
+        }
+
+        thead th,
+        .compare-table th,
+        .trace-table th {
+            background: var(--panel);
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) td {
+            background: #fafafa;
+        }
+
+        .trace-table td,
+        .trace-table th {
+            text-align: center;
+        }
+
+        .trace-table .step-label {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        .good {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .ok {
+            color: #b06000;
+            font-weight: bold;
+        }
+
+        .bad {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .code-wrap {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--code);
+            margin: 14px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid var(--line);
+            background: #e8eaed;
+            padding: 7px 10px;
+            color: var(--muted);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        pre,
+        .teacher-section .answer {
+            margin: 0;
+            padding: 12px 14px;
+            overflow-x: auto;
+            background: var(--code);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.55;
+            white-space: pre;
+        }
+
+        code {
+            background: var(--code);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 4px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: .92em;
+        }
+
+        .kw, .fn, .st, .cm, .nm, .lang {
+            color: inherit;
+            font-style: normal;
+        }
+
+        .array-visual {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 0 18px;
+        }
+
+        .arr-cell {
+            position: relative;
+            min-width: 38px;
+            min-height: 36px;
+            padding: 5px;
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Consolas, "Courier New", monospace;
+            font-weight: bold;
+        }
+
+        .arr-cell.active,
+        .arr-cell.comparing {
+            border-color: var(--yellow);
+            background: #fff8e1;
+        }
+
+        .arr-cell.sorted {
+            border-color: var(--green);
+            background: #e6f4ea;
+        }
+
+        .arr-cell .idx {
+            position: absolute;
+            bottom: -16px;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        .array-label,
+        .swap-arrow {
+            color: var(--muted);
+            font-weight: bold;
+        }
+
+        .answer-space,
+        .table-answer {
+            width: 100%;
+            border: 1px solid #b8c0cc;
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 9px;
+            font: inherit;
+            resize: vertical;
+        }
+
+        .answer-space {
+            min-height: 90px;
+            display: block;
+        }
+
+        .answer-space.code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .answer-space.large {
+            min-height: 155px;
+        }
+
+        .answer-space.xlarge {
+            min-height: 230px;
+        }
+
+        .table-answer {
+            min-width: 120px;
+            min-height: 42px;
+            font-size: 13px;
+        }
+
+        ul,
+        ol {
+            margin: 8px 0;
+            padding-left: 22px;
+        }
+
+        li {
+            margin: 4px 0;
+        }
+
+        .two-col,
+        .three-col {
+            display: grid;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .two-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .divider,
+        .dashed-divider {
+            border: none;
+            border-top: 1px solid var(--line);
+            margin: 28px 0;
+        }
+
+        footer {
+            margin-top: 26px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 12px;
+            }
+
+            .cover-meta,
+            .student-box,
+            .two-col,
+            .three-col {
+                grid-template-columns: 1fr;
+            }
+
+            .cover h1 {
+                font-size: 28px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                max-width: none;
+                padding: 0;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .cover,
+            .student-box,
+            .method-card,
+            .exercise,
+            .box {
+                break-inside: avoid;
+            }
+
+            textarea,
+            input {
+                border: 1px solid #999 !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- ══ COVER ══ -->
+<div class="cover">
+    <div class="cover-tag">Informatică · clasa a IX-a </div>
+    <h1>Metode de Sortare<br/><em>în Python</em></h1>
+    <p>Teorie · Tabele de urmărire · Exemple rezolvate · Exerciții · Barem profesor</p>
+    <div class="cover-meta">
+        <div>Competențe specifice <br/><span>CS 1.2 · CS 2.2 · CS 3.2 · CS 4.2 · CS 5.2 · CS 6.2</span></div>
+        <div>Domeniu de conținut <br/><span>2.4 – Metode de sortare</span></div>
+        <div>Limbaj <br/><span>Python 3</span></div>
+        <div>Timp estimat <br/><span>50 min (elev) + 15 min (profesor)</span></div>
+    </div>
+</div>
+<!--Informatii despre elev-->
+<div class="student-box">
+    <div class="student-field"><label>Nume și prenume</label><input aria-label="Nume și prenume"
+                                                                    class="student-input answer-input"
+                                                                    data-key="student-1" type="text"/></div>
+    <div class="student-field"><label>Clasa</label><input aria-label="Clasa" class="student-input answer-input"
+                                                          data-key="student-2" type="text"/></div>
+    <div class="student-field"><label>Data</label><input aria-label="Data" class="student-input answer-input"
+                                                         data-key="student-3" type="text"/></div>
+    <div class="student-field"><label>Nota</label><input aria-label="Nota" class="student-input answer-input"
+                                                         data-key="student-4" type="text"/></div>
+</div>
+
+<div class="controls no-print">
+    <button id="printBtn" type="button">Printează / salvează PDF</button>
+    <button id="clearBtn" type="button">Șterge răspunsurile</button>
+    <span class="small-note">Răspunsurile scrise în căsuțe se salvează automat în browserul tău.</span>
+</div>
+
+<div class="body">
+    <!--TEORIE-->
+    <div class="section-label">
+        <span class="num">TEORIE</span>
+
+        <h2>Ce înseamnă sortarea?</h2>
+    </div>
+    <div class="box box-def">
+        <strong>Definiție</strong>
+        <strong>Sortarea</strong> (ordonarea) este procesul de aranjare a elementelor unei liste într-o ordine bine
+        definită — crescătoare sau descrescătoare. Este una dintre operațiile fundamentale în informatică, prezentă în
+        cataloage, clasamente, motoare de căutare și orice aplicație care gestionează date.
+    </div>
+    <p>Vom studia <strong>trei metode de sortare</strong>, fiecare cu caracteristici,
+        avantaje și domenii de aplicare distincte:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Metoda</th>
+            <th>Idee principală</th>
+            <th>Când este eficientă</th>
+            <th>Complexitate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Selecția minimului</td>
+            <td>Găsește minimul și îl plasează pe poziția corectă</td>
+            <td>Liste mici, scop didactic</td>
+            <td>O(n²)</td>
+        </tr>
+
+        <tr>
+            <td>Metoda bulelor</td>
+            <td>Compară vecini și îi interschimbă dacă e nevoie</td>
+            <td>Liste aproape sortate</td>
+            <td>O(n²) / O(n)*</td>
+        </tr>
+
+        <tr>
+            <td>Sortare cu frecvențe</td>
+            <td>Numără aparițiile fiecărei valori posibile</td>
+            <td>Valori întregi într-un interval mic</td>
+            <td>O(n + k)</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="box box-tip">
+        <strong>Notația O( ) — complexitate</strong>
+        O(n²) înseamnă că pentru n=100 elemente se fac ~10.000 operații. O(n+k) este mult mai rapid când k (intervalul
+        valorilor) este mic. *Metoda bulelor devine O(n) cu optimizare de oprire timpurie, pe liste deja sortate.
+    </div>
+    <!-- ------------------------------------------------------ -->
+    <hr class="divider"/>
+    <!--METODA 1 -->
+    <div class="method-card">
+        <div class="method-card-header sel">
+            <div class="method-num sel">1</div>
+
+            <h3>Selecția minimului</h3>
+
+        </div>
+        <div class="method-card-body">
+            <p>La fiecare pas <code>i</code>, căutăm <strong>minimul din subșirul nesortat</strong> (pozițiile <code>i..n-1</code>)
+                și îl plasăm pe poziția <code>i</code> prin interschimbare. Elementele de la <code>0</code> la
+                <code>i-1</code> sunt deja sortate.</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <strong>Pornești de la poziția i = 0</strong>
+                        <p>Considerăm tot șirul nesortat. Bariera „sortat | nesortat" începe de la stânga.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <strong>Găsești minimul din pozițiile i..n-1</strong>
+                        <p>Parcurgi elementele rămase și rețin poziția celui mai mic element.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <strong>Interschimbi minimul cu elementul de pe poziția i</strong>
+                        <p>Dacă minimul nu este deja pe poziția i, realizezi interschimbarea.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <strong>Crești i cu 1 și repeți</strong>
+                        <p>Continuă până când i ajunge la n-2. Ultimul element este automat pe loc.</p>
+                    </div>
+                </div>
+
+            </div>
+            <h3>Urmărire vizuală — selecția minimului pe [<span>64, 25, 12, 22, 11</span>]</h3>
+            <p>Celulele <span>verde</span> = deja sortate · <span>portocaliu</span> = minimul selectat la acest pas</p>
+            <div>
+                <p><strong>Pas i=0</strong> — minim = 11 (poz. 4) → interschimb cu poz. 0</p>
+                <div class="array-visual">
+                    <span class="array-label">înainte:</span>
+                    <div class="arr-cell">64<span class="idx">0</span></div>
+                    <div class="arr-cell">25<span class="idx">1</span></div>
+                    <div class="arr-cell">12<span class="idx">2</span></div>
+                    <div class="arr-cell">22<span class="idx">3</span></div>
+                    <div class="arr-cell active">11<span class="idx">4</span></div>
+                    <span class="swap-arrow">⇄</span>
+                    <span class="array-label">după:</span>
+                    <div class="arr-cell sorted">11<span class="idx">0</span></div>
+                    <div class="arr-cell">25<span class="idx">1</span></div>
+                    <div class="arr-cell">12<span class="idx">2</span></div>
+                    <div class="arr-cell">22<span class="idx">3</span></div>
+                    <div class="arr-cell">64<span class="idx">4</span></div>
+                </div>
+
+                <p><strong>Pas i=1</strong> — minim = 12 (poz. 2) → interschimb cu poz. 1</p>
+                <div class="array-visual">
+                    <span class="array-label">înainte:</span>
+                    <div class="arr-cell sorted">11<span class="idx">0</span></div>
+                    <div class="arr-cell">25<span class="idx">1</span></div>
+                    <div class="arr-cell active">12<span class="idx">2</span></div>
+                    <div class="arr-cell">22<span class="idx">3</span></div>
+                    <div class="arr-cell">64<span class="idx">4</span></div>
+                    <span class="swap-arrow">⇄</span>
+                    <span class="array-label">după:</span>
+                    <div class="arr-cell sorted">11<span class="idx">0</span></div>
+                    <div class="arr-cell sorted">12<span class="idx">1</span></div>
+                    <div class="arr-cell">25<span class="idx">2</span></div>
+                    <div class="arr-cell">22<span class="idx">3</span></div>
+                    <div class="arr-cell">64<span class="idx">4</span></div>
+                </div>
+
+                <p><strong>Pas i=2</strong> — minim = 22 (poz. 3) → interschimb cu poz. 2</p>
+                <div class="array-visual">
+                    <span class="array-label">după:</span>
+                    <div class="arr-cell sorted">11<span class="idx">0</span></div>
+                    <div class="arr-cell sorted">12<span class="idx">1</span></div>
+                    <div class="arr-cell sorted">22<span class="idx">2</span></div>
+                    <div class="arr-cell">25<span class="idx">3</span></div>
+                    <div class="arr-cell">64<span class="idx">4</span></div>
+                </div>
+                <p><strong>Pașii i=3, i=4</strong> → rezultat final: [11, 12, 22, 25, 64] ✓</p>
+            </div>
+            <h3>Implementare în Python</h3>
+            <div class="code-wrap">
+                <div class="code-header"><span>selectia_minimului.py</span><span class="lang">python</span></div>
+                <pre><span class="kw">def</span> <span class="fn">selectia_minimului</span>(lista):
+    n = <span class="fn">len</span>(lista)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">1</span>):         <span
+                            class="cm"># i = pozitia de umplut (bariera)</span>
+        poz_min = i                  <span class="cm"># presupunem că minimul e deja la poz i</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i + <span
+                            class="nm">1</span>, n):   <span class="cm"># căutăm minimul real în restul listei</span>
+            <span class="kw">if</span> lista[j] &lt; lista[poz_min]:
+                poz_min = j
+        <span class="kw">if</span> poz_min != i:             <span
+                            class="cm"># interschimbare doar dacă e necesar</span>
+            lista[i], lista[poz_min] = lista[poz_min], lista[i]
+    <span class="kw">return</span> lista
+
+note = [<span class="nm">64</span>, <span class="nm">25</span>, <span class="nm">12</span>, <span class="nm">22</span>, <span
+                            class="nm">11</span>]
+<span class="fn">print</span>(<span class="fn">selectia_minimului</span>(note.copy()))  <span class="cm"># [11, 12, 22, 25, 64]</span></pre>
+            </div>
+            <div class="box box-warn">
+                <strong>Atenție — modificare in-place</strong>
+                Funcția modifică lista originală (in-place). Dacă vrei să păstrezi lista originală neschimbată,
+                transmite o copie: <code>selectia_minimului(lista.copy())</code>
+            </div>
+        </div>
+    </div>
+    <!-- METODA 2 -->
+    <div class="method-card">
+        <div class="method-card-header bub">
+            <div class="method-num bub">2</div>
+            <h3>Metoda bulelor (Bubble Sort)</h3>
+        </div>
+        <div class="method-card-body">
+            <p>Se compară <strong>elementele adiacente</strong> (vecine) și se interschimbă dacă sunt în ordine greșită.
+                După fiecare parcurgere completă, cel mai mare element „urcă" la final — ca o bulă. Se repetă până nu
+                mai apar interschimbări.</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num teal">1</div>
+                    <div class="step-content">
+                        <strong>Pornești o parcurgere de la începutul listei</strong>
+                        <p>Compari perechile adiacente: <code>lista[j]</code> și <code>lista[j+1]</code>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num teal">2</div>
+                    <div class="step-content">
+                        <strong>Interschimbi dacă sunt în ordine greșită</strong>
+                        <p>Dacă <code>lista[j] &gt; lista[j+1]</code>, le schimbi între ele.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num teal">3</div>
+                    <div class="step-content">
+                        <strong>Ultimele i elemente sunt deja sortate</strong>
+                        <p>Le ignorăm la parcurgerea următoare — reducem zona de lucru.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num teal">4</div>
+                    <div class="step-content">
+                        <strong>Oprire timpurie: dacă nu s-a făcut nicio interschimbare</strong>
+                        <p>Lista este deja sortată! Această optimizare poate reduce mult numărul de pași.</p>
+                    </div>
+                </div>
+            </div>
+            <h3>Urmărire vizuală — prima parcurgere pe [<span>5, 3, 8, 1, 4</span>]</h3>
+            <p>Celulele <span>galbene</span> = pereche comparată · <span>verde</span> = ajuns la locul final</p>
+            <table class="trace-table">
+                <thead>
+                <tr>
+                    <th>Comparație j</th>
+                    <th>Valorile comparate</th>
+                    <th>Interschimb?</th>
+                    <th>Lista după comparație</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="step-label">j = 0</td>
+                    <td class="highlight">5 &gt; 3 ✓</td>
+                    <td class="highlight">DA</td>
+                    <td>[<strong>3, 5</strong>, 8, 1, 4]</td>
+                </tr>
+                <tr>
+                    <td class="step-label">j = 1</td>
+                    <td>5 &lt; 8 ✗</td>
+                    <td>NU</td>
+                    <td>[3, 5, 8, 1, 4]</td>
+                </tr>
+                <tr>
+                    <td class="step-label">j = 2</td>
+                    <td class="highlight">8 &gt; 1 ✓</td>
+                    <td class="highlight">DA</td>
+                    <td>[3, 5, <strong>1, 8</strong>, 4]</td>
+                </tr>
+                <tr>
+                    <td class="step-label">j = 3</td>
+                    <td class="highlight">8 &gt; 4 ✓</td>
+                    <td class="highlight">DA</td>
+                    <td>[3, 5, 1, <strong>4, 8</strong>]</td>
+                </tr>
+                <tr>
+                    <td class="step-label">Rezultat P1</td>
+                    <td colspan="3">→ [3, 5, 1, 4, <strong>8</strong>] — 8 a „urcat" la final ✓</td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>Implementare în Python (cu optimizare de oprire timpurie)</h3>
+            <div class="code-wrap">
+                <div class="code-header"><span>metoda_bulelor.py</span><span class="lang">python</span></div>
+                <pre><span class="kw">def</span> <span class="fn">metoda_bulelor</span>(lista):
+    n = <span class="fn">len</span>(lista)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">1</span>):            <span
+                            class="cm"># i = câte elemente sunt sortate la final</span>
+        schimb_facut = <span class="kw">False</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n - <span
+                            class="nm">1</span> - i):    <span
+                            class="cm"># ignorăm ultimele i poziții (deja sortate)</span>
+            <span class="kw">if</span> lista[j] &gt; lista[j + <span class="nm">1</span>]:
+                lista[j], lista[j+<span class="nm">1</span>] = lista[j+<span class="nm">1</span>], lista[j]
+                schimb_facut = <span class="kw">True</span>
+        <span class="kw">if not</span> schimb_facut:            <span class="cm"># nicio interschimbare → lista deja sortată!</span>
+            <span class="kw">break</span>
+    <span class="kw">return</span> lista
+
+punctaje = [<span class="nm">5</span>, <span class="nm">3</span>, <span class="nm">8</span>, <span class="nm">1</span>, <span
+                            class="nm">4</span>]
+<span class="fn">print</span>(<span class="fn">metoda_bulelor</span>(punctaje.copy()))  <span class="cm"># [1, 3, 4, 5, 8]</span></pre>
+            </div>
+        </div>
+    </div>
+    <!-- METODA 3 -->
+    <div class="method-card">
+        <div class="method-card-header freq">
+            <div class="method-num freq">3</div>
+            <h3>Sortarea cu listă de frecvențe</h3>
+        </div>
+        <div class="method-card-body">
+            <p>În loc să comparăm elementele între ele, <strong>numărăm de câte ori apare fiecare valoare
+                posibilă</strong>. Apoi reconstruim lista sortată adăugând fiecare valoare de câte ori apare.
+                Funcționează exclusiv cu <strong>numere întregi</strong> dintr-un interval cunoscut și limitat.</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num gold">1</div>
+                    <div class="step-content">
+                        <strong>Determină intervalul valorilor</strong>
+                        <p>Găsește valoarea minimă și maximă din listă cu <code>min()</code> și <code>max()</code>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num gold">2</div>
+                    <div class="step-content">
+                        <strong>Construiește lista de frecvențe</strong>
+                        <p>Creează o listă cu zerouri de lungime <code>(max - min + 1)</code>. Pentru fiecare element
+                            <code>x</code>, crește <code>frecventa[x - min]</code> cu 1.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num gold">3</div>
+                    <div class="step-content">
+                        <strong>Reconstruiește lista sortată</strong>
+                        <p>Parcurge lista de frecvențe și adaugă valoarea <code>v + min</code> de
+                            <code>frecventa[v]</code> ori în lista rezultat.</p>
+                    </div>
+                </div>
+            </div>
+            <h3>Vizualizare — note la test: [7, 5, 9, 7, 10, 5, 8, 7]</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Valoare (notă)</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Frecvență</td>
+                    <td>2</td>
+                    <td>0</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Contribuție la rezultat</td>
+                    <td>5, 5</td>
+                    <td>—</td>
+                    <td>7, 7, 7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="inline-note">Lista sortată finală: [5, 5, 7, 7, 7, 8, 9, 10]</div>
+            <h3>Implementare în Python</h3>
+            <div class="code-wrap">
+                <div class="code-header"><span>sortare_frecvente.py</span><span class="lang">python</span></div>
+                <pre><span class="kw">def</span> <span class="fn">sortare_frecvente</span>(lista):
+    <span class="kw">if not</span> lista:
+        <span class="kw">return</span> []
+    minim = <span class="fn">min</span>(lista)
+    maxim = <span class="fn">max</span>(lista)
+    frecventa = [<span class="nm">0</span>] * (maxim - minim + <span class="nm">1</span>)  <span class="cm"># listă de zerouri</span>
+    <span class="kw">for</span> x <span class="kw">in</span> lista:
+        frecventa[x - minim] += <span class="nm">1</span>            <span class="cm"># numărăm aparițiile</span>
+    rezultat = []
+    <span class="kw">for</span> v, freq <span class="kw">in</span> <span class="fn">enumerate</span>(frecventa):
+        rezultat.extend([v + minim] * freq)  <span class="cm"># adăugăm de 'freq' ori valoarea</span>
+    <span class="kw">return</span> rezultat
+
+note = [<span class="nm">7</span>, <span class="nm">5</span>, <span class="nm">9</span>, <span
+                            class="nm">7</span>, <span class="nm">10</span>, <span class="nm">5</span>, <span
+                            class="nm">8</span>, <span class="nm">7</span>]
+<span class="fn">print</span>(<span class="fn">sortare_frecvente</span>(note))  <span class="cm"># [5, 5, 7, 7, 7, 8, 9, 10]</span></pre>
+            </div>
+            <div class="box box-tip">
+                <strong>Limitare importantă</strong>
+                Această metodă funcționează <strong>doar cu numere întregi</strong> și este eficientă când intervalul
+                (max − min) este mic. Nu funcționează cu numere reale sau șiruri de caractere.
+            </div>
+        </div>
+    </div>
+    <!-- ─── COMPARATIE ─── -->
+    <hr class="divider"/>
+    <div class="section-label">
+        <span class="num">COMPARAȚIE</span>
+        <h2>Când alegi ce metodă?</h2>
+    </div>
+    <table class="compare-table">
+        <thead>
+        <tr>
+            <th>Criteriu</th>
+            <th>Selecția minimului</th>
+            <th>Metoda bulelor</th>
+            <th>Sortare cu frecvențe</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tip de date</td>
+            <td>Orice tip comparabil</td>
+            <td>Orice tip comparabil</td>
+            <td class="bad">Doar întregi</td>
+        </tr>
+        <tr>
+            <td>Interval valori</td>
+            <td>Orice interval</td>
+            <td>Orice interval</td>
+            <td class="ok">Interval mic (k mic)</td>
+        </tr>
+        <tr>
+            <td>Nr. comparații (n=100)</td>
+            <td class="bad">~4.950 (mereu)</td>
+            <td class="ok">până la ~4.950</td>
+            <td class="good">0 (nu compară!)</td>
+        </tr>
+        <tr>
+            <td>Complexitate timp</td>
+            <td class="bad">O(n²)</td>
+            <td class="ok">O(n²) / O(n)*</td>
+            <td class="good">O(n + k)</td>
+        </tr>
+        <tr>
+            <td>Memorie suplimentară</td>
+            <td class="good">O(1)</td>
+            <td class="good">O(1)</td>
+            <td class="ok">O(k)</td>
+        </tr>
+        <tr>
+            <td>Caz favorabil</td>
+            <td class="bad">La fel cu cel mai rău</td>
+            <td class="good">Listă sortată → O(n)</td>
+            <td class="good">Mereu O(n+k)</td>
+        </tr>
+        <tr>
+            <td>Utilizare practică</td>
+            <td>Pedagogic, liste mici</td>
+            <td>Pedagogic, liste mici</td>
+            <td class="good">Note, coduri, vârste</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="box box-warn">
+        <strong>Exemplu concret de comparație</strong>
+        Pentru 30 de note (valori 1–10): selecția minimului face ~435 comparații, metoda bulelor face maxim ~435
+        comparații, sortarea cu frecvențe face 30 + 10 = <strong>40 operații</strong>. Când intervalul k este mic,
+        sortarea cu frecvențe câștigă net!
+    </div>
+    <!-- ═══ PART II – EXEMPLE REZOLVATE ═══ -->
+    <hr class="divider"/>
+    <div class="section-label">
+        <span class="num">EXEMPLE REZOLVATE</span>
+        <h2>Să vedem cum funcționează</h2>
+    </div>
+    <h3>Exemplul 1 — Selecția minimului: concurs de talente</h3>
+    <p>Scorurile a 6 participanți sunt: <code>[72, 95, 61, 88, 55, 100]</code>. Sortează-le crescător și afișează
+        câștigătorul.</p>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu1_concurs.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">selectia_minimului</span>(lista):
+    n = <span class="fn">len</span>(lista)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">1</span>):
+        poz_min = i
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i + <span
+                    class="nm">1</span>, n):
+            <span class="kw">if</span> lista[j] &lt; lista[poz_min]:
+                poz_min = j
+        <span class="kw">if</span> poz_min != i:
+            lista[i], lista[poz_min] = lista[poz_min], lista[i]
+    <span class="kw">return</span> lista
+
+scoruri = [<span class="nm">72</span>, <span class="nm">95</span>, <span class="nm">61</span>, <span
+                    class="nm">88</span>, <span class="nm">55</span>, <span class="nm">100</span>]
+sortate = <span class="fn">selectia_minimului</span>(scoruri.copy())
+<span class="fn">print</span>(<span class="st">"Scoruri sortate:"</span>, sortate)     <span class="cm"># [55, 61, 72, 88, 95, 100]</span>
+<span class="fn">print</span>(<span class="st">f"Câștigătorul: {sortate[-1]} puncte"</span>)  <span
+                    class="cm"># 100</span>
+<span class="fn">print</span>(<span class="st">f"Locul 3: {sortate[-3]} puncte"</span>)        <span
+                    class="cm"># 88</span></pre>
+    </div>
+    <h3>Exemplul 2 — Metoda bulelor: ordonarea înălțimilor</h3>
+    <p>Înălțimile (cm) unor elevi: <code>[165, 172, 158, 180, 163]</code>. Sortează descrescător și afișează podiumul.
+    </p>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu2_inaltime.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">bule_descrescator</span>(lista):
+    n = <span class="fn">len</span>(lista)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="nm">1</span>):
+        schimb = <span class="kw">False</span>
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n - <span
+                    class="nm">1</span> - i):
+            <span class="kw">if</span> lista[j] &lt; lista[j + <span class="nm">1</span>]:  <span class="cm"># &lt; pentru ordine descrescătoare</span>
+                lista[j], lista[j+<span class="nm">1</span>] = lista[j+<span class="nm">1</span>], lista[j]
+                schimb = <span class="kw">True</span>
+        <span class="kw">if not</span> schimb:
+            <span class="kw">break</span>
+    <span class="kw">return</span> lista
+
+inaltime = [<span class="nm">165</span>, <span class="nm">172</span>, <span class="nm">158</span>, <span
+                    class="nm">180</span>, <span class="nm">163</span>]
+sortate = <span class="fn">bule_descrescator</span>(inaltime.copy())
+<span class="fn">print</span>(<span class="st">"Sortate descrescător:"</span>, sortate)  <span class="cm"># [180, 172, 165, 163, 158]</span>
+<span class="kw">for</span> loc, h <span class="kw">in</span> <span class="fn">enumerate</span>(sortate[:<span
+                    class="nm">3</span>], <span class="nm">1</span>):
+    <span class="fn">print</span>(<span class="st">f"Locul {loc}: {h} cm"</span>)</pre>
+    </div>
+    <h3>Exemplul 3 — Sortare cu frecvențe: catalog clasă</h3>
+    <p>Notele clasei a IX-A: <code>[8, 6, 10, 7, 8, 6, 9, 7, 8, 10, 5, 7]</code>. Sortează și generează un raport
+        complet.</p>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu3_catalog.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">sortare_frecvente</span>(lista):
+    <span class="kw">if not</span> lista: <span class="kw">return</span> []
+    minim, maxim = <span class="fn">min</span>(lista), <span class="fn">max</span>(lista)
+    freq = [<span class="nm">0</span>] * (maxim - minim + <span class="nm">1</span>)
+    <span class="kw">for</span> x <span class="kw">in</span> lista:
+        freq[x - minim] += <span class="nm">1</span>
+    rezultat = []
+    <span class="kw">for</span> v, f <span class="kw">in</span> <span class="fn">enumerate</span>(freq):
+        rezultat.extend([v + minim] * f)
+    <span class="kw">return</span> rezultat, freq, minim
+
+note = [<span class="nm">8</span>, <span class="nm">6</span>, <span class="nm">10</span>, <span
+                    class="nm">7</span>, <span class="nm">8</span>, <span class="nm">6</span>, <span class="nm">9</span>, <span
+                    class="nm">7</span>, <span class="nm">8</span>, <span class="nm">10</span>, <span
+                    class="nm">5</span>, <span class="nm">7</span>]
+sortate, freq, minim = <span class="fn">sortare_frecvente</span>(note)
+<span class="fn">print</span>(<span class="st">"Note sortate:"</span>, sortate)
+<span class="fn">print</span>(<span class="st">f"Media: {</span><span class="fn">round</span>(<span
+                    class="fn">sum</span>(note)/<span class="fn">len</span>(note), <span class="nm">2</span>)<span
+                    class="st">}"</span>)
+<span class="fn">print</span>(<span class="st">"Distribuție note:"</span>)
+<span class="kw">for</span> i, f <span class="kw">in</span> <span class="fn">enumerate</span>(freq):
+    <span class="kw">if</span> f &gt; <span class="nm">0</span>:
+        <span class="fn">print</span>(<span class="st">f"  Nota {i + minim}: {f} elev(i)"</span>)</pre>
+    </div>
+    <div class="inline-note">Output: Note sortate: [5, 6, 6, 7, 7, 7, 8, 8, 8, 9, 10, 10] · Media: 7.58</div>
+    <!-- ═══ PART III – EXERCIȚII ═══ -->
+    <hr class="divider"/>
+    <div class="section-label">
+        <span class="num">EXERCIȚII</span>
+        <h2>Aplică ce ai învățat</h2>
+    </div>
+    <p>Rezolvă exercițiile în ordinea propusă. Cele marcate cu <span class="badge badge-hard">★ dificil</span> sunt
+        opționale.</p>
+    <!-- EX 1 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num">EX 1</span>
+            <div>
+                <p><strong>Simulare pas cu pas — selecția minimului</strong> <span class="badge badge-easy">ușor</span>
+                </p>
+                <p>Aplică algoritmul selecției minimului pe lista <code>[38, 14, 7, 29, 3, 21]</code>. Completează
+                    tabelul de urmărire de mai jos, indicând la fiecare pas minimul găsit, poziția sa și lista după
+                    interschimb.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <table class="trace-table">
+                <thead>
+                <tr>
+                    <th>Pas i</th>
+                    <th>Lista la începutul pasului</th>
+                    <th>Minimul găsit</th>
+                    <th>Poziția minimului</th>
+                    <th>Lista după interschimb</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="step-label">i = 0</td>
+                    <td>[38, 14, 7, 29, 3, 21]</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-1" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-2" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-3" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">i = 1</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-4" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-5" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-6" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-7" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">i = 2</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-8" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-9" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-10" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-11" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">i = 3</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-12" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-13" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-14" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-15" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">i = 4</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-16" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-17" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-18" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-19" rows="2"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Lista finală sortată:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-1"
+                      placeholder="Scrie lista finală..." rows="4" spellcheck="true"></textarea>
+        </div>
+    </div>
+    <!-- EX 2 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num">EX 2</span>
+            <div>
+                <p><strong>Simulare — metoda bulelor, prima parcurgere</strong> <span
+                        class="badge badge-easy">ușor</span></p>
+                <p>Aplică <strong>o singură parcurgere completă</strong> a metodei bulelor pe lista <code>[9, 4, 7, 2,
+                    6]</code>. Completează tabelul arătând fiecare comparație și dacă s-a realizat interschimb.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <table class="trace-table">
+                <thead>
+                <tr>
+                    <th>Comparație j</th>
+                    <th>Valorile comparate</th>
+                    <th>Condiție (a &gt; b)?</th>
+                    <th>Interschimb?</th>
+                    <th>Lista după comparație</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="step-label">j = 0</td>
+                    <td>lista[0] și lista[1]</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-20" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-21" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-22" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">j = 1</td>
+                    <td>lista[1] și lista[2]</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-23" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-24" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-25" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">j = 2</td>
+                    <td>lista[2] și lista[3]</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-26" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-27" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-28" rows="2"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="step-label">j = 3</td>
+                    <td>lista[3] și lista[4]</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-29" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-30" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-31" rows="2"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Ce element a ajuns la final după prima parcurgere? De ce?</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-2"
+                      placeholder="Scrie răspunsul tău..." rows="4" spellcheck="true"></textarea>
+        </div>
+    </div>
+    <!-- EX 3 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num">EX 3</span>
+            <div>
+                <p><strong>Construirea listei de frecvențe — manual</strong> <span class="badge badge-easy">ușor</span>
+                </p>
+                <p>Ai lista de note a clasei: <code>[8, 6, 10, 7, 8, 6, 9, 7, 8, 10]</code>.</p>
+                <p><strong>a)</strong> Completează tabelul de frecvențe de mai jos.<br/>
+                    <strong>b)</strong> Scrie lista sortată rezultată fără a folosi calculatorul.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <table class="trace-table">
+                <thead>
+                <tr>
+                    <th>Notă (valoare)</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="step-label">Frecvența</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-32" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-33" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-34" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-35" rows="2"></textarea></td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-36" rows="2"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <p><strong>b)</strong> Lista sortată:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-3"
+                      placeholder="Scrie lista sortată..." rows="4" spellcheck="true"></textarea>
+        </div>
+    </div>
+    <!-- EX 4 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num med">EX 4</span>
+            <div>
+                <p><strong>Implementare — Concurs de robotică</strong> <span class="badge badge-med">mediu</span></p>
+                <p>La un concurs de robotică, 8 echipe au obținut scorurile: <code>[72, 95, 61, 88, 72, 100, 55,
+                    88]</code>. Scrie un program Python care:</p>
+                <ul>
+                    <li><strong>a)</strong> sortează scorurile în ordine crescătoare folosind <strong>selecția
+                        minimului</strong>;
+                    </li>
+                    <li><strong>b)</strong> afișează locurile 1, 2 și 3 (cele mai mari 3 scoruri);</li>
+                    <li><strong>c)</strong> calculează media scorurilor, rotunjită la 2 zecimale.</li>
+                </ul>
+                <p>Verificare: scoruri sortate = [55, 61, 72, 72, 88, 88, 95, 100] · media = 78.88</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code large answer-input" data-key="answer-4"
+                      placeholder="Scrie codul Python aici..." rows="8" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <!-- EX 5 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num med">EX 5</span>
+            <div>
+                <p><strong>Alegerea metodei — analiză comparativă</strong> <span class="badge badge-med">mediu</span>
+                </p>
+                <p>Ai o listă cu notele a 30 de elevi (valori întregi între 1 și 10).</p>
+                <p><strong>a)</strong> Care metodă de sortare este cea mai potrivită? Justifică în 2–3 propoziții.<br/>
+                    <strong>b)</strong> Estimează numărul de operații pentru fiecare metodă (n = 30, k = 10).<br/>
+                    <strong>c)</strong> Implementează sortarea cu metoda aleasă.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <p>a) Metoda aleasă și justificarea:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-5"
+                      placeholder="Scrie justificarea ta..." rows="4" spellcheck="true"></textarea>
+            <p>b) Estimare număr operații:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-6"
+                      placeholder="Selecția minimului: _____ · Metoda bulelor: _____ · Sortare cu frecvențe: _____"
+                      rows="4" spellcheck="true"></textarea>
+            <p>c) Codul Python:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code large answer-input" data-key="answer-7"
+                      placeholder="Scrie codul Python aici..." rows="8" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <!-- EX 6 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num med">EX 6</span>
+            <div>
+                <p><strong>Găsește eroarea — analiză cod</strong> <span class="badge badge-med">mediu</span></p>
+                <p>Codul de mai jos implementează selecția minimului, dar conține <strong>două erori de logică</strong>.
+                    Identifică-le, explică de ce sunt greșite și rescrie liniile corectate.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <div class="code-wrap">
+                <div class="code-header"><span>cod_cu_erori.py</span><span class="lang">python</span></div>
+                <pre><span class="kw">def</span> <span class="fn">selectia_gresita</span>(lst):
+    n = <span class="fn">len</span>(lst)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):             <span
+                            class="cm"># linia 3</span>
+        poz_min = i
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i, n):       <span
+                            class="cm"># linia 5</span>
+            <span class="kw">if</span> lst[j] &lt; lst[poz_min]:
+                poz_min = j
+        lst[i], lst[poz_min] = lst[poz_min], lst[i]
+    <span class="kw">return</span> lst</pre>
+            </div>
+            <p>Identifică și explică erorile:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-8" placeholder="Eroarea 1 (linia ___): ...
+Eroarea 2 (linia ___): ..." rows="4" spellcheck="true"></textarea>
+            <p>Liniile corectate:</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code answer-input" data-key="answer-9"
+                      placeholder="Linia 3 corectată: ...
+Linia 5 corectată: ..." rows="6" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <!-- EX 7 BONUS -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num hard">EX 7 ★</span>
+            <div>
+                <p><strong>Mini-proiect — Sistem de triaj medical</strong> <span
+                        class="badge badge-hard">★ dificil</span></p>
+                <p>Un spital codifică gravitatea stării pacienților cu valori de la <code>1</code> (critic) la
+                    <code>5</code> (stabil). Implementează un sistem complet care:</p>
+                <ul>
+                    <li><strong>a)</strong> primește o listă de perechi <code>(gravitate, nume_pacient)</code>;</li>
+                    <li><strong>b)</strong> sortează pacienții în <strong>ordine crescătoare a gravității</strong> (cei
+                        mai critici primii) folosind sortarea cu frecvențe;
+                    </li>
+                    <li><strong>c)</strong> afișează lista de așteptare cu poziția fiecărui pacient;</li>
+                    <li><strong>d)</strong> afișează numărul de pacienți din fiecare categorie.</li>
+                </ul>
+                <p>Testează cu: <code>[(3,"Ana"), (1,"Ion"), (5,"Maria"), (1,"Petre"), (2,"Elena")]</code></p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code xlarge answer-input" data-key="answer-10"
+                      placeholder="Scrie codul Python complet aici..." rows="12" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <!-- ═══ TEACHER SECTION ═══ -->
+    <div class="dashed-divider"></div>
+    <div class="section-label teacher">
+        <span class="num">PROFESOR</span>
+        <h2>Barem și răspunsuri</h2>
+    </div>
+    <p>Această secțiune este destinată exclusiv cadrului didactic. Se recomandă detașarea înainte de distribuirea fișei
+        elevilor.</p>
+    <!-- ANSWER 1 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 1 — Răspuns corect (10 puncte)</h4>
+        <p>Lista inițială: <code>[38, 14, 7, 29, 3, 21]</code></p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>Pas i</th>
+                <th>Lista la început</th>
+                <th>Minim</th>
+                <th>Poziție</th>
+                <th>După interschimb</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">i = 0</td>
+                <td>[38, 14, 7, 29, 3, 21]</td>
+                <td class="highlight">3</td>
+                <td class="highlight">4</td>
+                <td>[3, 14, 7, 29, 38, 21]</td>
+            </tr>
+            <tr>
+                <td class="step-label">i = 1</td>
+                <td>[3, 14, 7, 29, 38, 21]</td>
+                <td class="highlight">7</td>
+                <td class="highlight">2</td>
+                <td>[3, 7, 14, 29, 38, 21]</td>
+            </tr>
+            <tr>
+                <td class="step-label">i = 2</td>
+                <td>[3, 7, 14, 29, 38, 21]</td>
+                <td class="highlight">14</td>
+                <td class="highlight">2</td>
+                <td>[3, 7, 14, 29, 38, 21] (fără interschimb)</td>
+            </tr>
+            <tr>
+                <td class="step-label">i = 3</td>
+                <td>[3, 7, 14, 29, 38, 21]</td>
+                <td class="highlight">21</td>
+                <td class="highlight">5</td>
+                <td>[3, 7, 14, 21, 38, 29]</td>
+            </tr>
+            <tr>
+                <td class="step-label">i = 4</td>
+                <td>[3, 7, 14, 21, 38, 29]</td>
+                <td class="highlight">29</td>
+                <td class="highlight">5</td>
+                <td>[3, 7, 14, 21, 29, 38]</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>Lista finală:</strong> [3, 7, 14, 21, 29, 38]</p>
+        <p>Grilă: 1,5p × 5 pași corecți (minim + poziție + listă după) + 2,5p lista finală.</p>
+        <p><strong>Greșeală frecventă:</strong> La i=2, minimul 14 se află deja pe poziția 2 — nu se face interschimb,
+            dar pasul se contorizează corect.</p>
+    </div>
+    <!-- ANSWER 2 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 2 — Răspuns corect (10 puncte)</h4>
+        <p>Lista inițială: <code>[9, 4, 7, 2, 6]</code></p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>j</th>
+                <th>Valorile comparate</th>
+                <th>9&gt;b?</th>
+                <th>Interschimb?</th>
+                <th>Lista după</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">j = 0</td>
+                <td>9 și 4</td>
+                <td class="highlight">DA (9&gt;4)</td>
+                <td class="highlight">DA</td>
+                <td>[4, 9, 7, 2, 6]</td>
+            </tr>
+            <tr>
+                <td class="step-label">j = 1</td>
+                <td>9 și 7</td>
+                <td class="highlight">DA (9&gt;7)</td>
+                <td class="highlight">DA</td>
+                <td>[4, 7, 9, 2, 6]</td>
+            </tr>
+            <tr>
+                <td class="step-label">j = 2</td>
+                <td>9 și 2</td>
+                <td class="highlight">DA (9&gt;2)</td>
+                <td class="highlight">DA</td>
+                <td>[4, 7, 2, 9, 6]</td>
+            </tr>
+            <tr>
+                <td class="step-label">j = 3</td>
+                <td>9 și 6</td>
+                <td class="highlight">DA (9&gt;6)</td>
+                <td class="highlight">DA</td>
+                <td>[4, 7, 2, 6, 9]</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>Elementul ajuns la final:</strong> 9 (maximul). Metoda bulelor „împinge" maximul la capătul drept la
+            fiecare parcurgere — de unde și numele: cel mai greu element „plutește" în sus.</p>
+        <p>Grilă: 2p × 4 comparații + 2p explicația comportamentului bula.</p>
+    </div>
+    <!-- ANSWER 3 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 3 — Răspuns corect (10 puncte)</h4>
+        <p>Lista: <code>[8, 6, 10, 7, 8, 6, 9, 7, 8, 10]</code></p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>Notă</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">Frecvența</td>
+                <td class="highlight">2</td>
+                <td class="highlight">2</td>
+                <td class="highlight">3</td>
+                <td class="highlight">1</td>
+                <td class="highlight">2</td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>Lista sortată:</strong> [6, 6, 7, 7, 8, 8, 8, 9, 10, 10]</p>
+        <p>Grilă: 1p × 5 frecvențe corecte + 5p lista sortată corectă.</p>
+    </div>
+    <!-- ANSWER 4 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 4 — Soluție (20 puncte)</h4>
+        <div class="answer">def selectia_minimului(lista):
+            n = len(lista)
+            for i in range(n - 1):
+            poz_min = i
+            for j in range(i + 1, n):
+            if lista[j] &lt; lista[poz_min]:
+            poz_min = j
+            if poz_min != i:
+            lista[i], lista[poz_min] = lista[poz_min], lista[i]
+            return lista
+
+            scoruri = [72, 95, 61, 88, 72, 100, 55, 88]
+            sortate = selectia_minimului(scoruri.copy())
+            print("Scoruri sortate:", sortate) # [55, 61, 72, 72, 88, 88, 95, 100]
+
+            # b) Locurile 1, 2, 3 — ultimele 3 elemente, în ordine descrescătoare
+            for loc, scor in enumerate(reversed(sortate[-3:]), 1):
+            print(f"Locul {loc}: {scor} puncte")
+            # Locul 1: 100 Locul 2: 95 Locul 3: 88
+
+            # c) Media
+            media = round(sum(scoruri) / len(scoruri), 2)
+            print(f"Media scorurilor: {media}") # 78.88
+        </div>
+        <p>Punctaj: 10p funcția selectia_minimului corectă · 6p afișare locuri 1-3 · 4p calcul medie.</p>
+        <p><strong>Greșeală frecventă:</strong> <code>reversed(sortate[-3:])</code> vs <code>sortate[-3:][::-1]</code> —
+            ambele corecte, dar elevii uită că sorted e crescător și locul 1 e la final.</p>
+    </div>
+    <!-- ANSWER 5 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 5 — Soluție (20 puncte)</h4>
+        <p><strong>a) Metoda aleasă: sortarea cu frecvențe.</strong><br/>
+            Notele sunt numere întregi în intervalul 1–10 (interval mic, k=10). Sortarea cu frecvențe are complexitate
+            O(n+k)=O(40), față de O(n²)=O(900) pentru celelalte două. Aceasta o face de ~22 de ori mai rapidă pentru
+            acest caz.</p>
+        <p><strong>b) Estimare operații (n=30, k=10):</strong></p>
+        <p>· Selecția minimului: n(n-1)/2 = 30·29/2 = <strong>435 comparații</strong> (mereu)<br/>
+            · Metoda bulelor: maxim 435, minim 29 (dacă e sortată)<br/>
+            · Sortare cu frecvențe: n + k = 30 + 10 = <strong>40 operații</strong> (mereu)</p>
+        <div class="answer">def sortare_note_clasa(note):
+            frecventa = [0] * 11 # indici 0-10 pentru notele 0-10
+            for n in note:
+            frecventa[n] += 1
+            rezultat = []
+            for nota, freq in enumerate(frecventa):
+            rezultat.extend([nota] * freq)
+            return rezultat
+
+            import random
+            note_clasa = [random.randint(1, 10) for _ in range(30)]
+            print("Note originale:", note_clasa)
+            print("Note sortate:", sortare_note_clasa(note_clasa))
+        </div>
+        <p>Punctaj: 7p justificare corectă și completă · 7p estimare corectă cu calcule · 6p implementare.</p>
+    </div>
+    <!-- ANSWER 6 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 6 — Soluție (15 puncte)</h4>
+        <p><strong>Eroarea 1 — linia 3:</strong> <code>range(n)</code> → CORECT: <code>range(n - 1)</code><br/>
+            Motivare: când i = n-1, bucla interioară nu mai are niciun element de parcurs (range(n, n) este goală), dar
+            interschimbul <code>lst[i], lst[poz_min]</code> s-ar executa cu lst[i] = lst[i] — operație inutilă. Mai
+            grav, în unele variante aceasta poate cauza indexare greșită. Ultimul element este automat pe locul corect.
+        </p>
+        <p><strong>Eroarea 2 — linia 5:</strong> <code>range(i, n)</code> → CORECT: <code>range(i + 1, n)</code><br/>
+            Motivare: dacă j pornește de la i, elementul de pe poziția i se compară cu el însuși. <code>poz_min</code>
+            rămâne i, deci nu se face interschimb — dar în cel mai rău caz poate masca o valoare mai mică. Corect:
+            căutarea minimului trebuie să înceapă de la i+1.</p>
+        <div class="answer">def selectia_corecta(lst):
+            n = len(lst)
+            for i in range(n - 1): # FIX 1: range(n-1), nu range(n)
+            poz_min = i
+            for j in range(i + 1, n): # FIX 2: range(i+1, n), nu range(i, n)
+            if lst[j] &lt; lst[poz_min]:
+            poz_min = j
+            if poz_min != i:
+            lst[i], lst[poz_min] = lst[poz_min], lst[i]
+            return lst
+        </div>
+        <p>Punctaj: 4p identificare eroare 1 + 3p explicație eroare 1 · 4p identificare eroare 2 + 3p explicație · 1p
+            cod corect complet.</p>
+    </div>
+    <!-- ANSWER 7 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 7 ★ — Soluție (10 puncte bonus)</h4>
+        <div class="answer">def triaj_medical(pacienti):
+            # pacienti = lista de tupluri (gravitate, nume), gravitate ∈ {1..5}
+            # Organizăm pe categorii cu o listă de frecvențe (liste de nume)
+            categorii = [[] for _ in range(6)] # categorii[1..5]
+            for gravitate, nume in pacienti:
+            categorii[gravitate].append(nume)
+
+            # d) Statistici pe categorii
+            print("--- Statistici triaj ---")
+            for nivel in range(1, 6):
+            print(f"Gravitate {nivel}: {len(categorii[nivel])} pacienți")
+
+            # b) Reconstruim lista sortată: cei mai critici (gravitate 1) primii
+            lista_asteptare = []
+            for nivel in range(1, 6):
+            for pacient in categorii[nivel]:
+            lista_asteptare.append((nivel, pacient))
+
+            # c) Afișăm lista de așteptare
+            print("\n--- Lista de așteptare ---")
+            for poz, (grav, nm) in enumerate(lista_asteptare, 1):
+            print(f"{poz}. {nm} (gravitate: {grav})")
+
+            return lista_asteptare
+
+            pacienti = [(3,"Ana"), (1,"Ion"), (5,"Maria"), (1,"Petre"), (2,"Elena")]
+            triaj_medical(pacienti)
+            # Output:
+            # Gravitate 1: 2 pacienți (Ion, Petre)
+            # Gravitate 2: 1 pacienți (Elena)
+            # Gravitate 3: 1 pacienți (Ana)
+            # Gravitate 5: 1 pacienți (Maria)
+            # 1. Ion (gravitate: 1)
+            # 2. Petre (gravitate: 1)
+            # 3. Elena (gravitate: 2)
+            # 4. Ana (gravitate: 3)
+            # 5. Maria (gravitate: 5)
+        </div>
+        <p>Punctaj: 3p structura date (categorii) · 3p sortare corectă crescător · 2p afișare listă · 2p statistici pe
+            categorii.</p>
+        <p><strong>Notă:</strong> Ordinea între pacienții din aceeași categorie reflectă ordinea de intrare —
+            comportament corect pentru un sistem FIFO real.</p>
+    </div>
+
+</div><!-- /body -->
+
+<script>
+    (function () {
+        const inputs = document.querySelectorAll('.answer-input');
+
+        inputs.forEach((el, index) => {
+            if (!el.dataset.key) {
+                el.dataset.key = 'input-' + index;
+            }
+            const key = 'fisa_sortari_' + el.dataset.key;
+            const saved = localStorage.getItem(key);
+            if (saved !== null) {
+                el.value = saved;
+            }
+            el.addEventListener('input', () => {
+                localStorage.setItem(key, el.value);
+            });
+        });
+
+        const printBtn = document.getElementById('printBtn');
+        if (printBtn) {
+            printBtn.addEventListener('click', () => window.print());
+        }
+
+        const clearBtn = document.getElementById('clearBtn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (!confirm('Sigur vrei să ștergi toate răspunsurile completate?')) return;
+                inputs.forEach((el) => {
+                    localStorage.removeItem('fisa_sortari_' + el.dataset.key);
+                    el.value = '';
+                });
+            });
+        }
+    })();
+</script>
+</body>
+</html>

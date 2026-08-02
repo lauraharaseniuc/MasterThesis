@@ -83,6 +83,9 @@
     margin-top: auto;
     padding-top: 0.25rem;
     border-top: 1px solid #f3f4f6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
   }
 }
 
@@ -115,5 +118,16 @@
     background: #1648c0;
     text-decoration: none;
     color: #fff;
+  }
+
+  &--secondary {
+    background: #fff;
+    color: #1a56db;
+    border: 1px solid #bfdbfe;
+
+    &:hover {
+      background: #eff6ff;
+      color: #1a56db;
+    }
   }
 }

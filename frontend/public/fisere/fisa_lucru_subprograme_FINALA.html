@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Fișă de Lucru – Subprograme în Python | Clasa a IX-a</title>
+    <style>
+
+        :root {
+            --text: #202124;
+            --muted: #5f6368;
+            --line: #d9dce1;
+            --bg: #ffffff;
+            --panel: #f7f8fa;
+            --panel2: #eef3ff;
+            --blue: #1a73e8;
+            --green: #188038;
+            --yellow: #f9ab00;
+            --red: #c5221f;
+            --code: #f1f3f4;
+
+            /* aliasuri pentru clasele vechi, dar cu aceeași paletă ca prima fișă */
+            --ink: var(--text);
+            --ink-muted: var(--muted);
+            --ink-faint: var(--muted);
+            --paper: var(--bg);
+            --paper-warm: var(--panel);
+            --paper-rule: var(--line);
+            --accent: var(--blue);
+            --accent-soft: var(--panel2);
+            --accent-mid: var(--blue);
+            --teal: var(--green);
+            --teal-soft: #e6f4ea;
+            --navy: var(--blue);
+            --navy-soft: var(--panel2);
+            --gold: var(--yellow);
+            --gold-soft: #fff8e1;
+            --purple: var(--red);
+            --purple-soft: #fce8e6;
+            --code-bg: var(--code);
+            --code-fg: var(--text);
+            --code-comment: var(--muted);
+            --code-keyword: var(--text);
+            --code-string: var(--text);
+            --code-func: var(--text);
+            --code-num: var(--text);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 22px;
+            background: #fff;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .cover {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel);
+            color: var(--text);
+            padding: 24px;
+            margin-bottom: 14px;
+            position: static;
+            overflow: visible;
+        }
+
+        .cover::before,
+        .cover::after {
+            content: none;
+        }
+
+        .cover-tag {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: .04em;
+            margin-bottom: 8px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .cover h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.15;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .cover h1 em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .cover p,
+        .cover-sub {
+            color: var(--muted) !important;
+            margin: 10px 0 0;
+            font-size: 15px;
+        }
+
+        .cover-meta {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding-top: 0;
+            border-top: none;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .cover-meta div {
+            border: 1px solid var(--line);
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .cover-meta span {
+            color: var(--text);
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .student-box {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0 14px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .student-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .student-field label {
+            width: 120px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            white-space: normal;
+        }
+
+        .student-input {
+            flex: 1;
+            min-height: 34px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 6px 8px;
+            font: inherit;
+            background: #fff;
+            color: var(--text);
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0 22px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .controls button {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text);
+            font: inherit;
+        }
+
+        .controls button:hover {
+            background: var(--panel2);
+        }
+
+        .small-note {
+            color: var(--muted);
+            font-size: 12px;
+            align-self: center;
+        }
+
+        .body {
+            padding: 0;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 12px;
+        }
+
+        .section-label .num,
+        .badge,
+        .ex-num {
+            display: inline-block;
+            border-radius: 999px;
+            background: var(--panel2);
+            color: var(--blue);
+            padding: 4px 9px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .section-label h2 {
+            margin: 0;
+            font-size: 23px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .section-label.teacher .num {
+            background: var(--panel2);
+            color: var(--blue);
+        }
+
+        .section-label.teacher h2 {
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 24px 0 10px;
+            padding-left: 0;
+            border-left: 0;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+        }
+
+        h4 {
+            margin: 18px 0 8px;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        p {
+            margin: 8px 0;
+            color: var(--text);
+        }
+
+        .box,
+        .inline-note,
+        .teacher-section {
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin: 14px 0;
+            background: var(--panel);
+            color: var(--text);
+        }
+
+        .box strong:first-child {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .box-def strong,
+        .box-tip strong,
+        .box-warn strong {
+            color: inherit;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: inherit;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .box-tip {
+            border-left-color: var(--yellow);
+            background: #fff8e1;
+        }
+
+        .box-warn {
+            border-left-color: var(--red);
+            background: #fce8e6;
+        }
+
+        .teacher-section {
+            border-left-color: var(--green);
+            background: #e6f4ea;
+        }
+
+        .teacher-section h4 {
+            color: var(--text);
+            margin-top: 0;
+        }
+
+        .teacher-section .answer {
+            margin: 0;
+            padding: 12px 14px;
+            overflow-x: auto;
+            background: var(--code);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.55;
+            white-space: pre;
+            color: var(--text);
+        }
+
+        .teacher-section p {
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .method-card,
+        .exercise {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: white;
+            margin: 18px 0;
+            overflow: hidden;
+        }
+
+        .method-card-header,
+        .exercise-head {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 16px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .exercise-head p {
+            margin: 0 0 6px;
+            font-size: 15px;
+        }
+
+        .method-card-body,
+        .exercise-body {
+            padding: 14px 16px;
+        }
+
+        .ex-num {
+            flex: 0 0 auto;
+            margin-top: 2px;
+        }
+
+        .ex-num.med,
+        .ex-num.hard,
+        .badge-easy,
+        .badge-med,
+        .badge-hard {
+            color: var(--blue);
+            background: var(--panel2);
+        }
+
+        .badge {
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .diagram-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .diagram-row .part {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 12px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .diagram-row .part .label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .diagram-row .part .content {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+        }
+
+        .part.head,
+        .part.call {
+            background: var(--panel2);
+        }
+
+        .part.body-p {
+            background: var(--panel);
+        }
+
+        .steps {
+            display: grid;
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            padding: 10px 12px;
+        }
+
+        .step-num,
+        .method-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--blue);
+            color: white;
+            font-weight: bold;
+        }
+
+        .two-col,
+        .three-col {
+            display: grid;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .two-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .two-col .box {
+            margin: 0;
+        }
+
+        ul,
+        ol {
+            margin: 8px 0;
+            padding-left: 22px;
+        }
+
+        li {
+            margin: 4px 0;
+            font-size: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--line);
+            padding: 9px 10px;
+            vertical-align: top;
+            color: var(--text);
+        }
+
+        thead th,
+        .compare-table th,
+        .trace-table th {
+            background: var(--panel);
+            font-weight: bold;
+            color: var(--text);
+            text-align: left;
+            letter-spacing: 0;
+        }
+
+        tbody tr:nth-child(even) td,
+        tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        tbody td:first-child {
+            font-family: inherit;
+            font-size: inherit;
+            color: var(--text);
+        }
+
+        .code-wrap {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--code);
+            margin: 14px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid var(--line);
+            background: #e8eaed;
+            padding: 7px 10px;
+            color: var(--muted);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        .code-header .lang {
+            color: var(--muted);
+        }
+
+        pre {
+            margin: 0;
+            padding: 12px 14px;
+            overflow-x: auto;
+            background: var(--code);
+            color: var(--text);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.55;
+            white-space: pre;
+        }
+
+        code {
+            background: var(--code);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 4px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: .92em;
+            color: var(--text);
+        }
+
+        .kw, .fn, .st, .cm, .nm, .lang {
+            color: inherit;
+            font-style: normal;
+        }
+
+        .answer-space,
+        .table-answer {
+            width: 100%;
+            border: 1px solid #b8c0cc;
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 9px;
+            font: inherit;
+            resize: vertical;
+            color: var(--text);
+        }
+
+        .answer-space {
+            min-height: 90px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .answer-space.code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .answer-space.large {
+            min-height: 155px;
+        }
+
+        .table-answer {
+            min-width: 120px;
+            min-height: 42px;
+            font-size: 13px;
+        }
+
+        .answer-cell {
+            padding: 6px;
+        }
+
+        .inline-note {
+            color: var(--muted);
+        }
+
+        .inline-note::before {
+            content: none;
+        }
+
+        .divider,
+        .dashed-divider {
+            border: none;
+            border-top: 1px solid var(--line);
+            margin: 28px 0;
+        }
+
+        .dashed-divider::after {
+            content: none;
+        }
+
+        footer {
+            margin-top: 26px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        footer .ref {
+            color: var(--blue);
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 12px;
+            }
+
+            .cover-meta,
+            .student-box,
+            .two-col,
+            .three-col,
+            .diagram-row {
+                grid-template-columns: 1fr;
+            }
+
+            .cover h1 {
+                font-size: 28px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                max-width: none;
+                padding: 0;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .cover,
+            .student-box,
+            .method-card,
+            .exercise,
+            .box {
+                break-inside: avoid;
+            }
+
+            textarea,
+            input {
+                border: 1px solid #999 !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!-- ══ COVER ══ -->
+<div class="cover">
+    <div class="cover-tag">Informatică · Clasa a IX-a </div>
+    <h1>Subprograme<br/><em>în Python</em></h1>
+    <p>Teorie · Exemple rezolvate · Exerciții · Barem profesor</p>
+    <div class="cover-meta">
+        <div>Competențe vizate <br/><span>CS 2.5 · CS 3.5 · CS 4.5 · CS 5.5 · CS 6.5</span></div>
+        <div>Domeniu de conținut <br/><span>3.1 – Subprograme</span></div>
+        <div>Limbaj <br/><span>Python 3</span></div>
+        <div>Timp estimat <br/><span>50 min (elev) + 15 min (profesor)</span></div>
+    </div>
+</div>
+
+<div class="student-box">
+    <div class="student-field"><label>Nume și prenume</label><input aria-label="Nume și prenume"
+                                                                    class="student-input answer-input"
+                                                                    data-key="student-1" type="text"/></div>
+    <div class="student-field"><label>Clasa</label><input aria-label="Clasa" class="student-input answer-input"
+                                                          data-key="student-2" type="text"/></div>
+    <div class="student-field"><label>Data</label><input aria-label="Data" class="student-input answer-input"
+                                                         data-key="student-3" type="text"/></div>
+    <div class="student-field"><label>Nota</label><input aria-label="Nota" class="student-input answer-input"
+                                                         data-key="student-4" type="text"/></div>
+</div>
+<div class="controls no-print">
+    <button id="printBtn" type="button">Printează / salvează PDF</button>
+    <button id="clearBtn" type="button">Șterge răspunsurile</button>
+    <span class="small-note">Răspunsurile scrise în căsuțe se salvează automat în browserul tău.</span>
+</div>
+
+<div class="body">
+
+    <div class="section-label">
+        <span class="num">TEORIE</span>
+        <h2>Ce este un subprogram?</h2>
+    </div>
+    <div class="box box-def">
+        <strong>Definiție</strong>
+        Un <em>subprogram</em> (funcție) este un bloc de cod cu nume, care poate primi date de intrare (parametri),
+        execută un set de instrucțiuni și poate returna un rezultat. El poate fi apelat de mai multe ori din program,
+        evitând repetarea codului.
+    </div>
+    <p>Gândește-te la un subprogram ca la o <strong>rețetă de bucătărie</strong>: o scrieri o dată și o folosești ori de
+        câte ori ai nevoie, cu ingrediente diferite de fiecare dată.</p>
+    <h3>Structura unui subprogram în Python</h3>
+    <div class="diagram-row">
+        <div class="part head">
+            <div class="label">Antet (header)</div>
+            <div class="content">def nume(param1, param2):</div>
+        </div>
+        <div class="part body-p">
+            <div class="label">Corp (body)</div>
+            <div class="content">instrucțiuni indentate</div>
+        </div>
+        <div class="part call">
+            <div class="label">Apel (call)</div>
+            <div class="content">rezultat = nume(val1, val2)</div>
+        </div>
+    </div>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu general</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">salut</span>(nume, varsta):          <span class="cm"># antet: def + nume + parametri</span>
+    mesaj = <span class="st">f"Bună, {nume}! Ai {varsta} ani."</span>   <span class="cm"># corp</span>
+    <span class="kw">return</span> mesaj                      <span class="cm"># returnare rezultat</span>
+
+<span class="cm"># apel:</span>
+text = <span class="fn">salut</span>(<span class="st">"Ana"</span>, <span class="nm">16</span>)
+<span class="fn">print</span>(text)                          <span class="cm"># Bună, Ana! Ai 16 ani.</span></pre>
+    </div>
+    <h3>Concepte cheie</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Concept</th>
+            <th>Explicație</th>
+            <th>Exemplu Python</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>parametri formali</td>
+            <td>Variabilele din definiție – „locuri rezervate"</td>
+            <td><code>def calc(x, y):</code></td>
+        </tr>
+        <tr>
+            <td>parametri efectivi</td>
+            <td>Valorile reale transmise la apel</td>
+            <td><code>calc(5, 3)</code></td>
+        </tr>
+        <tr>
+            <td>return</td>
+            <td>Trimite un rezultat înapoi la apelant și oprește funcția</td>
+            <td><code>return x + y</code></td>
+        </tr>
+        <tr>
+            <td>variabilă locală</td>
+            <td>Există doar în interiorul funcției</td>
+            <td><code>temp = 0</code> (în corp)</td>
+        </tr>
+        <tr>
+            <td>variabilă globală</td>
+            <td>Definită în afara funcțiilor, vizibilă peste tot</td>
+            <td><code>PI = 3.14</code> (înainte de def)</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Subprograme fără return vs. cu return</h3>
+    <div class="two-col">
+        <div class="box box-tip">
+            <strong>Procedură (fără return)</strong>
+            Execută acțiuni (afișează, modifică ceva). Nu produce o valoare.
+            <div style="margin-top:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#1a1814;">
+                def afiseaza_patrat(n):<br/>
+                    print(n * n)
+            </div>
+        </div>
+        <div class="box box-warn">
+            <strong>Funcție (cu return)</strong>
+            Calculează și returnează o valoare care poate fi folosită.
+            <div style="margin-top:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#1a1814;">
+                def patrat(n):<br/>
+                    return n * n
+            </div>
+        </div>
+    </div>
+    <h3>Subprograme predefinite utile în Python</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Funcție</th>
+            <th>Ce face</th>
+            <th>Exemplu</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>abs(x)</td>
+            <td>Valoarea absolută a lui x</td>
+            <td><code>abs(-7)</code> → 7</td>
+        </tr>
+        <tr>
+            <td>round(x, n)</td>
+            <td>Rotunjire la n zecimale</td>
+            <td><code>round(3.567, 2)</code> → 3.57</td>
+        </tr>
+        <tr>
+            <td>int(x)</td>
+            <td>Conversia la întreg (trunchiază)</td>
+            <td><code>int(3.9)</code> → 3</td>
+        </tr>
+        <tr>
+            <td>float(x)</td>
+            <td>Conversia la număr real</td>
+            <td><code>float("3.14")</code> → 3.14</td>
+        </tr>
+        <tr>
+            <td>math.sqrt(x)</td>
+            <td>Rădăcina pătrată</td>
+            <td><code>math.sqrt(25)</code> → 5.0</td>
+        </tr>
+        <tr>
+            <td>len(lista)</td>
+            <td>Numărul de elemente</td>
+            <td><code>len([1,2,3])</code> → 3</td>
+        </tr>
+        <tr>
+            <td>min(lista)</td>
+            <td>Minimul dintr-o colecție</td>
+            <td><code>min([4,1,7])</code> → 1</td>
+        </tr>
+        <tr>
+            <td>max(lista)</td>
+            <td>Maximul dintr-o colecție</td>
+            <td><code>max([4,1,7])</code> → 7</td>
+        </tr>
+        <tr>
+            <td>sum(lista)</td>
+            <td>Suma elementelor</td>
+            <td><code>sum([4,1,7])</code> → 12</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="box box-tip">
+        <strong>Reține!</strong>
+        Pentru a folosi <code>math.sqrt</code> trebuie să scrii la începutul programului: <code>import math</code>
+    </div>
+    <!-- ═══ PART II – WORKED EXAMPLES ═══ -->
+    <hr class="divider"/>
+    <div class="section-label">
+        <span class="num">EXEMPLE REZOLVATE</span>
+        <h2>Să vedem cum funcționează</h2>
+    </div>
+    <h3>Exemplul 1 – Funcție simplă cu return</h3>
+    <p>Scrieți o funcție care primește două numere reale și returnează distanța dintre ele pe axa numerelor.</p>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu1_distanta.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">distanta</span>(a, b):
+    <span class="cm"># distanța pe axă = valoarea absolută a diferenței</span>
+    <span class="kw">return</span> <span class="fn">abs</span>(a - b)
+
+<span class="cm"># testăm funcția</span>
+d1 = <span class="fn">distanta</span>(<span class="nm">3</span>, <span class="nm">8</span>)
+d2 = <span class="fn">distanta</span>(-<span class="nm">5</span>, <span class="nm">2</span>)
+<span class="fn">print</span>(<span class="st">f"Distanța dintre 3 și 8: {d1}"</span>)     <span class="cm"># 5</span>
+<span class="fn">print</span>(<span class="st">f"Distanța dintre -5 și 2: {d2}"</span>)   <span
+                    class="cm"># 7</span></pre>
+    </div>
+    <div class="inline-note">Parametrii <code>a</code> și <code>b</code> sunt variabile locale – există doar în
+        interiorul funcției.
+    </div>
+    <h3>Exemplul 2 – Funcție cu validare a parametrilor</h3>
+    <p>Scrieți o funcție care calculează aria unui dreptunghi. Dacă dimensiunile sunt invalide (negative sau zero),
+        funcția afișează un mesaj de eroare.</p>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu2_arie.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">arie_dreptunghi</span>(lungime, latime):
+    <span class="kw">if</span> lungime &lt;= <span class="nm">0</span> <span class="kw">or</span> latime &lt;= <span
+                    class="nm">0</span>:
+        <span class="fn">print</span>(<span class="st">"Eroare: dimensiunile trebuie să fie pozitive!"</span>)
+        <span class="kw">return None</span>        <span class="cm"># ieșim din funcție fără rezultat</span>
+    <span class="kw">return</span> lungime * latime
+
+<span class="cm"># apeluri</span>
+<span class="fn">print</span>(<span class="fn">arie_dreptunghi</span>(<span class="nm">5</span>, <span
+                    class="nm">3</span>))    <span class="cm"># 15</span>
+<span class="fn">print</span>(<span class="fn">arie_dreptunghi</span>(-<span class="nm">2</span>, <span
+                    class="nm">4</span>))   <span class="cm"># Eroare: dimensiunile...</span></pre>
+    </div>
+    <h3>Exemplul 3 – Funcție care apelează altă funcție</h3>
+    <p>Proiectare modulară: funcția <code>ipotenusa</code> folosește funcția <code>distanta_euclidiana</code>.</p>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu3_modular.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">import</span> math
+
+<span class="kw">def</span> <span class="fn">patrat</span>(x):
+    <span class="kw">return</span> x * x
+
+<span class="kw">def</span> <span class="fn">ipotenusa</span>(cateta1, cateta2):
+    <span class="cm"># teorema lui Pitagora: c² = a² + b²</span>
+    suma_patrate = <span class="fn">patrat</span>(cateta1) + <span class="fn">patrat</span>(cateta2)
+    <span class="kw">return</span> <span class="fn">round</span>(math.<span class="fn">sqrt</span>(suma_patrate), <span
+                    class="nm">2</span>)
+
+<span class="cm"># triunghi dreptunghic 3-4-5</span>
+c = <span class="fn">ipotenusa</span>(<span class="nm">3</span>, <span class="nm">4</span>)
+<span class="fn">print</span>(<span class="st">f"Ipotenuza: {c}"</span>)    <span
+                    class="cm"># Ipotenuza: 5.0</span></pre>
+    </div>
+    <div class="box box-tip">
+        <strong>Principiu cheie – modularitate</strong>
+        Descompunerea în subprograme mici face codul mai ușor de înțeles, de testat și de modificat. Fiecare funcție
+        face un singur lucru, bine definit.
+    </div>
+    <h3>Exemplul 4 – Funcții predefinite pentru colecții</h3>
+    <div class="code-wrap">
+        <div class="code-header"><span>exemplu4_colectii.py</span><span class="lang">python</span></div>
+        <pre><span class="kw">def</span> <span class="fn">raport_note</span>(note):
+    <span class="cm">"""Generează un raport statistic pentru o listă de note."""</span>
+    n = <span class="fn">len</span>(note)
+    <span class="kw">if</span> n == <span class="nm">0</span>:
+        <span class="kw">return</span> <span class="st">"Lista de note este goală."</span>
+    media = <span class="fn">round</span>(<span class="fn">sum</span>(note) / n, <span class="nm">2</span>)
+    <span class="kw">return</span> (<span class="st">f"Elevi: {n} | Min: {</span><span class="fn">min</span>(note)<span
+                    class="st">} | "</span>
+            <span class="st">f"Max: {</span><span class="fn">max</span>(note)<span class="st">} | Medie: {media}"</span>)
+
+note_clasa = [<span class="nm">7</span>, <span class="nm">9</span>, <span class="nm">10</span>, <span
+                    class="nm">6</span>, <span class="nm">8</span>, <span class="nm">7</span>, <span class="nm">5</span>, <span
+                    class="nm">9</span>]
+<span class="fn">print</span>(<span class="fn">raport_note</span>(note_clasa))
+<span class="cm"># Elevi: 8 | Min: 5 | Max: 10 | Medie: 7.62</span>
+
+<span class="fn">print</span>(<span class="fn">raport_note</span>([]))
+<span class="cm"># Lista de note este goală.</span></pre>
+    </div>
+    <!-- ═══ PART III – EXERCISES (STUDENT) ═══ -->
+    <hr class="divider"/>
+    <div class="section-label">
+        <span class="num">EXERCIȚII</span>
+        <h2>Aplică ce ai învățat</h2>
+    </div>
+    <p style="color:var(--ink-muted); font-size:13px; margin-bottom:4px;">Rezolvă exercițiile în ordinea propusă. Cele
+        marcate cu <span class="badge badge-hard">★ dificil</span> sunt opționale.</p>
+    <!-- EX 1 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num">EX 1</span>
+            <div>
+                <p><strong>Identificare și completare</strong> <span class="badge badge-easy">ușor</span></p>
+                <p>Completează tabelul de mai jos identificând elementele subprogramului dat:</p>
+                <div class="code-wrap" style="margin-top:10px;">
+                    <div class="code-header"><span>cod dat</span><span class="lang">python</span></div>
+                    <pre><span class="kw">def</span> <span class="fn">temperatura_medie</span>(t1, t2, t3):
+    medie = (t1 + t2 + t3) / <span class="nm">3</span>
+    <span class="kw">return</span> <span class="fn">round</span>(medie, <span class="nm">1</span>)
+
+rezultat = <span class="fn">temperatura_medie</span>(<span class="nm">22.5</span>, <span class="nm">18.0</span>, <span
+                                class="nm">25.3</span>)
+<span class="fn">print</span>(rezultat)</pre>
+                </div>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <table style="font-size:13px;">
+                <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Valoare/identificare</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Numele funcției</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-1" rows="2" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Parametrii formali</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-2" rows="2" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Parametrii efectivi</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-3" rows="2" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Variabilele locale</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-4" rows="2" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Ce returnează funcția</td>
+                    <td class="answer-cell"><textarea aria-label="Răspuns în tabel" class="table-answer answer-input"
+                                                      data-key="table-5" rows="2" spellcheck="true"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <p style="margin-top:12px; font-size:13px;">Ce va afișa <code>print(rezultat)</code>?</p>
+            <textarea aria-label="Răspuns exercițiu" class="answer-space answer-input" data-key="answer-1"
+                      placeholder="Scrie răspunsul tău..." rows="4" spellcheck="true"></textarea>
+        </div>
+    </div>
+    <!-- EX 2 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num">EX 2</span>
+            <div>
+                <p><strong>Scriere de funcție simplă</strong> <span class="badge badge-easy">ușor</span></p>
+                <p>Scrie o funcție <code>este_par(n)</code> care primește un număr întreg și returnează
+                    <code>True</code> dacă este par, respectiv <code>False</code> dacă este impar. Apeleaz-o pentru
+                    numerele 4, 7 și 0 și afișează rezultatele.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code large answer-input" data-key="answer-2"
+                      placeholder="Scrie codul Python aici..." rows="8" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <!-- EX 3 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num ex-num med">EX 3</span>
+            <div>
+                <p><strong>Aplicație practică – calculator de salariu</strong> <span
+                        class="badge badge-med">mediu</span></p>
+                <p>O firmă aplică o reducere de impozit de 10% pentru salarii sub 3000 lei și de 16% pentru salarii de
+                    3000 lei sau mai mari. Scrie o funcție <code>salariu_net(brut)</code> care calculează și returnează
+                    salariul net. Afișează salariul net pentru valorile 2500, 3000 și 4500.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code large answer-input" data-key="answer-3"
+                      placeholder="Scrie codul Python aici..." rows="8" spellcheck="false"></textarea>
+            <p style="margin-top:10px; font-size:12.5px; color:var(--ink-muted);">Verificare rapidă: pentru brut=2500 →
+                net=2250; pentru brut=3000 → net=2520.</p>
+        </div>
+    </div>
+    <!-- EX 4 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num med">EX 4</span>
+            <div>
+                <p><strong>Proiectare modulară – excursie la muzeu</strong> <span class="badge badge-med">mediu spre dificil</span>
+                </p>
+                <p>O clasă organizează o excursie la muzeu. Costul se calculează astfel: fiecare elev plătește un bilet,
+                    iar grupul mai plătește o taxă fixă de transport de 120 lei. Dacă sunt cel puțin 20 de elevi, se
+                    aplică o reducere de 10% doar la costul biletelor.</p>
+                <p style="margin-top:6px;">a) Scrie o funcție <code>cost_bilete(nr_elevi, pret_bilet)</code> care
+                    returnează costul biletelor.</p>
+                <p>b) Scrie o funcție <code>aplica_reducere_grup(cost, nr_elevi)</code> care aplică reducerea de grup
+                    dacă este cazul.</p>
+                <p>c) Scrie o funcție <code>cost_total_excursie(nr_elevi, pret_bilet)</code> care folosește funcțiile de
+                    mai sus, adaugă transportul și returnează costul total rotunjit la 2 zecimale.</p>
+                <p>d) Scrie o funcție <code>cost_per_elev(total, nr_elevi)</code> și testează pentru: 18 elevi cu bilet
+                    de 25 lei și 24 elevi cu bilet de 25 lei.</p>
+                <p style="margin-top:6px; color:var(--ink-muted); font-size:12.5px;">Verificare rapidă: pentru 18 elevi
+                    → total 570 lei; pentru 24 elevi → total 660 lei.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code answer-input" data-key="answer-4"
+                      placeholder="Scrie codul Python aici..." rows="10" spellcheck="false"
+                      style="min-height:220px;"></textarea>
+        </div>
+    </div>
+    <!-- EX 5 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num ex-num med">EX 5</span>
+            <div>
+                <p><strong>Funcții cu colecții</strong> <span class="badge badge-med">mediu</span></p>
+                <p>Scrie o funcție <code>analiza_temperaturi(temp_list)</code> care primește o listă de temperaturi
+                    zilnice și returnează un mesaj de forma:<br/>
+                    <code>"Zile: 7 | Min: 12.5°C | Max: 31.0°C | Medie: 22.3°C"</code><br/>
+                    Tratează și cazul listei goale. Testează cu lista: <code>[18.5, 22.0, 31.0, 28.4, 12.5, 19.0,
+                        25.6]</code>.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code large answer-input" data-key="answer-5"
+                      placeholder="Scrie codul Python aici..." rows="8" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <!-- EX 6 -->
+    <div class="exercise">
+        <div class="exercise-head">
+            <span class="ex-num hard">EX 6 ★</span>
+            <div>
+                <p><strong>Mini-proiect modular – catalog școlar</strong> <span
+                        class="badge badge-hard">★ dificil</span></p>
+                <p>Implementează un sistem modular simplu de gestionare a notelor unui elev. Scrie următoarele
+                    funcții:</p>
+                <ul style="margin-top:6px;">
+                    <li><code>adauga_nota(note, nota_noua)</code> – adaugă nota la listă dacă este validă (între 1 și
+                        10);
+                    </li>
+                    <li><code>media_elev(note)</code> – returnează media aritmetică, rotunjită la 2 zecimale (sau mesaj
+                        dacă lista e goală);
+                    </li>
+                    <li><code>promovat(note)</code> – returnează <code>True</code> dacă media ≥ 5, altfel
+                        <code>False</code>;
+                    </li>
+                    <li><code>afiseaza_catalog(note)</code> – afișează toate notele, media și statusul (Promovat /
+                        Nepromovat).
+                    </li>
+                </ul>
+                <p style="margin-top:6px;">Demonstrează funcționarea cu: note = [], apoi adaugă notele 8, 6, 4, 11
+                    (invalidă), 7.</p>
+            </div>
+        </div>
+        <div class="exercise-body">
+            <textarea aria-label="Răspuns exercițiu" class="answer-space code answer-input" data-key="answer-6"
+                      placeholder="Scrie codul Python aici..." rows="10" spellcheck="false"
+                      style="min-height:260px;"></textarea>
+        </div>
+    </div>
+    <!-- ═══ TEACHER SECTION ═══ -->
+    <div class="dashed-divider"></div>
+    <div class="section-label teacher">
+        <span class="num">PROFESOR</span>
+        <h2>Barem și răspunsuri</h2>
+    </div>
+    <p>Această secțiune este destinată exclusiv cadrului didactic. Se recomandă detașarea înainte de distribuirea fișei
+        la elevi.</p>
+    <!-- Answer 1 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 1 – Răspunsuri corecte (10 puncte)</h4>
+        <p>• Numele funcției: <code>temperatura_medie</code></p>
+        <p>• Parametrii formali: <code>t1, t2, t3</code></p>
+        <p>• Parametrii efectivi: <code>22.5, 18.0, 25.3</code></p>
+        <p>• Variabilele locale: <code>medie</code></p>
+        <p>• Ce returnează: media rotunjită la 1 zecimală a celor trei temperaturi</p>
+        <p>• Valoarea afișată: <strong>21.9</strong> (calcul: (22.5+18.0+25.3)/3 = 65.8/3 ≈ 21.933... → 21.9)</p>
+        <p style="margin-top:8px; color:var(--teal); font-size:12px;">Grilă: câte 2p pentru fiecare identificare corectă
+            (parametri 2p total dacă ambii corecți).</p>
+    </div>
+    <!-- Answer 2 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 2 – Soluție (15 puncte)</h4>
+        <div class="answer">def este_par(n):
+            return n % 2 == 0
+
+            print(este_par(4)) # True
+            print(este_par(7)) # False
+            print(este_par(0)) # True
+        </div>
+        <p>Punctaj: 8p definiția corectă + 4p apeluri corecte + 3p afișare corectă.</p>
+        <p>Observație: <code>0 % 2 == 0</code> → <code>True</code>; zero este număr par – mulți elevi greșesc aici!</p>
+    </div>
+    <!-- Answer 3 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 3 – Soluție (20 puncte)</h4>
+        <div class="answer">def salariu_net(brut):
+            if brut &lt; 3000:
+            impozit = 0.10
+            else:
+            impozit = 0.16
+            return round(brut * (1 - impozit), 2)
+
+            print(salariu_net(2500)) # 2250.0
+            print(salariu_net(3000)) # 2520.0
+            print(salariu_net(4500)) # 3780.0
+        </div>
+        <p>Punctaj: 10p logica condițională corectă + 5p calculul corect + 5p apeluri și afișare.</p>
+        <p>Atenție: condiția este brut &lt; 3000 (nu ≤), altfel 3000 lei ar fi taxat cu 10% în loc de 16%.</p>
+    </div>
+    <!-- Answer 4 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 4 – Soluție (25 puncte)</h4>
+        <div class="answer">def cost_bilete(nr_elevi, pret_bilet):
+            return nr_elevi * pret_bilet
+
+            def aplica_reducere_grup(cost, nr_elevi):
+            if nr_elevi &gt;= 20:
+            return cost * 0.90
+            return cost
+
+            def cost_total_excursie(nr_elevi, pret_bilet):
+            bilete = cost_bilete(nr_elevi, pret_bilet)
+            bilete_reduse = aplica_reducere_grup(bilete, nr_elevi)
+            transport = 120
+            return round(bilete_reduse + transport, 2)
+
+            def cost_per_elev(total, nr_elevi):
+            return round(total / nr_elevi, 2)
+
+            total_18 = cost_total_excursie(18, 25)
+            print(total_18) # 570
+            print(cost_per_elev(total_18, 18)) # 31.67
+
+            total_24 = cost_total_excursie(24, 25)
+            print(total_24) # 660
+            print(cost_per_elev(total_24, 24)) # 27.5
+        </div>
+        <p>Punctaj: 5p funcția <code>cost_bilete</code> + 6p funcția <code>aplica_reducere_grup</code> + 7p funcția
+            <code>cost_total_excursie</code> + 4p funcția <code>cost_per_elev</code> + 3p testare corectă.</p>
+        <p>Eroare frecventă: reducerea se aplică doar la costul biletelor, nu și la taxa fixă de transport.</p>
+    </div>
+    <!-- Answer 5 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 5 – Soluție (20 puncte)</h4>
+        <div class="answer">def analiza_temperaturi(temp_list):
+            if len(temp_list) == 0:
+            return "Lista de temperaturi este goală."
+            n = len(temp_list)
+            minim = min(temp_list)
+            maxim = max(temp_list)
+            medie = round(sum(temp_list) / n, 1)
+            return f"Zile: {n} | Min: {minim}°C | Max: {maxim}°C | Medie: {medie}°C"
+
+            temp = [18.5, 22.0, 31.0, 28.4, 12.5, 19.0, 25.6]
+            print(analiza_temperaturi(temp))
+            # Zile: 7 | Min: 12.5°C | Max: 31.0°C | Medie: 22.4°C
+            print(analiza_temperaturi([]))
+            # Lista de temperaturi este goală.
+        </div>
+        <p>Punctaj: 5p tratare caz gol + 5p utilizare len/min/max/sum + 5p format mesaj + 5p testare.</p>
+        <p>Nota: media = (18.5+22+31+28.4+12.5+19+25.6)/7 = 157/7 ≈ 22.4.</p>
+    </div>
+    <!-- Answer 6 -->
+    <div class="teacher-section">
+        <h4>Exercițiul 6 ★ – Soluție (10 puncte bonus)</h4>
+        <div class="answer">def adauga_nota(note, nota_noua):
+            if 1 &lt;= nota_noua &lt;= 10:
+            note.append(nota_noua)
+            print(f"Nota {nota_noua} adăugată.")
+            else:
+            print(f"Nota {nota_noua} este invalidă (trebuie să fie între 1 și 10).")
+
+            def media_elev(note):
+            if len(note) == 0:
+            return "Nicio notă înregistrată."
+            return round(sum(note) / len(note), 2)
+
+            def promovat(note):
+            m = media_elev(note)
+            if isinstance(m, str):
+            return False
+            return m &gt;= 5
+
+            def afiseaza_catalog(note):
+            print(f"Note: {note}")
+            print(f"Medie: {media_elev(note)}")
+            status = "Promovat" if promovat(note) else "Nepromovat"
+            print(f"Status: {status}")
+
+            note_elev = []
+            adauga_nota(note_elev, 8) # Nota 8 adăugată.
+            adauga_nota(note_elev, 6) # Nota 6 adăugată.
+            adauga_nota(note_elev, 4) # Nota 4 adăugată.
+            adauga_nota(note_elev, 11) # Nota 11 este invalidă.
+            adauga_nota(note_elev, 7) # Nota 7 adăugată.
+            afiseaza_catalog(note_elev)
+            # Note: [8, 6, 4, 7]
+            # Medie: 6.25
+            # Status: Promovat
+        </div>
+        <p>Evaluare: verificare validare notă (3p) + media corectă (2p) + promovat logic (2p) + afișare catalog
+            (3p).</p>
+        <p>Observație avansată: funcția <code>promovat</code> verifică dacă media este un număr (nu string) înainte de
+            comparație – bună practică!</p>
+    </div>
+
+</div><!-- /body -->
+
+<script>
+    (function () {
+        const inputs = document.querySelectorAll('.answer-input');
+
+        inputs.forEach((el, index) => {
+            if (!el.dataset.key) {
+                el.dataset.key = 'input-' + index;
+            }
+            const key = 'fisa_subprograme_' + el.dataset.key;
+            const saved = localStorage.getItem(key);
+            if (saved !== null) {
+                el.value = saved;
+            }
+            el.addEventListener('input', () => {
+                localStorage.setItem(key, el.value);
+            });
+        });
+
+        const printBtn = document.getElementById('printBtn');
+        if (printBtn) {
+            printBtn.addEventListener('click', () => window.print());
+        }
+
+        const clearBtn = document.getElementById('clearBtn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (!confirm('Sigur vrei să ștergi toate răspunsurile completate?')) return;
+                inputs.forEach((el) => {
+                    localStorage.removeItem('fisa_subprograme_' + el.dataset.key);
+                    el.value = '';
+                });
+            });
+        }
+    })();
+</script>
+</body>
+</html>

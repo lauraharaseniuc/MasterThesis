@@ -7,6 +7,8 @@ interface DigitalTool {
   url: string;
   tags: string[];
   icon: string;
+  secondaryUrl?: string;
+  secondaryLabel?: string;
 }
 
 @Component({
@@ -129,6 +131,15 @@ export class InstrumenteDigitale {
       url: '/fisere/stive_cozi.html',
       tags: ['Clasa a IX-a', 'Stivă', 'Coadă', 'Python', 'Exerciții interactive'],
       icon: 'course',
+    },
+    {
+      title: 'Cursa Listelor',
+      description: 'Joc educativ cu timer în Python (tkinter) despre clasa list: metode (append(), pop(), insert(), sort(), reverse(), clear(), count()), operatori (+, *, in/not in), funcții predefinite (len(), min(), max(), sum()) și urmărire de cod. 15 întrebări cronometrate, sistem de punctaj cu bonus de viteză și streak, 3 vieți, ranguri finale. Descarcă fișierul .py și rulează-l local cu Python 3. Include și o notă pentru profesor cu detalii despre mecanica jocului și modul de utilizare la clasă.',
+      url: '/fisere/Cursa_Listelor.py',
+      secondaryUrl: '/fisere/Nota_Profesor_Cursa_Listelor.pdf',
+      secondaryLabel: 'Notă pentru profesor',
+      tags: ['Clasa a IX-a', 'Liste', 'Python', 'Joc educativ', 'tkinter'],
+      icon: 'game',
     },
   ];
 }

@@ -15,6 +15,7 @@ export class Class9PrelucrariComponent {
   showFisaPrelucrari = false;
   showFisaEficienta = false;
   showFisaDivizori = false;
+  showFisaEuclidPseudocod = false;
 
   constructor(private dialog: MatDialog) {}
 

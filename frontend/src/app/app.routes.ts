@@ -59,6 +59,9 @@ import {Class9ListeSemafor} from "./resources/class9/class9-liste-semafor/class9
 import {Class9ListeOperatii} from "./resources/class9/class9-liste-operatii/class9-liste-operatii";
 import {Class9SortareSelectiaMinimului} from "./resources/class9/class9-sortare-selectia-minimului/class9-sortare-selectia-minimului";
 import {Class9HardwareAlimentareRacire} from "./resources/class9/class9-hardware-alimentare-racire/class9-hardware-alimentare-racire";
+import {Class9ListeMetodeBaza} from "./resources/class9/class9-liste-metode-baza/class9-liste-metode-baza";
+import {Class9ComunicareEmail} from "./resources/class9/class9-comunicare-email/class9-comunicare-email";
+import {Class9SortareCaracteristiciSelectie} from "./resources/class9/class9-sortare-caracteristici-selectie/class9-sortare-caracteristici-selectie";
 import {Class10AlgoritmiUmplere} from "./resources/class10/class10-algoritmi-umplere/class10-algoritmi-umplere";
 import {Class10Greedy} from "./resources/class10/class10-greedy/class10-greedy";
 import {Class10TicSecuritate} from "./resources/class10/class10-tic-securitate/class10-tic-securitate";
@@ -127,6 +130,8 @@ export const routes: Routes = [
   { path: 'clasa9a/introducere-in-programarea-orientata-pe-obiecte-in-python', component: Class9OopComponent },
   { path: 'clasa9a/interfete-grafice', component: Class9InterfeteComponent },
   { path: 'clasa9a/comunicare-si-colaborare-digitala', component: Class9Comunicare },
+  { path: 'clasa9a/comunicare-email', component: Class9ComunicareEmail },
+  { path: 'clasa9a/sortare-caracteristici-selectie', component: Class9SortareCaracteristiciSelectie },
   { path: 'clasa9a/aplicatii-si-platforme-care-sprijina-invatarea', component: Class9Aplicatii },
   { path: 'clasa9a/introducere-in-inteligenta-artificiala', component: Class9IntroducereAi },
   { path: 'clasa9a/introducere-in-tehnologii-emergente', component: Class9IntroducereTehnologii },
@@ -134,6 +139,7 @@ export const routes: Routes = [
   { path: 'clasa9a/prezentari-digitale', component: Class9PrezentariDigitale },
   { path: 'clasa9a/componenta-hardware-a-unui-sistem-de-calcul', component: Class9ComponentaHardware },
   { path: 'clasa9a/hardware-alimentare-racire', component: Class9HardwareAlimentareRacire },
+  { path: 'clasa9a/liste-metode-baza', component: Class9ListeMetodeBaza },
   { path: 'clasa9a/componenta-software-a-unui-sistem-de-calcul', component: Class9ComponentaSoftware },
   { path: 'clasa10a/multimi', component: Class10Multimi },
   { path: 'clasa10a/dictionare', component: Class10Dictionare },

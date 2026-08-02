@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Fișă de lucru - Prelucrări ale numerelor în Python</title>
+    <style>
+        :root {
+            --text: #202124;
+            --muted: #5f6368;
+            --line: #d9dce1;
+            --bg: #ffffff;
+            --panel: #f7f8fa;
+            --panel2: #eef3ff;
+            --blue: #1a73e8;
+            --green: #188038;
+            --yellow: #f9ab00;
+            --red: #c5221f;
+            --code: #f1f3f4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 22px;
+            background: #fff;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .cover {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel);
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .cover-tag {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: .04em;
+            margin-bottom: 8px;
+        }
+
+        .cover h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.15;
+        }
+
+        .cover h1 em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .cover p {
+            color: var(--muted);
+            margin: 10px 0 0;
+        }
+
+        .cover-meta {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .cover-meta div {
+            border: 1px solid var(--line);
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .cover-meta span {
+            color: var(--text);
+            font-weight: bold;
+        }
+
+        .student-box {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .student-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-field label {
+            width: 120px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .student-input {
+            flex: 1;
+            min-height: 34px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 6px 8px;
+            font: inherit;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0 22px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .controls button {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .controls button:hover {
+            background: var(--panel2);
+        }
+
+        .small-note {
+            color: var(--muted);
+            font-size: 12px;
+            align-self: center;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 12px;
+        }
+
+        .section-label .num,
+        .badge,
+        .ex-num {
+            display: inline-block;
+            border-radius: 999px;
+            background: var(--panel2);
+            color: var(--blue);
+            padding: 4px 9px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .section-label h2 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 24px 0 10px;
+        }
+
+        h4 {
+            margin: 18px 0 8px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .box,
+        .inline-note,
+        .teacher-section {
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--blue);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin: 14px 0;
+            background: var(--panel);
+        }
+
+        .box strong:first-child {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .box-tip {
+            border-left-color: var(--yellow);
+            background: #fff8e1;
+        }
+
+        .box-warn {
+            border-left-color: var(--red);
+            background: #fce8e6;
+        }
+
+        .teacher-section {
+            border-left-color: var(--green);
+            background: #e6f4ea;
+        }
+
+        .teacher-section h4 {
+            color: var(--green);
+            margin-top: 0;
+        }
+
+        .method-card,
+        .exercise {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: white;
+            margin: 18px 0;
+            overflow: hidden;
+        }
+
+        .method-card-header,
+        .exercise-head {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 16px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .method-card-header h3,
+        .exercise-head p {
+            margin: 0;
+        }
+
+        .method-num,
+        .step-num {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--blue);
+            color: white;
+            font-weight: bold;
+        }
+
+        .method-card-body,
+        .exercise-body {
+            padding: 14px 16px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            padding: 10px 12px;
+        }
+
+        .step-content strong {
+            display: block;
+        }
+
+        .step-content p {
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid var(--line);
+            padding: 9px 10px;
+            vertical-align: top;
+        }
+
+        thead th,
+        .compare-table th,
+        .trace-table th {
+            background: var(--panel);
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) td {
+            background: #fafafa;
+        }
+
+        .trace-table td,
+        .trace-table th {
+            text-align: center;
+        }
+
+        .trace-table .step-label {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        .good {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .ok {
+            color: #b06000;
+            font-weight: bold;
+        }
+
+        .bad {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .code-wrap {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--code);
+            margin: 14px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid var(--line);
+            background: #e8eaed;
+            padding: 7px 10px;
+            color: var(--muted);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+        }
+
+        pre,
+        .teacher-section .answer {
+            margin: 0;
+            padding: 12px 14px;
+            overflow-x: auto;
+            background: var(--code);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.55;
+            white-space: pre;
+        }
+
+        code {
+            background: var(--code);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 4px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: .92em;
+        }
+
+        .answer-space,
+        .table-answer {
+            width: 100%;
+            border: 1px solid #b8c0cc;
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 9px;
+            font: inherit;
+            resize: vertical;
+        }
+
+        .answer-space {
+            min-height: 90px;
+            display: block;
+        }
+
+        .answer-space.code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .answer-space.large {
+            min-height: 155px;
+        }
+
+        .answer-space.xlarge {
+            min-height: 230px;
+        }
+
+        .table-answer {
+            min-width: 120px;
+            min-height: 42px;
+            font-size: 13px;
+        }
+
+        ul, ol {
+            margin: 8px 0;
+            padding-left: 22px;
+        }
+
+        li {
+            margin: 4px 0;
+        }
+
+        .two-col, .three-col {
+            display: grid;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .two-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .divider, .dashed-divider {
+            border: none;
+            border-top: 1px solid var(--line);
+            margin: 28px 0;
+        }
+
+        footer {
+            margin-top: 26px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .digit-cell {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border: 2px solid var(--blue);
+            border-radius: 6px;
+            background: var(--panel2);
+            font-family: Consolas, "Courier New", monospace;
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--blue);
+        }
+
+        .digit-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .digit-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .digit-container {
+            text-align: center;
+        }
+
+        .arrow-label {
+            color: var(--muted);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .formula-box {
+            background: var(--panel2);
+            border: 1px solid var(--blue);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .euclid-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .euclid-row:last-child {
+            border-bottom: none;
+        }
+
+        .euclid-val {
+            font-family: Consolas, "Courier New", monospace;
+            font-weight: bold;
+            min-width: 60px;
+        }
+
+        .badge-green {
+            display: inline-block;
+            border-radius: 999px;
+            background: var(--panel2);
+            color: var(--blue);
+            padding: 4px 9px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-yellow {
+            display: inline-block;
+            border-radius: 999px;
+            background: var(--panel2);
+            color: var(--blue);
+            padding: 4px 9px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 12px;
+            }
+
+            .cover-meta, .student-box, .two-col, .three-col {
+                grid-template-columns: 1fr;
+            }
+
+            .cover h1 {
+                font-size: 28px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                max-width: none;
+                padding: 0;
+            }
+
+            .controls {
+                display: none;
+            }
+
+            .cover, .student-box, .method-card, .exercise, .box {
+                break-inside: avoid;
+            }
+
+            textarea, input {
+                border: 1px solid #999 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="cover-tag">Informatică · clasa a IX-a </div>
+    <h1>Prelucrări ale numerelor <br/> <em>în Python</em></h1>
+    <p>Cifre · Divizori · Algoritmul lui Euclid · Factorizare · Exerciții · Barem profesor</p>
+    <div class="cover-meta">
+        <div>Competențe specifice<br/><span>CS 1.2 · CS 2.2 · CS 3.2 · CS 4.2 · CS 5.2 · CS 6.2</span></div>
+        <div>Domeniu de conținut<br/><span>2.2 – Prelucrări ale numerelor</span></div>
+        <div>Limbaj<br/><span>Python 3</span></div>
+        <div>Timp estimat<br/><span>50 min (elev) + 15 min (prof.)</span></div>
+    </div>
+</div>
+
+<div class="student-box">
+    <div class="student-field"><label>Nume și prenume</label><input aria-label="Nume și prenume"
+                                                                    class="student-input answer-input"
+                                                                    data-key="student-1" type="text"/></div>
+    <div class="student-field"><label>Clasa</label><input aria-label="Clasa" class="student-input answer-input"
+                                                          data-key="student-2" type="text"/></div>
+    <div class="student-field"><label>Data</label><input aria-label="Data" class="student-input answer-input"
+                                                         data-key="student-3" type="text"/></div>
+    <div class="student-field"><label>Nota</label><input aria-label="Nota" class="student-input answer-input"
+                                                         data-key="student-4" type="text"/></div>
+</div>
+<div class="controls no-print">
+    <button id="printBtn" type="button">Printează / salvează PDF</button>
+    <button id="clearBtn" type="button">Șterge răspunsurile</button>
+    <span class="small-note">Răspunsurile scrise în căsuțe se salvează automat în browserul tău.</span>
+</div>
+
+<div class="section-label">
+    <span class="num">1</span>
+    <h2>Operații cu cifrele unui număr</h2>
+</div>
+<div class="box">
+    <strong>Idei cheie</strong>
+    Orice număr natural poate fi descompus cifră cu cifră prin împărțiri succesive la 10.
+    Cifra unităților unui număr <code>n</code> se obține cu <code>n % 10</code>, iar restul numărului (fără ultima
+    cifră) se obține cu <code>n // 10</code>.
+</div>
+
+<div class="method-card">
+    <div class="method-card-header">
+        <span class="method-num">A</span>
+        <h3>Accesul la cifrele unui număr</h3>
+    </div>
+    <div class="method-card-body">
+        <p>Pentru a parcurge cifrele lui <strong>n = 4753</strong> de la dreapta la stânga:</p>
+        <div class="digit-row">
+            <div class="digit-container"><span class="digit-cell">4</span><span class="digit-label">mii</span></div>
+            <div class="digit-container"><span class="digit-cell">7</span><span class="digit-label">sute</span></div>
+            <div class="digit-container"><span class="digit-cell">5</span><span class="digit-label">zeci</span></div>
+            <div class="digit-container"><span class="digit-cell">3</span><span class="digit-label">unități</span></div>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <span class="step-num">1</span>
+                <div class="step-content">
+                    <strong>Extrage cifra unităților</strong>
+                    <p><code>cifra = n % 10</code> → 4753 % 10 = <span class="highlight">3</span></p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-num">2</span>
+                <div class="step-content">
+                    <strong>Elimină cifra unităților</strong>
+                    <p><code>n = n // 10</code> → 4753 // 10 = <span class="highlight">475</span></p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-num">3</span>
+                <div class="step-content">
+                    <strong>Repetă până când n = 0</strong>
+                    <p>Condiție de oprire: <code>while n != 0</code></p>
+                </div>
+            </div>
+        </div>
+        <div class="code-wrap">
+            <div class="code-header"><span>python</span><span>parcurgere_cifre.py</span></div>
+            <pre>n = 4753
+while n != 0:
+    cifra = n % 10
+    print(cifra)
+    n = n // 10</pre>
+        </div>
+        <div class="box box-tip">
+            <strong>Caz special: n = 0</strong>
+            Dacă <code>n = 0</code>, bucla <code>while n != 0</code> nu se execută deloc! Trateaza separat cazul în care
+            numărul este 0.
+        </div>
+    </div>
+</div>
+
+<div class="method-card">
+    <div class="method-card-header">
+        <span class="method-num">B</span>
+        <h3>Adăugarea unei cifre la stânga sau la dreapta</h3>
+    </div>
+    <div class="method-card-body">
+        <div class="two-col">
+            <div>
+                <h4>Adăugare la dreapta (cifra devine unitate)</h4>
+                <p>Exemplu: adaugă cifra <strong>6</strong> la dreapta lui <strong>47</strong> → obții
+                    <strong>476</strong></p>
+                <div class="formula-box">n_nou = n * 10 + cifra</div>
+                <p>47 × 10 + 6 = <span class="highlight">476</span></p>
+                <div class="code-wrap">
+                    <div class="code-header"><span>python</span></div>
+                    <pre>n = 47
+cifra = 6
+n_nou = n * 10 + cifra
+print(n_nou)</pre>
+                </div>
+            </div>
+            <div>
+                <h4>Adăugare la stânga (cifra devine cea mai semnificativă)</h4>
+                <p>Exemplu: adaugă cifra <strong>6</strong> la stânga lui <strong>47</strong> → obții
+                    <strong>647</strong></p>
+                <div class="formula-box">n_nou = cifra * 10<sup>k</sup> + n</div>
+                <p>unde <code>k</code> = numărul de cifre al lui <code>n</code></p>
+                <div class="code-wrap">
+                    <div class="code-header"><span>python</span></div>
+                    <pre>n = 47
+cifra = 6
+import math
+k = len(str(n))
+n_nou = cifra * (10 ** k) + n
+print(n_nou)</pre>
+                </div>
+            </div>
+        </div>
+        <div class="box box-tip">
+            <strong>Alternativă practică în Python</strong>
+            Poți converti la string și concatena: <code>int(str(cifra) + str(n))</code> sau <code>int(str(n) +
+            str(cifra))</code> — dar înțelege și varianta matematică!
+        </div>
+    </div>
+</div>
+
+<div class="section-label">
+    <span class="num">2</span>
+    <h2>Divizori și multipli</h2>
+</div>
+<div class="box">
+    <strong>Definiție</strong>
+    <code>d</code> este <strong>divizor</strong> al lui <code>n</code> dacă <code>n % d == 0</code> (împărțirea este
+    exactă, restul este 0).
+    Echivalent, <code>n</code> este <strong>multiplu</strong> al lui <code>d</code>.
+</div>
+<div class="method-card">
+    <div class="method-card-header">
+        <span class="method-num">C</span>
+        <h3>Parcurgerea divizorilor unui număr</h3>
+    </div>
+    <div class="method-card-body">
+        <p>Există trei strategii pentru a găsi toți divizorii lui <strong>n = 36</strong>:</p>
+        <table class="compare-table">
+            <thead>
+            <tr>
+                <th>Strategie</th>
+                <th>Interval parcurs</th>
+                <th>Număr de pași (n=36)</th>
+                <th>Complexitate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong>1. De la 1 la n</strong></td>
+                <td><code>range(1, n+1)</code></td>
+                <td class="bad">36 pași</td>
+                <td class="bad">O(n)</td>
+            </tr>
+            <tr>
+                <td><strong>2. De la 1 la n//2</strong></td>
+                <td><code>range(1, n//2+1)</code> + n</td>
+                <td class="ok">18 pași</td>
+                <td class="ok">O(n/2)</td>
+            </tr>
+            <tr>
+                <td><strong>3. De la 1 la √n</strong></td>
+                <td><code>range(1, int(n**0.5)+1)</code></td>
+                <td class="good">6 pași</td>
+                <td class="good">O(√n)</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="code-wrap">
+            <div class="code-header"><span>python</span><span>divizori_sqrt.py — varianta eficientă O(√n)</span></div>
+            <pre>import math
+
+def divizori(n):
+    divs = []
+    for d in range(1, int(math.sqrt(n)) + 1):
+        if n % d == 0:
+            divs.append(d)
+            if d != n // d:
+                divs.append(n // d)
+    divs.sort()
+    return divs
+
+print(divizori(36))</pre>
+        </div>
+        <div class="box box-tip">
+            <strong>De ce funcționează varianta cu √n?</strong>
+            Dacă <code>d</code> divide <code>n</code>, atunci și <code>n // d</code> divide <code>n</code>. Perechile de
+            divizori sunt simetrice față de √n, deci este suficient să căutăm până la √n și să adăugăm ambii din
+            pereche.
+        </div>
+    </div>
+</div>
+
+<div class="section-label">
+    <span class="num">3</span>
+    <h2>Algoritmul lui Euclid (cmmdc)</h2>
+</div>
+<div class="box">
+    <strong>Definiție</strong>
+    <strong>CMMDC(a, b)</strong> = cel mai mare număr natural care divide simultan atât pe <code>a</code>, cât și pe
+    <code>b</code>.
+    Exemplu: CMMDC(48, 18) = <span class="highlight">6</span>, deoarece 6 | 48 și 6 | 18, și nu există un număr mai mare
+    cu această proprietate.
+</div>
+<div class="two-col">
+
+    <div class="method-card">
+        <div class="method-card-header">
+            <span class="method-num">D</span>
+            <h3>Algoritmul lui Euclid <span class="badge">cu scăderi repetate</span></h3>
+        </div>
+        <div class="method-card-body">
+            <p><strong>Principiu:</strong> dacă a ≠ b, scade cel mai mic din cel mai mare. Repetă până când a = b. Acel
+                valoare este CMMDC.</p>
+            <p><strong>Exemplu:</strong> CMMDC(48, 18)</p>
+            <div class="euclid-row"><span class="euclid-val">a=48, b=18</span><span>→ a &gt; b → a = 48 − 18 = <span
+                    class="highlight">30</span></span></div>
+            <div class="euclid-row"><span class="euclid-val">a=30, b=18</span><span>→ a &gt; b → a = 30 − 18 = <span
+                    class="highlight">12</span></span></div>
+            <div class="euclid-row"><span class="euclid-val">a=12, b=18</span><span>→ b &gt; a → b = 18 − 12 = <span
+                    class="highlight">6</span></span></div>
+            <div class="euclid-row"><span class="euclid-val">a=12, b=6</span><span>→ a &gt; b → a = 12 − 6 = <span
+                    class="highlight">6</span></span></div>
+            <div class="euclid-row"><span class="euclid-val">a=6, b=6</span><span>→ a = b → <strong class="good">CMMDC = 6</strong></span>
+            </div>
+            <div class="code-wrap">
+                <div class="code-header"><span>python</span></div>
+                <pre>def cmmdc_scaderi(a, b):
+    while a != b:
+        if a &gt; b:
+            a = a - b
+        else:
+            b = b - a
+    return a
+
+print(cmmdc_scaderi(48, 18))</pre>
+            </div>
+            <div class="box box-warn">
+                <strong>Dezavantaj:</strong> Poate fi foarte lent dacă numerele sunt foarte diferite (ex.:
+                CMMDC(1000000, 1) necesită 999999 scăderi!).
+            </div>
+        </div>
+    </div>
+
+    <div class="method-card">
+        <div class="method-card-header">
+            <span class="method-num">E</span>
+            <h3>Algoritmul lui Euclid <span class="badge">cu împărțiri repetate</span></h3>
+        </div>
+        <div class="method-card-body">
+            <p><strong>Principiu:</strong> înlocuiește (a, b) cu (b, a % b). Repetă până când b = 0. Rezultatul este a.
+            </p>
+            <p><strong>Exemplu:</strong> CMMDC(48, 18)</p>
+            <div class="euclid-row"><span class="euclid-val">a=48, b=18</span><span>→ 48 % 18 = <span class="highlight">12</span> → (18, 12)</span>
+            </div>
+            <div class="euclid-row"><span class="euclid-val">a=18, b=12</span><span>→ 18 % 12 = <span class="highlight">6</span> → (12, 6)</span>
+            </div>
+            <div class="euclid-row"><span class="euclid-val">a=12, b=6</span><span>→ 12 % 6 = <span
+                    class="highlight">0</span> → (6, 0)</span></div>
+            <div class="euclid-row"><span class="euclid-val">a=6, b=0</span><span>→ b = 0 → <strong class="good">CMMDC = 6</strong></span>
+            </div>
+            <p>​</p>
+            <div class="code-wrap">
+                <div class="code-header"><span>python</span></div>
+                <pre>def cmmdc_impartiri(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+print(cmmdc_impartiri(48, 18))</pre>
+            </div>
+            <div class="box box-tip">
+                <strong>Avantaj:</strong> Mult mai eficient! Converge în O(log(min(a,b))) pași. Exemplul de mai sus s-a
+                rezolvat în <strong>3 pași</strong> față de <strong>5 pași</strong> cu scăderi.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="method-card">
+    <div class="method-card-header">
+        <span class="method-num">F</span>
+        <h3>Aplicație: CMMMC pe baza CMMDC</h3>
+    </div>
+    <div class="method-card-body">
+        <p>Cel mai mic multiplu comun (CMMMC) se calculează cu formula: <span class="formula-box">cmmmc(a,b) = (a * b) // cmmdc(a, b)</span>
+        </p>
+        <div class="code-wrap">
+            <div class="code-header"><span>python</span><span>cmmmc.py</span></div>
+            <pre>def cmmdc(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def cmmmc(a, b):
+    return (a * b) // cmmdc(a, b)
+
+print(cmmmc(4, 6))
+print(cmmmc(12, 18))</pre>
+        </div>
+    </div>
+</div>
+
+<div class="section-label">
+    <span class="num">4</span>
+    <h2>Descompunerea în factori primi</h2>
+</div>
+<div class="box">
+    <strong>Principiu</strong>
+    Orice număr natural &gt; 1 se poate scrie unic ca produs de numere prime: <strong>360 = 2³ × 3² × 5</strong>.
+    Algoritmul împarte repetat <code>n</code> la cel mai mic factor prim care îl divide, pornind de la 2.
+</div>
+<div class="method-card">
+    <div class="method-card-header">
+        <span class="method-num">G</span>
+        <h3>Algoritmul de factorizare</h3>
+    </div>
+    <div class="method-card-body">
+        <p><strong>Exemplu:</strong> Descompunerea lui <strong>360</strong></p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>n</th>
+                <th>Factor d</th>
+                <th>n % d == 0?</th>
+                <th>Putere</th>
+                <th>n după împărțire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">360</td>
+                <td>2</td>
+                <td class="good">DA</td>
+                <td>2¹</td>
+                <td>180</td>
+            </tr>
+            <tr>
+                <td class="step-label">180</td>
+                <td>2</td>
+                <td class="good">DA</td>
+                <td>2²</td>
+                <td>90</td>
+            </tr>
+            <tr>
+                <td class="step-label">90</td>
+                <td>2</td>
+                <td class="good">DA</td>
+                <td>2³</td>
+                <td>45</td>
+            </tr>
+            <tr>
+                <td class="step-label">45</td>
+                <td>2</td>
+                <td class="bad">NU</td>
+                <td>—</td>
+                <td>45 (d creste la 3)</td>
+            </tr>
+            <tr>
+                <td class="step-label">45</td>
+                <td>3</td>
+                <td class="good">DA</td>
+                <td>3¹</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td class="step-label">15</td>
+                <td>3</td>
+                <td class="good">DA</td>
+                <td>3²</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td class="step-label">5</td>
+                <td>3</td>
+                <td class="bad">NU</td>
+                <td>—</td>
+                <td>5 (d creste la 4, 5)</td>
+            </tr>
+            <tr>
+                <td class="step-label">5</td>
+                <td>5</td>
+                <td class="good">DA</td>
+                <td>5¹</td>
+                <td><span class="highlight">1 → STOP</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>Rezultat:</strong> 360 = 2³ × 3² × 5</p>
+        <div class="code-wrap">
+            <div class="code-header"><span>python</span><span>factorizare.py</span></div>
+            <pre>def factorizare(n):
+    d = 2
+    while d * d &lt;= n:
+        while n % d == 0:
+            print(f"{d}", end=" ")
+            n //= d
+        d += 1
+    if n &gt; 1:
+        print(f"{n}", end=" ")
+    print()
+
+factorizare(360)</pre>
+        </div>
+        <div class="box box-tip">
+            <strong>Optimizare: d * d &lt;= n</strong>
+            Nu este necesar să verificăm factori mai mari decât √n, deoarece dacă <code>n</code> mai are un factor prim
+            rămas după parcurgere, acesta va fi &gt; √n și va apărea ca rest — tratat de <code>if n &gt; 1</code>.
+        </div>
+    </div>
+</div>
+
+<hr class="divider"/>
+<div class="section-label">
+    <span class="num">EXERCIȚII</span>
+    <h2>Exerciții</h2>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 1</span>
+        <div>
+            <p><strong>Exercițiul 1 — Cifre și operații de bază</strong> <span class="badge">10 puncte</span></p>
+            <p style="color:var(--muted); font-size:13px;">Recunoaștere · Aplicare directă</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p><strong>a)</strong> Fie numărul <strong>n = 7284</strong>. Completează tabelul de urmărire al algoritmului de
+            parcurgere a cifrelor:</p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>Pas</th>
+                <th>n (înainte)</th>
+                <th>cifra = n % 10</th>
+                <th>n = n // 10 (după)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">1</td>
+                <td>7284</td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a1" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a2" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">2</td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a3" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a4" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a5" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">3</td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a6" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a7" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a8" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">4</td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a9" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a10" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex1-a11" rows="1"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>b)</strong> Ce număr se obține prin adăugarea cifrei <strong>5</strong> la <em>dreapta</em> numărului
+            <strong>312</strong>? Dar la <em>stânga</em>? Scrie formulele matematice folosite:</p>
+        <textarea class="answer-space answer-input" data-key="ex1-b"
+                  placeholder="Scrie formulele și rezultatele..."></textarea>
+        <p><strong>c)</strong> Scrie un program Python care citește un număr natural <code>n</code> și afișează suma
+            cifrelor sale.</p>
+        <textarea class="answer-space large code answer-input" data-key="ex1-c" placeholder="n = int(input('n = '))
+..."></textarea>
+    </div>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 2</span>
+        <div>
+            <p><strong>Exercițiul 2 — Urmărirea algoritmului pentru cifra maximă</strong> <span
+                    class="badge">10 puncte</span></p>
+            <p style="color:var(--muted); font-size:13px;">Analiză · Urmărire pas cu pas</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p>Se dă algoritmul următor. Urmărește-l pentru <strong>n = 5362</strong>:</p>
+        <div class="code-wrap">
+            <div class="code-header"><span>python</span></div>
+            <pre>n = 5362
+maxim = 0
+while n != 0:
+    cifra = n % 10
+    if cifra &gt; maxim:
+        maxim = cifra
+    n = n // 10
+print(maxim)</pre>
+        </div>
+        <p><strong>a)</strong> Completează tabelul de urmărire:</p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>Iterație</th>
+                <th>n</th>
+                <th>cifra</th>
+                <th>cifra &gt; maxim?</th>
+                <th>maxim</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">inițial</td>
+                <td>5362</td>
+                <td>—</td>
+                <td>—</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td class="step-label">1</td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-1a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-1b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-1c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-1d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">2</td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-2a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-2b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-2c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-2d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">3</td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-3a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-3b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-3c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-3d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">4</td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-4a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-4b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-4c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex2-4d" rows="1"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>b)</strong> Ce afișează programul? Ce calculează el?</p>
+        <textarea class="answer-space answer-input" data-key="ex2-b"
+                  placeholder="Programul afișează... și calculează..."></textarea>
+    </div>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 3</span>
+        <div>
+            <p><strong>Exercițiul 3 — Algoritmul lui Euclid</strong> <span class="badge">10 puncte</span></p>
+            <p style="color:var(--muted); font-size:13px;">Simulare algoritm · Comparație variante</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p><strong>a)</strong> Aplică algoritmul lui Euclid cu <strong>scăderi repetate</strong> pentru a determina
+            CMMDC(56, 42). Completează tabelul:</p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>Pas</th>
+                <th>a</th>
+                <th>b</th>
+                <th>a &gt; b?</th>
+                <th>Operație</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">0</td>
+                <td>56</td>
+                <td>42</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-0c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-0d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">1</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-1a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-1b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-1c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-1d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">2</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-2a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-2b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-2c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-2d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">3</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-3a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-3b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-3c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-3d" rows="1"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>CMMDC(56, 42) = </strong><textarea class="table-answer answer-input" data-key="ex3-rez" rows="1"
+                                                      style="max-width:100px;"></textarea></p>
+        <p><strong>b)</strong> Aplică algoritmul lui Euclid cu <strong>împărțiri repetate</strong> pentru același
+            exemplu CMMDC(56, 42):</p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>Pas</th>
+                <th>a</th>
+                <th>b</th>
+                <th>a % b</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">0</td>
+                <td>56</td>
+                <td>42</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b0" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">1</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b1a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b1b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b1c" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td class="step-label">2</td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b2a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b2b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex3-b2c" rows="1"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>c)</strong> Compară numărul de pași dintre cele două variante. Care este mai eficientă și de ce?</p>
+        <textarea class="answer-space answer-input" data-key="ex3-c"
+                  placeholder="Varianta cu... este mai eficientă deoarece..."></textarea>
+    </div>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 4</span>
+        <div>
+            <p><strong>Exercițiul 4 — Divizori și numere perfecte</strong> <span class="badge">20 puncte</span></p>
+            <p style="color:var(--muted); font-size:13px;">Implementare · Aplicare algoritmi</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p>Un număr natural este <strong>perfect</strong> dacă este egal cu suma divizorilor săi proprii (toți divizorii
+            mai mici decât el însuși). Exemplu: 6 = 1 + 2 + 3. </p>
+        <p><strong>a)</strong> Găsește toți divizorii lui <strong>28</strong> și verifică dacă este perfect:</p>
+        <textarea class="answer-space answer-input" data-key="ex4-a" placeholder="Divizorii proprii ai lui 28 sunt: ...
+Suma lor este: ...
+Concluzie: ..."></textarea>
+        <p><strong>b)</strong> Implementează o funcție Python <code>este_perfect(n)</code> care returnează
+            <code>True</code> dacă <code>n</code> este perfect, <code>False</code> altfel. Folosește varianta eficientă
+            cu √n pentru găsirea divizorilor.</p>
+        <textarea class="answer-space xlarge code answer-input" data-key="ex4-b" placeholder="import math
+
+def este_perfect(n):
+    ...
+
+Teste:
+print(este_perfect(6))
+print(este_perfect(28))
+print(este_perfect(12))"></textarea>
+        <p><strong>c)</strong> Modifică programul pentru a afișa toate numerele perfecte din intervalul [1, 1000].</p>
+        <textarea class="answer-space large code answer-input" data-key="ex4-c" placeholder="for n in range(...):
+    ..."></textarea>
+    </div>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 5</span>
+        <div>
+            <p><strong>Exercițiul 5 — Descompunere în factori primi</strong> <span class="badge">20 puncte</span></p>
+            <p style="color:var(--muted); font-size:13px;">Analiză · Proiectare · Implementare</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p><strong>a)</strong> Realizează manual descompunerea în factori primi a numărului <strong>504</strong>.
+            Completează tabelul:</p>
+        <table class="trace-table">
+            <thead>
+            <tr>
+                <th>n curent</th>
+                <th>Factor d</th>
+                <th>n % d == 0?</th>
+                <th>n după împărțire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="step-label">504</td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-1a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-1b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-1c" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td><textarea class="table-answer answer-input" data-key="ex5-2a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-2b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-2c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-2d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td><textarea class="table-answer answer-input" data-key="ex5-3a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-3b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-3c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-3d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td><textarea class="table-answer answer-input" data-key="ex5-4a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-4b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-4c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-4d" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td><textarea class="table-answer answer-input" data-key="ex5-5a" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-5b" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-5c" rows="1"></textarea></td>
+                <td><textarea class="table-answer answer-input" data-key="ex5-5d" rows="1"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><strong>504 = </strong><textarea class="answer-space answer-input" data-key="ex5-rez"
+                                            placeholder="Scrie forma factorizată..."
+                                            style="min-height:44px;"></textarea></p>
+        <p><strong>b)</strong> Scrie un program Python care citește un număr <code>n</code> și afișează descompunerea sa
+            sub forma <code>n = p1^e1 * p2^e2 * ...</code> (ex: <code>360 = 2^3 * 3^2 * 5^1</code>).</p>
+        <textarea class="answer-space xlarge code answer-input" data-key="ex5-b" placeholder="n = int(input('n = '))
+d = 2
+..."></textarea>
+    </div>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 6</span>
+        <div>
+            <p><strong>Exercițiul 6 — Depanare cod (debugging)</strong> <span class="badge">15 puncte</span></p>
+            <p style="color:var(--muted); font-size:13px;">Evaluare corectitudine · Erori logice</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p>Codul următor conține <strong>3 erori logice</strong>. Identifică-le, explică de ce sunt greșite și
+            corectează-le:</p>
+        <div class="code-wrap">
+            <div class="code-header"><span>python</span><span>cod_cu_erori.py</span></div>
+            <pre>1  def cmmdc_gresit(a, b):
+2      while a != b:
+3          if a &gt; b:
+4              b = a - b
+5          else:
+6              a = b - a
+7      return a
+
+8  def suma_cifre_gresit(n):
+9      s = 0
+10     while n &gt; 0:
+11         cifra = n % 10
+12         s = s + cifra
+13         n = n // 100
+14     return s</pre>
+        </div>
+        <p><strong>Eroarea 1 (linia 4):</strong></p>
+        <textarea class="answer-space answer-input" data-key="ex6-e1"
+                  placeholder="Eroarea este... Corect ar fi..."></textarea>
+        <p><strong>Eroarea 2 (linia 6):</strong></p>
+        <textarea class="answer-space answer-input" data-key="ex6-e2"
+                  placeholder="Eroarea este... Corect ar fi..."></textarea>
+        <p><strong>Eroarea 3 (linia 13):</strong></p>
+        <textarea class="answer-space answer-input" data-key="ex6-e3"
+                  placeholder="Eroarea este... Corect ar fi..."></textarea>
+        <p><strong>Cod corect:</strong></p>
+        <textarea class="answer-space large code answer-input" data-key="ex6-fix"
+                  placeholder="Scrie versiunile corectate ale celor două funcții..."></textarea>
+    </div>
+</div>
+
+<div class="exercise">
+    <div class="exercise-head">
+        <span class="ex-num">EX 7</span>
+        <div>
+            <p><strong>Exercițiul 7 — Aplicație: Simplificarea fracțiilor</strong> <span class="badge badge-yellow">10 puncte bonus</span>
+            </p>
+            <p style="color:var(--muted); font-size:13px;">Sinteză · Proiectare · Implementare</p>
+        </div>
+    </div>
+    <div class="exercise-body">
+        <p>Scrie un program Python care citește numărătorul și numitorul unei fracții și afișează fracția simplificată
+            la forma ireductibilă, folosind CMMDC.</p>
+        <p><strong>Exemplu:</strong> fracția 48/18 → CMMDC(48,18) = 6 → fracția simplificată: <strong>8/3</strong></p>
+        <p><strong>Cerințe:</strong></p>
+        <ol>
+            <li>Funcție <code>cmmdc(a, b)</code> — algoritmul cu împărțiri repetate</li>
+            <li>Funcție <code>simplifica(p, q)</code> — returnează (p//d, q//d) unde d = cmmdc(p, q)</li>
+            <li>Tratarea cazului numitor = 0 (afișare mesaj de eroare)</li>
+            <li>Afișarea rezultatului în formatul <code>p/q → p_s/q_s</code></li>
+        </ol>
+        <textarea class="answer-space xlarge code answer-input" data-key="ex7" placeholder="def cmmdc(a, b):
+    ...
+
+def simplifica(p, q):
+    ...
+
+p = int(input('Numaratorul: '))
+q = int(input('Numitorul: '))
+..."></textarea>
+    </div>
+</div>
+
+<hr class="divider"/>
+<div class="section-label">
+    <span class="num">PROFESOR</span>
+    <h2>Barem și răspunsuri</h2>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 1 — Răspuns corect (10 puncte)</h4>
+    <p><strong>a) Tabel pentru n = 7284:</strong></p>
+    <table class="trace-table">
+        <thead>
+        <tr>
+            <th>Pas</th>
+            <th>n (înainte)</th>
+            <th>cifra = n % 10</th>
+            <th>n = n // 10</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="step-label">1</td>
+            <td>7284</td>
+            <td class="highlight">4</td>
+            <td class="highlight">728</td>
+        </tr>
+        <tr>
+            <td class="step-label">2</td>
+            <td class="highlight">728</td>
+            <td class="highlight">8</td>
+            <td class="highlight">72</td>
+        </tr>
+        <tr>
+            <td class="step-label">3</td>
+            <td class="highlight">72</td>
+            <td class="highlight">2</td>
+            <td class="highlight">7</td>
+        </tr>
+        <tr>
+            <td class="step-label">4</td>
+            <td class="highlight">7</td>
+            <td class="highlight">7</td>
+            <td class="highlight">0 (STOP)</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>b)</strong> Adăugare la dreapta: <code>312 * 10 + 5 = 3125</code>. Adăugare la stânga: <code>5 * 10^3 +
+        312 = 5312</code>.</p>
+    <p><strong>c) Soluție:</strong></p>
+    <div class="answer">n = int(input("n = "))
+        s = 0
+        while n != 0:
+        s += n % 10
+        n //= 10
+        print("Suma cifrelor:", s)
+    </div>
+    <p>Punctaj: 3p tabel corect · 3p formule b) · 4p program c).</p>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 2 — Răspuns corect (10 puncte)</h4>
+    <p><strong>a) Tabel pentru n = 5362:</strong></p>
+    <table class="trace-table">
+        <thead>
+        <tr>
+            <th>Iterație</th>
+            <th>n</th>
+            <th>cifra</th>
+            <th>cifra &gt; maxim?</th>
+            <th>maxim</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="step-label">inițial</td>
+            <td>5362</td>
+            <td>—</td>
+            <td>—</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td class="step-label">1</td>
+            <td class="highlight">536</td>
+            <td class="highlight">2</td>
+            <td class="highlight">DA (2&gt;0)</td>
+            <td class="highlight">2</td>
+        </tr>
+        <tr>
+            <td class="step-label">2</td>
+            <td class="highlight">53</td>
+            <td class="highlight">6</td>
+            <td class="highlight">DA (6&gt;2)</td>
+            <td class="highlight">6</td>
+        </tr>
+        <tr>
+            <td class="step-label">3</td>
+            <td class="highlight">5</td>
+            <td class="highlight">3</td>
+            <td class="bad">NU (3&lt;6)</td>
+            <td class="highlight">6</td>
+        </tr>
+        <tr>
+            <td class="step-label">4</td>
+            <td class="highlight">0</td>
+            <td class="highlight">5</td>
+            <td class="bad">NU (5&lt;6)</td>
+            <td class="highlight">6</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>b)</strong> Programul afișează <span class="highlight">6</span> și calculează <strong>cifra
+        maximă</strong> a numărului 5362.</p>
+    <p>Punctaj: 1p × 4 rânduri tabel corect (8p total) + 2p răspuns b).</p>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 3 — Răspuns corect (10 puncte)</h4>
+    <p><strong>a) Scăderi repetate — CMMDC(56, 42):</strong></p>
+    <table class="trace-table">
+        <thead>
+        <tr>
+            <th>Pas</th>
+            <th>a</th>
+            <th>b</th>
+            <th>a &gt; b?</th>
+            <th>Operație</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="step-label">0</td>
+            <td>56</td>
+            <td>42</td>
+            <td class="highlight">DA</td>
+            <td>a = 56 − 42 = 14</td>
+        </tr>
+        <tr>
+            <td class="step-label">1</td>
+            <td class="highlight">14</td>
+            <td>42</td>
+            <td class="bad">NU</td>
+            <td>b = 42 − 14 = 28</td>
+        </tr>
+        <tr>
+            <td class="step-label">2</td>
+            <td>14</td>
+            <td class="highlight">28</td>
+            <td class="bad">NU</td>
+            <td>b = 28 − 14 = 14</td>
+        </tr>
+        <tr>
+            <td class="step-label">3</td>
+            <td>14</td>
+            <td class="highlight">14</td>
+            <td>—</td>
+            <td class="good">a = b → STOP</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>b) Împărțiri repetate — CMMDC(56, 42):</strong></p>
+    <table class="trace-table">
+        <thead>
+        <tr>
+            <th>Pas</th>
+            <th>a</th>
+            <th>b</th>
+            <th>a % b</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="step-label">0</td>
+            <td>56</td>
+            <td>42</td>
+            <td class="highlight">14</td>
+        </tr>
+        <tr>
+            <td class="step-label">1</td>
+            <td class="highlight">42</td>
+            <td class="highlight">14</td>
+            <td class="highlight">0 → STOP</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>CMMDC(56, 42) = <span class="highlight">14</span></strong></p>
+    <p><strong>c)</strong> Varianta cu <strong>împărțiri repetate este mai eficientă</strong> — a necesitat doar
+        <strong>2 pași</strong> față de <strong>4 pași</strong> cu scăderi. În general, varianta cu împărțiri are
+        complexitate O(log(min(a,b))), față de O(a/gcd) pentru scăderi.</p>
+    <p>Punctaj: 3p tabel a) corect · 2p tabel b) corect · 5p explicație c).</p>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 4 — Soluție (20 puncte)</h4>
+    <p><strong>a)</strong> Divizorii proprii ai lui 28: 1, 2, 4, 7, 14. Suma = 1+2+4+7+14 = 28. Deci 28 <span
+            class="good">este perfect</span>.</p>
+    <p><strong>b) Soluție:</strong></p>
+    <div class="answer">import math
+
+        def este_perfect(n):
+        if n &lt;= 1:
+        return False
+        suma = 1
+        for d in range(2, int(math.sqrt(n)) + 1):
+        if n % d == 0:
+        suma += d
+        if d != n // d:
+        suma += n // d
+        return suma == n
+
+        print(este_perfect(6))
+        print(este_perfect(28))
+        print(este_perfect(12))
+    </div>
+    <p><strong>c) Soluție:</strong></p>
+    <div class="answer">for n in range(1, 1001):
+        if este_perfect(n):
+        print(n)
+    </div>
+    <p>Punctaj: 5p verificare manuală a) · 10p funcție b) corectă (algoritm √n, tratare caz d²=n) · 5p program c).</p>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 5 — Soluție (20 puncte)</h4>
+    <p><strong>a)</strong> 504 = 2³ × 3² × 7</p>
+    <table class="trace-table">
+        <thead>
+        <tr>
+            <th>n curent</th>
+            <th>d</th>
+            <th>n%d==0?</th>
+            <th>n după</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="step-label">504</td>
+            <td>2</td>
+            <td class="good">DA</td>
+            <td class="highlight">252</td>
+        </tr>
+        <tr>
+            <td class="step-label">252</td>
+            <td>2</td>
+            <td class="good">DA</td>
+            <td class="highlight">126</td>
+        </tr>
+        <tr>
+            <td class="step-label">126</td>
+            <td>2</td>
+            <td class="good">DA</td>
+            <td class="highlight">63</td>
+        </tr>
+        <tr>
+            <td class="step-label">63</td>
+            <td>2</td>
+            <td class="bad">NU</td>
+            <td>63 (d→3)</td>
+        </tr>
+        <tr>
+            <td class="step-label">63</td>
+            <td>3</td>
+            <td class="good">DA</td>
+            <td class="highlight">21</td>
+        </tr>
+        <tr>
+            <td class="step-label">21</td>
+            <td>3</td>
+            <td class="good">DA</td>
+            <td class="highlight">7</td>
+        </tr>
+        <tr>
+            <td class="step-label">7</td>
+            <td>3</td>
+            <td class="bad">NU</td>
+            <td>7 (d→4,5,6,7...)</td>
+        </tr>
+        <tr>
+            <td class="step-label">7</td>
+            <td>7</td>
+            <td class="good">DA</td>
+            <td class="highlight">1 → STOP</td>
+        </tr>
+        </tbody>
+    </table>
+    <p><strong>b) Soluție:</strong></p>
+    <div class="answer">n = int(input("n = "))
+        original = n
+        d = 2
+        factori = {}
+        while d * d &lt;= n:
+        while n % d == 0:
+        factori[d] = factori.get(d, 0) + 1
+        n //= d
+        d += 1
+        if n &gt; 1:
+        factori[n] = factori.get(n, 0) + 1
+
+        result = " * ".join(f"{p}^{e}" for p, e in sorted(factori.items()))
+        print(f"{original} = {result}")
+    </div>
+    <p>Punctaj: 5p tabel a) corect · 15p program b) (3p structura factori dict, 5p bucla principala corecta, 4p tratare
+        rest &gt;1, 3p afisare formatata).</p>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 6 — Soluție (15 puncte)</h4>
+    <p><strong>Eroarea 1 — linia 4:</strong> <code>b = a - b</code> → CORECT: <code>a = a - b</code><br/>
+        Motivare: când a &gt; b trebuie să micșorăm <strong>pe a</strong> (cel mai mare), nu pe b. Codul greșit modifică
+        b în loc de a, ducând la rezultate eronate.</p>
+    <p><strong>Eroarea 2 — linia 6:</strong> <code>a = b - a</code> → CORECT: <code>b = b - a</code><br/>
+        Motivare: în ramura <code>else</code>, b ≥ a, deci trebuie să micșorăm <strong>pe b</strong>. Codul greșit
+        modifică a, inversând logica algoritmului.</p>
+    <p><strong>Eroarea 3 — linia 13:</strong> <code>n = n // 100</code> → CORECT: <code>n = n // 10</code><br/>
+        Motivare: pentru a avansa la cifra următoare, eliminăm o singură cifră (împărțim la 10). Împărțind la 100 sărim
+        peste câte două cifre, obținând suma doar pentru cifrele de pe pozițiile impare.</p>
+    <div class="answer">def cmmdc_corect(a, b):
+        while a != b:
+        if a &gt; b:
+        a = a - b
+        else:
+        b = b - a
+        return a
+
+        def suma_cifre_corecta(n):
+        s = 0
+        while n &gt; 0:
+        cifra = n % 10
+        s = s + cifra
+        n = n // 10
+        return s
+    </div>
+    <p>Punctaj: (3p identificare + 2p explicație) × 3 erori = 15p.</p>
+</div>
+
+<div class="teacher-section">
+    <h4>Exercițiul 7 — Soluție (10 puncte bonus)</h4>
+    <div class="answer">def cmmdc(a, b):
+        while b != 0:
+        a, b = b, a % b
+        return a
+
+        def simplifica(p, q):
+        d = cmmdc(p, q)
+        return p // d, q // d
+
+        p = int(input("Numaratorul: "))
+        q = int(input("Numitorul: "))
+
+        if q == 0:
+        print("Eroare: numitorul nu poate fi 0!")
+        else:
+        p_s, q_s = simplifica(abs(p), abs(q))
+        semn = -1 if (p &lt; 0) != (q &lt; 0) else 1
+        if semn == -1:
+        p_s = -p_s
+        print(f"{p}/{q} → {p_s}/{q_s}")
+    </div>
+    <p>Punctaj: 2p funcție cmmdc · 3p funcție simplifica · 2p tratare numitor=0 · 2p afișare formatată · 1p tratare
+        semn.</p>
+</div>
+
+<script>
+    (function () {
+        const inputs = document.querySelectorAll('.answer-input');
+
+        inputs.forEach((el, index) => {
+            if (!el.dataset.key) {
+                el.dataset.key = 'input-' + index;
+            }
+            const key = 'fisa_numere_' + el.dataset.key;
+            const saved = localStorage.getItem(key);
+            if (saved !== null) {
+                el.value = saved;
+            }
+            el.addEventListener('input', () => {
+                localStorage.setItem(key, el.value);
+            });
+        });
+
+        const printBtn = document.getElementById('printBtn');
+        if (printBtn) {
+            printBtn.addEventListener('click', () => window.print());
+        }
+
+        const clearBtn = document.getElementById('clearBtn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (!confirm('Sigur vrei să ștergi toate răspunsurile completate?')) return;
+                inputs.forEach((el) => {
+                    localStorage.removeItem('fisa_numere_' + el.dataset.key);
+                    el.value = '';
+                });
+            });
+        }
+    })();
+</script>
+</body>
+</html>
