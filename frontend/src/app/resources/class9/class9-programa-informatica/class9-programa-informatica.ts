@@ -45,7 +45,7 @@ export class Class9ProgramaInformatica {
     ];
     this.profiles = raw.map(p => ({
       ...p,
-      safeUrl: this.sanitizer.bypassSecurityTrustResourceUrl(p.url),
+      safeUrl: this.sanitizer.bypassSecurityTrustResourceUrl(`${p.url}#toolbar=0`),
       showPreview: false,
     }));
   }

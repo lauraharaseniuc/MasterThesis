@@ -2,3 +2,6 @@
 <main class="page-wrapper">
   <router-outlet/>
 </main>
+@if (showConsentBanner) {
+  <app-cookie-consent-banner (accepted)="onConsentAccepted()" (rejected)="onConsentRejected()"/>
+}

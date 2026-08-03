@@ -15,6 +15,6 @@ export class Class10ProgramaTic {
   readonly safeUrl: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) {
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.url}#toolbar=0`);
   }
 }

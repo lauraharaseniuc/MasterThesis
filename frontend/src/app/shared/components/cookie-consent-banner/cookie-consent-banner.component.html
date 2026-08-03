@@ -1,0 +1,15 @@
+<div class="cookie-banner" role="dialog" aria-label="Consimțământ cookie-uri">
+  <p class="cookie-banner__text">
+    Folosim Google Analytics pentru a înțelege cum este folosită platforma. Aceste cookie-uri sunt setate
+    doar dacă alegi „Accept". Poți citi mai multe în
+    <a [routerLink]="['/termeni-si-conditii']">Termeni și condiții</a>.
+  </p>
+  <div class="cookie-banner__actions">
+    <button class="cookie-banner__btn cookie-banner__btn--reject" type="button" (click)="rejected.emit()">
+      Refuz
+    </button>
+    <button class="cookie-banner__btn cookie-banner__btn--accept" type="button" (click)="accepted.emit()">
+      Accept
+    </button>
+  </div>
+</div>

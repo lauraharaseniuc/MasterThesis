@@ -1,48 +1,53 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from "./header/header.component";
 import {MatIconsRegistryService} from "./service/mat-icons-registry.service";
 import {AnalyticsService} from "./shared/services/analytics.service";
-
-declare const gtag: (...args: unknown[]) => void;
+import {ConsentService} from "./shared/services/consent.service";
+import {GaService} from "./shared/services/ga.service";
+import {CookieConsentBannerComponent} from "./shared/components/cookie-consent-banner/cookie-consent-banner.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, CookieConsentBannerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
+  showConsentBanner = false;
 
   constructor(
     private readonly matIconsRegistryService: MatIconsRegistryService,
     private readonly analyticsService: AnalyticsService,
-    private readonly router: Router
+    private readonly consentService: ConsentService,
+    private readonly gaService: GaService
   ) {
   }
 
   ngOnInit() {
     this.matIconsRegistryService.loadCustomMatIcons();
-    this.trackPageViews();
     this.analyticsService.init();
     this.trackDownloads();
+
+    const consent = this.consentService.getConsent();
+    if (consent === 'granted') {
+      this.gaService.load();
+    } else if (consent === null) {
+      this.showConsentBanner = true;
+    }
   }
 
-  private trackPageViews(): void {
-    this.router.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-      .subscribe((event) => {
-        if (typeof gtag === 'function') {
-          gtag('event', 'page_view', {
-            page_path: event.urlAfterRedirects,
-            page_location: window.location.href,
-            page_title: document.title
-          });
-        }
-      });
+  onConsentAccepted(): void {
+    this.consentService.setConsent('granted');
+    this.showConsentBanner = false;
+    this.gaService.load();
+  }
+
+  onConsentRejected(): void {
+    this.consentService.setConsent('denied');
+    this.showConsentBanner = false;
   }
 
   private trackDownloads(): void {

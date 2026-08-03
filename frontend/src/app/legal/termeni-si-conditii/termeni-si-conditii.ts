@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ConsentService} from '../../shared/services/consent.service';
 
 @Component({
   selector: 'app-termeni-si-conditii',
@@ -8,4 +9,11 @@ import {Component} from '@angular/core';
   styleUrl: './termeni-si-conditii.scss'
 })
 export class TermeniSiConditii {
+  constructor(private readonly consentService: ConsentService) {
+  }
+
+  retrageConsimtamantul(): void {
+    this.consentService.clearConsent();
+    window.location.reload();
+  }
 }
