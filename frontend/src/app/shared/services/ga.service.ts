@@ -20,7 +20,11 @@ export class GaService {
     this.loaded = true;
 
     window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => window.dataLayer.push(args);
+    // gtag.js recunoaște comenzile doar dacă sunt puse în dataLayer ca obiect
+    // `arguments`, nu ca array — deci trebuie să rămână funcție clasică, nu arrow.
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
 
     const script = document.createElement('script');
     script.async = true;
