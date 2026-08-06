@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityPaperModalComponent } from '../../../shared/components/activity-paper-modal/activity-paper-modal.component';
 
+import {VideoEmbedComponent} from "../../../shared/components/video-embed/video-embed.component";
+
 @Component({
   selector: 'app-class10-divide-et-impera',
-  imports: [],
+  imports: [VideoEmbedComponent],
   templateUrl: './class10-divide-et-impera.html',
   styleUrl: './class10-divide-et-impera.scss',
 })

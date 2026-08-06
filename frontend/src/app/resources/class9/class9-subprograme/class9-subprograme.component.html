@@ -51,13 +51,7 @@
               {{ showVideoSubprograme ? 'Ascunde resursele' : 'Vezi resursele' }}
             </button>
             <div class="video-wrapper" [hidden]="!showVideoSubprograme">
-              <iframe
-                width="100%"
-                height="400"
-                src="https://www.youtube-nocookie.com/embed/4d7WsRVnSQw"
-                frameborder="0"
-                allowfullscreen>
-              </iframe>
+              <app-video-embed videoId="4d7WsRVnSQw" [height]="400"/>
             </div>
           </div>
         </li>
@@ -152,7 +146,7 @@
               </button>
             </div>
             <div [hidden]="!showVideoFunctiiMatematice" class="video-wrapper">
-              <iframe src="https://www.youtube-nocookie.com/embed/8K20zyej_yE" width="100%" height="450" style="border: none; border-radius: 8px;" frameborder="0" allowfullscreen></iframe>
+              <app-video-embed videoId="8K20zyej_yE"/>
             </div>
           </div>
         </li>
@@ -171,7 +165,7 @@
               </button>
             </div>
             <div [hidden]="!showVideoDistantaPuncte" class="video-wrapper">
-              <iframe src="https://www.youtube-nocookie.com/embed/eirJDC5wI3s" width="100%" height="450" style="border: none; border-radius: 8px;" frameborder="0" allowfullscreen></iframe>
+              <app-video-embed videoId="eirJDC5wI3s"/>
             </div>
           </div>
         </li>

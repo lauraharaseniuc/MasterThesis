@@ -3,9 +3,11 @@ import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityPaperModalComponent } from '../../../shared/components/activity-paper-modal/activity-paper-modal.component';
 
+import {VideoEmbedComponent} from "../../../shared/components/video-embed/video-embed.component";
+
 @Component({
   selector: 'app-class10-tupluri',
-  imports: [RouterLink],
+  imports: [RouterLink, VideoEmbedComponent],
   templateUrl: './class10-tupluri.html',
   styleUrl: './class10-tupluri.scss',
 })

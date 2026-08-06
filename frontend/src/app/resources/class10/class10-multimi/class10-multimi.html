@@ -41,13 +41,7 @@
               {{ showVideoOperatii ? 'Ascunde resursele' : 'Vezi resursele' }}
             </button>
             <div class="video-wrapper" [hidden]="!showVideoOperatii">
-              <iframe
-                width="100%"
-                height="400"
-                src="https://www.youtube-nocookie.com/embed/_Rvcrz8h5M0"
-                frameborder="0"
-                allowfullscreen>
-              </iframe>
+              <app-video-embed videoId="_Rvcrz8h5M0" [height]="400"/>
             </div>
           </div>
         </li>

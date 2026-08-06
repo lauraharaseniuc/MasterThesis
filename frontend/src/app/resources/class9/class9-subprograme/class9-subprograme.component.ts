@@ -7,10 +7,12 @@ import {
   ActivityPaperModalComponent,
 } from '../../../shared/components/activity-paper-modal/activity-paper-modal.component';
 
+import {VideoEmbedComponent} from "../../../shared/components/video-embed/video-embed.component";
+
 @Component({
   selector: 'app-class9-subprograme',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, RouterLink],
+  imports: [MatButtonModule, MatIconModule, RouterLink, VideoEmbedComponent],
   templateUrl: './class9-subprograme.component.html',
   styleUrl: './class9-subprograme.component.scss',
 })
