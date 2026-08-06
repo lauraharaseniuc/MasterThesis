@@ -13,6 +13,9 @@
   background: var(--color-bg);
   text-align: center;
   text-decoration: none;
+  /* Unele pagini pun `line-height: 0` pe .video-wrapper, ca să scape de spațiul
+     de sub vechiul iframe. Se moștenea aici și lipea rândurile de text. */
+  line-height: 1.45;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 
   &:hover {
