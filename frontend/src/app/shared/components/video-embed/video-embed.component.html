@@ -1,26 +1,10 @@
-@if (safeUrl) {
-  <iframe
-    class="video-embed__frame"
-    [src]="safeUrl"
-    [style.border-radius]="radius"
-    width="100%"
-    [height]="height"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-} @else {
-  <button type="button" class="video-facade" [style.border-radius]="radius"
-          [style.height.px]="height" (click)="play()">
-    <span class="video-facade__play">
-      <svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true">
-        <path d="M25 13.27a2 2 0 0 1 0 3.46L4 28.86a2 2 0 0 1-3-1.73V2.87a2 2 0 0 1 3-1.73l21 12.13Z"
-              fill="currentColor"/>
-      </svg>
-    </span>
-    <span class="video-facade__label">Redă videoclipul</span>
-    <span class="video-facade__note">
-      Prin redare se încarcă un player YouTube și se aplică politica de confidențialitate Google.
-      Până atunci, nu se transmite nicio dată.
-    </span>
-  </button>
-}
+<a class="video-link" [href]="watchUrl" [style.border-radius]="radius" target="_blank" rel="noopener">
+  <span class="video-link__play">
+    <svg width="22" height="26" viewBox="0 0 26 30" fill="none" aria-hidden="true">
+      <path d="M25 13.27a2 2 0 0 1 0 3.46L4 28.86a2 2 0 0 1-3-1.73V2.87a2 2 0 0 1 3-1.73l21 12.13Z"
+            fill="currentColor"/>
+    </svg>
+  </span>
+  <span class="video-link__label">Deschide videoclipul pe YouTube</span>
+  <span class="video-link__note">Se deschide într-o filă nouă, pe youtube.com</span>
+</a>

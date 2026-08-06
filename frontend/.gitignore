@@ -42,8 +42,11 @@ testem.log
 Thumbs.db
 .vercel
 
-# Local environment secrets
-.env.local
+# Local environment secrets — repo public, orice cheie comisă rămâne
+# vizibilă în istoric chiar dacă e ștearsă ulterior.
+.env
+.env.*
+!.env.example
 
 # Local development only
 local-api-server.mjs

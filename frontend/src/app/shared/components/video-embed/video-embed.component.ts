@@ -1,13 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 /**
- * Afișează un substitut static în locul videoclipului; iframe-ul YouTube este
- * creat abia la clic pe „Redă videoclipul".
+ * Trimite utilizatorul pe YouTube într-o filă nouă, în loc să încorporeze playerul.
  *
- * Motivul e juridic, nu estetic: un iframe încărcat odată cu pagina trimite
- * adresa IP a vizitatorului către Google înainte de orice interacțiune și fără
- * consimțământ. Nu readuce `src` direct pe iframe.
+ * Motivul e juridic, nu estetic: un player YouTube încorporat transmite adresa IP,
+ * browserul, sistemul de operare și statistici de redare către Google. Cu link,
+ * platforma nu transmite nicio dată către terți — vizitatorul decide singur să
+ * plece. Nu reintroduce un iframe către youtube.com sau youtube-nocookie.com.
  */
 @Component({
   selector: 'app-video-embed',
@@ -22,20 +21,7 @@ export class VideoEmbedComponent {
   /** Colțurile rotunjite diferă de la o pagină la alta. */
   @Input() radius = '8px';
 
-  /** Înălțimea originală a iframe-ului înlocuit. */
-  @Input() height = 450;
-
-  safeUrl: SafeResourceUrl | null = null;
-
-  constructor(private readonly sanitizer: DomSanitizer) {
-  }
-
-  play(): void {
-    // autoplay=1 pentru ca utilizatorul să nu fie nevoit să apese play de două ori.
-    // rel=0 limitează recomandările de la final la același canal — contează când
-    // materialul e proiectat în clasă.
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.youtube-nocookie.com/embed/${this.videoId}?autoplay=1&rel=0`
-    );
+  get watchUrl(): string {
+    return `https://www.youtube.com/watch?v=${this.videoId}`;
   }
 }
