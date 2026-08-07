@@ -1,6 +1,6 @@
 {
    "installCommand": "npm install --legacy-peer-deps",
-  "buildCommand": "npx ng build --configuration production",
+  "buildCommand": "node scripts/build-activity-allowlist.mjs && npx ng build --configuration production",
   "outputDirectory": "dist/frontend/browser",
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }

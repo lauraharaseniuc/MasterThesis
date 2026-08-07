@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "target": "ES2020",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   }
 }
