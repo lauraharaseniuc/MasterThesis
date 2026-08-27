@@ -27,30 +27,12 @@
   }
 }
 
-.logo-icon {
+/* Sigla conține deja numele și sloganul, deci antetul nu mai are text lângă ea.
+   Fixăm înălțimea, lățimea rezultă din raportul SVG-ului. */
+.site-logo__img {
   display: block;
-  flex-shrink: 0;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.logo-name {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1A56DB;
-  letter-spacing: -0.01em;
-}
-
-.logo-tagline {
-  font-size: 0.68rem;
-  color: #64748B;
-  font-weight: 400;
-  white-space: nowrap;
+  height: 48px;
+  width: auto;
 }
 
 .navbar {
@@ -241,6 +223,11 @@
 }
 
 @media (max-width: 860px) {
+  /* Pe telefon sigla trebuie să încapă lângă butonul de meniu. */
+  .site-logo__img {
+    height: 38px;
+  }
+
   .navbar {
     display: none;
   }
