@@ -77,41 +77,21 @@ Folosește un ton didactic și prietenos. Nu include niciun cod sursă sau pseud
 const buildPrompt = (activityText: string, subject: string) =>
   subject === 'tic' ? buildPromptTic(activityText) : buildPromptInformatica(activityText);
 
-/**
- * Endpoint-ul consumă cota Groq (gratuită, limitată zilnic) fără ca vizitatorul
- * să fie autentificat. Verificările de mai jos ridică costul unui abuz; ele NU
- * sunt suficiente singure — vezi cache-ul și rate limiting-ul din plan.
- */
-
-/** Cea mai lungă activitate reală are ~693 de caractere. Peste asta e abuz. */
 const MAX_ACTIVITY_LENGTH = 750;
 
-/**
- * Lista albă: hash-urile celor 417 activități care există în aplicație, generate
- * la build din template-urile Angular (scripts/build-activity-allowlist.mjs).
- *
- * Fără ea, `activityText` ajunge interpolat în prompt și oricine poate folosi
- * endpoint-ul ca proxy LLM gratuit, injectându-și propriile instrucțiuni.
- * Nu ocoli verificarea ca să accepți text liber fără a rezolva întâi asta.
- */
 const ALLOWED_HASHES = new Set<string>(allowedActivityHashes);
 
-/** Aceeași normalizare ca în scriptul de build; altfel hash-urile nu se potrivesc. */
 const hashActivity = (text: string): string =>
   createHash('sha256').update(text.normalize('NFC').trim(), 'utf8').digest('hex');
+
+const GROQ_MODEL = process.env['GROQ_MODEL'] ?? 'qwen/qwen3.8-27b';
 
 const ALLOWED_ORIGINS = new Set([
   'https://levelupeduro.org',
   'https://www.levelupeduro.org',
 ]);
 
-/**
- * Blochează folosirea endpoint-ului de pe alt site sau direct din browser.
- * Un atacator hotărât falsifică antetul cu curl, deci e un filtru pentru
- * scanere automate, nu o barieră reală.
- */
 const isAllowedOrigin = (req: VercelRequest): boolean => {
-  // În preview și în dezvoltare locală originea diferă la fiecare deploy.
   if (process.env['VERCEL_ENV'] !== 'production') {
     return true;
   }
@@ -121,7 +101,6 @@ const isAllowedOrigin = (req: VercelRequest): boolean => {
     return ALLOWED_ORIGINS.has(origin);
   }
 
-  // Unele browsere nu trimit Origin la same-origin POST; acceptăm Referer.
   const referer = req.headers.referer;
   if (referer) {
     try {
@@ -152,7 +131,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'activityText is too long' });
   }
 
-  // Orice altceva ar cădea tacit pe promptul de informatică; preferăm eroarea.
   if (subject !== undefined && subject !== 'informatica' && subject !== 'tic') {
     return res.status(400).json({ error: 'subject is invalid' });
   }
@@ -174,15 +152,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: GROQ_MODEL,
         messages: [{ role: 'user', content: buildPrompt(activityText, subject ?? 'informatica') }],
-        max_tokens: 4096,
+        max_completion_tokens: 6000,
         temperature: 0.7,
+        reasoning_effort: 'none',
+        reasoning_format: 'hidden',
       }),
     });
 
     const data = await response.json() as {
-      choices?: Array<{ message?: { content?: string } }>;
+      choices?: Array<{ message?: { content?: string }; finish_reason?: string }>;
       error?: { message: string };
     };
 
@@ -191,7 +171,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(502).json({ error: data.error?.message ?? 'Groq error' });
     }
 
-    const content = data.choices?.[0]?.message?.content ?? '';
+    const choice = data.choices?.[0];
+    const content = choice?.message?.content ?? '';
+
+    if (!content.trim()) {
+      console.error('Groq a răspuns fără conținut. finish_reason:', choice?.finish_reason);
+      return res.status(502).json({ error: 'Groq returned empty content' });
+    }
     return res.status(200).json({ content });
   } catch (err) {
     console.error(err);
