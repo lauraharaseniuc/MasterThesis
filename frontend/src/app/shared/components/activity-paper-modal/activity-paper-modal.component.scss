@@ -97,8 +97,3 @@
     strong { font-weight: 600; }
   }
 }
-
-@media print {
-  .modal-header .modal-actions { display: none; }
-  .modal-body { max-height: none; overflow: visible; }
-}

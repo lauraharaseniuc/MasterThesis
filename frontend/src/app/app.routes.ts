@@ -57,6 +57,7 @@ import {Class9SortareBulele} from "./resources/class9/class9-sortare-bulele/clas
 import {Class9SortareMetodaBulelor} from "./resources/class9/class9-sortare-metoda-bulelor/class9-sortare-metoda-bulelor";
 import {Class9ListeSemafor} from "./resources/class9/class9-liste-semafor/class9-liste-semafor";
 import {Class9ListeOperatii} from "./resources/class9/class9-liste-operatii/class9-liste-operatii";
+import {Class9StiveCozi} from "./resources/class9/class9-stive-cozi/class9-stive-cozi";
 import {Class9SortareSelectiaMinimului} from "./resources/class9/class9-sortare-selectia-minimului/class9-sortare-selectia-minimului";
 import {Class9HardwareAlimentareRacire} from "./resources/class9/class9-hardware-alimentare-racire/class9-hardware-alimentare-racire";
 import {Class9ListeMetodeBaza} from "./resources/class9/class9-liste-metode-baza/class9-liste-metode-baza";
@@ -128,6 +129,7 @@ export const routes: Routes = [
   { path: 'clasa9a/sortare-metoda-bulelor', component: Class9SortareMetodaBulelor },
   { path: 'clasa9a/liste-semafor', component: Class9ListeSemafor },
   { path: 'clasa9a/liste-operatii', component: Class9ListeOperatii },
+  { path: 'clasa9a/stive-cozi', component: Class9StiveCozi },
   { path: 'clasa9a/sortare-selectia-minimului', component: Class9SortareSelectiaMinimului },
   { path: 'clasa9a/fisiere-text-fise', component: Class9FisiereFise },
   { path: 'clasa9a/generarea-elementelor-unei-liste', component: Class9GenerareComponent },

@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivityGeneratorService } from '../../services/activity-generator.service';
@@ -17,7 +16,6 @@ export interface ActivityPaperDialogData {
   imports: [
     CommonModule,
     MatDialogModule,
-    MatButtonModule,
     MatProgressSpinnerModule,
   ],
   templateUrl: './activity-paper-modal.component.html',
@@ -48,10 +46,6 @@ export class ActivityPaperModalComponent implements OnInit {
         this.loading = false;
       },
     });
-  }
-
-  print() {
-    window.print();
   }
 
   close() {

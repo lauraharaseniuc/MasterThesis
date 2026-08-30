@@ -2,9 +2,6 @@
   <div class="modal-header">
     <h2 class="modal-title">Fișă de lucru generată</h2>
     <div class="modal-actions">
-      @if (!loading && !error) {
-        <button class="modal-btn" (click)="print()">Printează</button>
-      }
       <button class="modal-btn modal-btn--close" (click)="close()">Închide</button>
     </div>
   </div>
@@ -18,8 +15,7 @@
   } @else if (error) {
     <div class="error-state">
       <span class="error-icon">⚠️</span>
-      <p>A apărut o eroare. Încearcă din nou.</p>
-      <button mat-stroked-button (click)="close()">Închide</button>
+      <p>Limita globală de 600 de fișe pe zi a fost depășită. Te rugăm să încerci mai târziu.</p>
     </div>
   } @else {
     <div class="activity-text-preview">
