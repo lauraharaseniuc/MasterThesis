@@ -67,6 +67,7 @@ import {Class10AlgoritmiUmplere} from "./resources/class10/class10-algoritmi-ump
 import {Class10Greedy} from "./resources/class10/class10-greedy/class10-greedy";
 import {Class10TicSecuritate} from "./resources/class10/class10-tic-securitate/class10-tic-securitate";
 import {Class10TicNavigare} from "./resources/class10/class10-tic-navigare/class10-tic-navigare";
+import {Class10TicEticheteHtml} from "./resources/class10/class10-tic-etichete-html/class10-tic-etichete-html";
 import {Class10TicPaginiWeb} from "./resources/class10/class10-tic-pagini-web/class10-tic-pagini-web";
 import {Class10TicCalculTabelar} from "./resources/class10/class10-tic-calcul-tabelar/class10-tic-calcul-tabelar";
 import {Class10TicImageniDigitale} from "./resources/class10/class10-tic-imagini-digitale/class10-tic-imagini-digitale";
@@ -170,6 +171,7 @@ export const routes: Routes = [
   { path: 'clasa10a/securitate-cibernetica', component: Class10TicSecuritate },
   { path: 'clasa10a/navigare-avansata-pe-web', component: Class10TicNavigare },
   { path: 'clasa10a/pagini-web', component: Class10TicPaginiWeb },
+  { path: 'clasa10a/etichete-html', component: Class10TicEticheteHtml },
   { path: 'clasa10a/calcul-tabelar', component: Class10TicCalculTabelar },
   { path: 'clasa10a/imagini-digitale', component: Class10TicImageniDigitale },
   { path: 'clasa10a/intretinere-sistem-de-calcul', component: Class10TicIntretinere }

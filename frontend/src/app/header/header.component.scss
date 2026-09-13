@@ -63,6 +63,23 @@
   }
 }
 
+.social-link {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-radius: 8px;
+  color: #64748B;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: #EFF6FF;
+    color: #1877F2;
+    text-decoration: none;
+  }
+}
+
 .menu {
   list-style: none;
   display: flex;
@@ -310,6 +327,8 @@
   }
 
   .mnav-footer {
+    display: flex;
+    gap: 1.25rem;
     padding: 1rem 1.25rem 0;
 
     a {
