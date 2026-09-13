@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { get, put } from '@vercel/blob';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 import allowedActivityHashes from './_activities.json';
@@ -84,6 +85,81 @@ const ALLOWED_HASHES = new Set<string>(allowedActivityHashes);
 const hashActivity = (text: string): string =>
   createHash('sha256').update(text.normalize('NFC').trim(), 'utf8').digest('hex');
 
+/**
+ * Fisele generate se salveaza in Vercel Blob si se servesc de acolo la
+ * urmatoarele click-uri pe aceeasi activitate, timp de 24 de ore. Primul click
+ * de dupa expirare regenereaza fisa si o suprascrie, deci continutul se
+ * improspateaza zilnic, iar modelul e apelat cel mult o data pe zi per
+ * activitate in loc de o data la fiecare click.
+ *
+ * Incrementeaza CACHE_VERSION ori de cate ori modifici buildPromptInformatica
+ * sau buildPromptTic — cheia include versiunea, deci fisele vechi sunt ignorate
+ * si regenerate la primul click de dupa deploy.
+ */
+const CACHE_VERSION = 'v1';
+
+/**
+ * Cat timp ramane valabila o fisa salvata. Peste acest prag, urmatorul click o
+ * regenereaza; pana atunci toti utilizatorii primesc aceeasi varianta salvata.
+ */
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+
+/** Fara store configurat (dev local, prima rulare) mergem direct la model. */
+const cacheEnabled = (): boolean =>
+  Boolean(process.env['BLOB_READ_WRITE_TOKEN'] ?? process.env['BLOB_STORE_ID']);
+
+const cachePath = (activityText: string, subject: string): string =>
+  `fise/${CACHE_VERSION}/${subject}/${hashActivity(activityText)}.md`;
+
+/**
+ * Fisa salvata la un click anterior, sau null daca nu exista inca. Orice eroare
+ * de storage e tratata ca lipsa: mai bine regeneram o fisa in plus decat sa
+ * pice generarea.
+ */
+const readCache = async (path: string): Promise<string | null> => {
+  if (!cacheEnabled()) return null;
+
+  try {
+    const found = await get(path, { access: 'public' });
+    if (!found || found.statusCode !== 200) return null;
+
+    const ageMs = Date.now() - new Date(found.blob.uploadedAt).getTime();
+    if (!Number.isFinite(ageMs) || ageMs > CACHE_TTL_MS) {
+      // Fisa a expirat. Inchidem stream-ul pe care nu-l mai citim si o regeneram.
+      await found.stream.cancel();
+      return null;
+    }
+
+    const content = await new Response(found.stream).text();
+    return content.trim() ? content : null;
+  } catch (err) {
+    console.error('Citire cache esuata pentru', path, err);
+    return null;
+  }
+};
+
+/** Salveaza fisa pentru click-urile urmatoare. Esecul nu afecteaza raspunsul. */
+const writeCache = async (path: string, content: string): Promise<void> => {
+  if (!cacheEnabled()) return;
+
+  try {
+    await put(path, content, {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: 'text/markdown; charset=utf-8',
+      // Implicit CDN-ul ar tine copia o luna, iar dupa suprascriere am citi
+      // in continuare varianta veche (cu uploadedAt vechi) si am regenera in
+      // bucla. 60s e minimul acceptat si limiteaza fereastra la un minut,
+      // pastrand totusi protectia pentru cazul in care o clasa intreaga
+      // apasa butonul in acelasi timp.
+      cacheControlMaxAge: 60,
+    });
+  } catch (err) {
+    console.error('Scriere cache esuata pentru', path, err);
+  }
+};
+
 const GROQ_MODEL = process.env['GROQ_MODEL'] ?? 'qwen/qwen3.8-27b';
 
 const ALLOWED_ORIGINS = new Set([
@@ -139,6 +215,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(403).json({ error: 'Unknown activity' });
   }
 
+  const resolvedSubject = subject ?? 'informatica';
+  const path = cachePath(activityText, resolvedSubject);
+
+  const cached = await readCache(path);
+  if (cached) {
+    return res.status(200).json({ content: cached, cached: true });
+  }
+
   const apiKey = process.env['GROQ_API_KEY'];
   if (!apiKey) {
     return res.status(500).json({ error: 'API key not configured' });
@@ -153,7 +237,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       body: JSON.stringify({
         model: GROQ_MODEL,
-        messages: [{ role: 'user', content: buildPrompt(activityText, subject ?? 'informatica') }],
+        messages: [{ role: 'user', content: buildPrompt(activityText, resolvedSubject) }],
         max_completion_tokens: 6000,
         temperature: 0.7,
         reasoning_effort: 'none',
@@ -178,7 +262,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.error('Groq a răspuns fără conținut. finish_reason:', choice?.finish_reason);
       return res.status(502).json({ error: 'Groq returned empty content' });
     }
-    return res.status(200).json({ content });
+
+    await writeCache(path, content);
+
+    return res.status(200).json({ content, cached: false });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Internal server error' });
