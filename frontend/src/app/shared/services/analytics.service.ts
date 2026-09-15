@@ -31,7 +31,25 @@ export class AnalyticsService {
     posthog.capture('material_download', {
       file_name: fileName,
       file_url: fileUrl,
-      page_path: window.location.hash ? window.location.hash.slice(1) : window.location.pathname
+      page_path: this.pagePath()
     });
+  }
+
+  /**
+   * Apăsarea unui buton „Generează fișă". Se apelează din
+   * ActivityPaperModalComponent, punctul unic prin care trec toate butoanele,
+   * deci un eveniment = o apăsare, indiferent de pagină.
+   */
+  trackActivityGeneration(activityText: string, subject: string): void {
+    posthog.capture('activity_paper_generate', {
+      activity_text: activityText,
+      subject,
+      page_path: this.pagePath()
+    });
+  }
+
+  /** Aplicația rulează pe rutare cu #, deci pathname-ul e mereu "/". */
+  private pagePath(): string {
+    return window.location.hash ? window.location.hash.slice(1) : window.location.pathname;
   }
 }

@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivityGeneratorService } from '../../services/activity-generator.service';
+import { AnalyticsService } from '../../services/analytics.service';
 
 export interface ActivityPaperDialogData {
   activityText: string;
@@ -30,10 +31,13 @@ export class ActivityPaperModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ActivityPaperDialogData,
     private dialogRef: MatDialogRef<ActivityPaperModalComponent>,
     private generator: ActivityGeneratorService,
+    private analytics: AnalyticsService,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
+    this.analytics.trackActivityGeneration(this.data.activityText, this.data.subject);
+
     this.generator.generate(this.data.activityText, this.data.subject).subscribe({
       next: text => {
         this.safeContent = this.sanitizer.bypassSecurityTrustHtml(
