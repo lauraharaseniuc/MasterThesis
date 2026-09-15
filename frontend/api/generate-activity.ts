@@ -5,61 +5,52 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import allowedActivityHashes from './_activities.json';
 
 const buildPromptInformatica = (activityText: string) => `Ești profesor de informatică la liceu în România (clasa a IX-a sau a X-a).
-Generează o fișă de lucru completă și detaliată bazată pe această activitate de învățare:
+Generează o fișă de lucru cu exerciții rezolvate, bazată pe această activitate de învățare:
 
 "${activityText}"
 
-Structurează fișa astfel:
+Structurează fișa exact astfel:
 
 # [Titlu scurt al fișei]
-
-## Noțiuni teoretice
-(Explicații clare cu exemple de cod funcționale în Python sau C++ după context. Explică fiecare concept pas cu pas.)
 
 ## Exerciții rezolvate
 
 ### Exercițiul 1 — [titlu]
-**Enunț:** ...
+**Enunț:** (2-3 propoziții)
 **Rezolvare:**
 \`\`\`python
-# cod complet cu comentarii explicative
+# cod complet, cu comentarii scurte
 \`\`\`
-**Explicație:** (de ce funcționează astfel)
+**Explicație:** (1-2 propoziții)
 
 ### Exercițiul 2 — [titlu]
 (la fel ca mai sus)
 
-## Exerciții propuse
-1. **[Titlu]** — [enunț] (Dificultate: ușor)
-2. **[Titlu]** — [enunț] (Dificultate: mediu)
-3. **[Titlu]** — [enunț] (Dificultate: mediu)
-4. **[Titlu]** — [enunț] (Dificultate: dificil)
+### Exercițiul 3 — [titlu]
+(la fel ca mai sus)
 
-## Exercițiu bonus
-(Un exercițiu mai complex pentru elevii avansați, cu enunț complet)
-
-Folosește un ton didactic și prietenos. Include cod complet care poate fi rulat direct.`;
+Nu include noțiuni teoretice, exerciții propuse, concluzii sau alte secțiuni — doar cele trei exerciții rezolvate.
+Fii concis: maximum 12 linii de cod per exercițiu, explicații de cel mult două propoziții.
+Folosește Python, sau C++ dacă activitatea cere explicit acest limbaj.
+Ton didactic și prietenos. Codul trebuie să poată fi rulat direct.`;
 
 const buildPromptTic = (activityText: string) => `Ești profesor de TIC (Tehnologia Informației și Comunicațiilor) la liceu în România (clasa a IX-a).
 TIC nu este o materie de programare — nu include cod sursă, algoritmi sau exerciții de programare.
-Generează o fișă de lucru completă și detaliată bazată pe această activitate de învățare:
+Generează o fișă de lucru cu sarcini practice, bazată pe această activitate de învățare:
 
 "${activityText}"
 
-Fișa trebuie să conțină activități practice realizabile la clasă sau acasă: tehnoredactare, lucru cu aplicații Office/Google Workspace, navigare web, colaborare digitală, analiză critică, crearea de documente/prezentări/formulare etc.
+Sarcinile trebuie să fie realizabile la clasă sau acasă: tehnoredactare, lucru cu aplicații Office/Google Workspace, navigare web, colaborare digitală, analiză critică, crearea de documente/prezentări/formulare.
 
-Structurează fișa astfel:
+Structurează fișa exact astfel:
 
 # [Titlu scurt al fișei]
-
-## Context și obiective
-(Explică pe scurt ce vor exersa elevii și de ce este util în viața reală.)
 
 ## Sarcini de lucru
 
 ### Sarcina 1 — [titlu]
-**Ce ai de făcut:** (descriere clară, pas cu pas)
-**Rezultat așteptat:** (ce trebuie să livreze elevul)
+**Ce ai de făcut:** (pași clari, 3-5 rânduri)
+**Rezultat așteptat:** (o propoziție)
 
 ### Sarcina 2 — [titlu]
 (la fel ca mai sus)
@@ -67,13 +58,9 @@ Structurează fișa astfel:
 ### Sarcina 3 — [titlu]
 (la fel ca mai sus)
 
-## Reflecție
-(1–2 întrebări de gândire critică legate de activitate, fără răspuns dat)
-
-## Provocare suplimentară
-(O sarcină opțională mai complexă pentru elevii care termină repede)
-
-Folosește un ton didactic și prietenos. Nu include niciun cod sursă sau pseudocod.`;
+Nu include context, obiective, reflecție, provocări suplimentare sau alte secțiuni — doar cele trei sarcini.
+Fii concis: fiecare sarcină trebuie să încapă în câteva rânduri.
+Ton didactic și prietenos. Nu include niciun cod sursă sau pseudocod.`;
 
 const buildPrompt = (activityText: string, subject: string) =>
   subject === 'tic' ? buildPromptTic(activityText) : buildPromptInformatica(activityText);
@@ -96,7 +83,7 @@ const hashActivity = (text: string): string =>
  * sau buildPromptTic — cheia include versiunea, deci fisele vechi sunt ignorate
  * si regenerate la primul click de dupa deploy.
  */
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 
 /**
  * Cat timp ramane valabila o fisa salvata. Peste acest prag, urmatorul click o
@@ -238,7 +225,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       body: JSON.stringify({
         model: GROQ_MODEL,
         messages: [{ role: 'user', content: buildPrompt(activityText, resolvedSubject) }],
-        max_completion_tokens: 6000,
+        // Plafonul OTPM al planului Groq e de 1000 de tokeni de ieșire pe minut.
+        // Sub el, verificarea preliminară a cererii trece; peste, Groq respinge
+        // cererea înainte să genereze ceva. Promptul e scris să producă ~700.
+        max_completion_tokens: 900,
         temperature: 0.7,
         reasoning_effort: 'none',
         reasoning_format: 'hidden',
@@ -263,7 +253,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(502).json({ error: 'Groq returned empty content' });
     }
 
-    await writeCache(path, content);
+    // O fișă tăiată de plafonul de tokeni nu se salvează: altfel toți
+    // utilizatorii ar primi varianta trunchiată timp de 24 de ore.
+    if (choice?.finish_reason === 'length') {
+      console.error('Fișă trunchiată de max_completion_tokens; nu o salvez în cache.');
+    } else {
+      await writeCache(path, content);
+    }
 
     return res.status(200).json({ content, cached: false });
   } catch (err) {
